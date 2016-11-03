@@ -1,0 +1,5 @@
+wget
+sqlalchemy
+psycopg2
+docopt
+xmltodict
