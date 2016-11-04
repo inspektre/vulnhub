@@ -78,8 +78,15 @@ Search NVD locally
 ---
 
 # Dependencies
+
 ---
-    
+    * The following Python dependencies are used (Immediate dependencies)
+        * wget (Download files from remote locations)
+        * sqlalchemy (Python ORM for database agnostic CRUD operations)
+        * psycopg2 (PostgreSQL adapter for Python)
+        * docopt (Command Line Options)
+        * xmltodict (Parse XML)
+        * plotly (Generate Plots and Graphs)
+---    
           
-            
-     
+        
