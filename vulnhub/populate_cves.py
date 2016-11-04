@@ -8,6 +8,7 @@ from populate_cpes import *
 def get_cve_all():
     feeds = get_cve_feeds()
     feeds = list(set(feeds))
+    feeds.sort()
     for feed in feeds:
         filename = download_cpe_xml_zip(feed)
         populate_cves(filename)
