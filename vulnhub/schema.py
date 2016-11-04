@@ -32,13 +32,7 @@ class CpeItem(DeclarativeBase):
 
     id = Column(INTEGER, primary_key=True)
     cpe_id = Column("cpeid", String, nullable=False)
-    cves = Column("cves", ARRAY(String, dimensions=1))
-    # title = Column("title", String, nullable=False)
-    # product_catalog = Column("product_catalog", String)
-    # vendor_website = Column("vendor_website", String)
-    # modification_date = Column("modification_date", DateTime)
-    # status = Column("status", String)
-    # nvd_id = Column("nvd_id", INTEGER)
+
 
 class CveItem(DeclarativeBase):
     """Sqlalchemy model for NVD CPEs"""
@@ -63,6 +57,8 @@ class CveItem(DeclarativeBase):
     vulnerability_source = Column("vulnerability_source", ARRAY(String, dimensions=1))
     vulnerability_source_reference = Column("vulnerability_source_reference", ARRAY(String, dimensions=1))
     summary = Column("summary", TEXT)
+
+
 
 
 if __name__ == '__main__':

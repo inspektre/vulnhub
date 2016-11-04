@@ -1,12 +1,12 @@
 import glob
 import os
 import zipfile
-from xml.dom import minidom
-
 import wget
+
+from cpexmlparser import cpexmlparser
 from datapipeline import DataPipeline
 
-cpe_latest_zip = 'http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.2.xml.zip'
+cpe_latest_zip = 'http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip'
 
 def extract_cpe_zip(cpe_latest_xml_zip):
     filename = ''
@@ -47,10 +47,10 @@ def get_cpe_data(cpe_latest_xml):
     # xml_data = dict()
     # with open(cpe_latest_xml) as f:
     #     xml_data = xmltodict.parse(f.read())
-    raw_xml = minidom.parse(cpe_latest_xml)
-    cpe_2_2_items = raw_xml.getElementsByTagName('cpe-item')
+    
+    cpe_2_3_dictionary = cpexmlparser(cpe_latest_xml)
 
-    return cpe_2_2_items
+    return cpe_2_3_dictionary
 
 
 def populate_cpes(cpe_data):

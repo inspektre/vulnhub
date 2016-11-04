@@ -2,9 +2,9 @@ DATABASE = {
             # Use SQLite OR MySQL as other options
             'drivername': 'postgres',
             'host': 'localhost',
-            'port': '32769',
+            'port': '5432',
             'username': 'postgres',
-            'password': '',
+            'password': 'password',
             'database': 'nvddb'
            }
 
