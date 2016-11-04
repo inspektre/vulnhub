@@ -19,9 +19,9 @@ def cpexmlparser(cpexmlfile):
         # CPE Text
         try:
             if cpe_item['title'].get('#text'):
-                cpe_entry['text'] = str(cpe_item['title']['#text'])
+                cpe_entry['cpe_text'] = str(cpe_item['title']['#text'])
         except AttributeError:
-            cpe_entry['text'] = ''
+            cpe_entry['cpe_text'] = ''
 
         cpe_entry['cpe_2_3'] = str(cpe_item['cpe-23:cpe23-item']['@name'])
 
