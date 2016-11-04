@@ -31,7 +31,23 @@ class CpeItem(DeclarativeBase):
     __tablename__ = "CpeItem"
 
     id = Column(INTEGER, primary_key=True)
+    # CPE version 2.2 - CVE CPE relation
     cpe_id = Column("cpeid", String, nullable=False)
+
+    # Text description of CPE URI
+    cpe_text = Column('cpe_text', String, nullable=True)
+
+    # CPE version 2.3 for backward compatibility relationship
+    cpe_2_3 = Column('cpe_2_3', String, nullable=False)
+    classification = Column('classification', String, nullable=True)
+
+    # CPE Vendor Product Version
+    vendor = Column('vendor', String, nullable=False)
+    product = Column('product', String, nullable=False)
+    version = Column('version', String, nullable=False)
+
+    # CPE URI - Changelog reference from Vendor
+    product_ref = Column('product_ref', String, nullable=True)
 
 
 class CveItem(DeclarativeBase):
