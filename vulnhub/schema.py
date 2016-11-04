@@ -32,10 +32,10 @@ class CpeItem(DeclarativeBase):
 
     id = Column(INTEGER, primary_key=True)
     # CPE version 2.2 - CVE CPE relation
-    cpe_id = Column("cpeid", String, nullable=False)
+    cpeid = Column("cpeid", String, nullable=False)
 
     # Text description of CPE URI
-    cpe_text = Column('cpe_text', String, nullable=True)
+    cpetext = Column('cpetext', String, nullable=True)
 
     # CPE version 2.3 for backward compatibility relationship
     cpe_2_3 = Column('cpe_2_3', String, nullable=False)
@@ -73,8 +73,6 @@ class CveItem(DeclarativeBase):
     vulnerability_source = Column("vulnerability_source", ARRAY(String, dimensions=1))
     vulnerability_source_reference = Column("vulnerability_source_reference", ARRAY(String, dimensions=1))
     summary = Column("summary", TEXT)
-
-
 
 
 if __name__ == '__main__':

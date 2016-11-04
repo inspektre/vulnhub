@@ -16,12 +16,15 @@ def cpexmlparser(cpexmlfile):
 
         cpe_entry['cpeid'] = str(cpe_item['@name'])
 
+        cpe_entry['cpetext'] = ''
         # CPE Text
         try:
             if cpe_item['title'].get('#text'):
-                cpe_entry['cpe_text'] = str(cpe_item['title']['#text'])
+                cpe_entry['cpetext'] = str(cpe_item['title']['#text'])
+        except UnicodeEncodeError:
+            pass
         except AttributeError:
-            cpe_entry['cpe_text'] = ''
+            pass
 
         cpe_entry['cpe_2_3'] = str(cpe_item['cpe-23:cpe23-item']['@name'])
 
@@ -35,19 +38,18 @@ def cpexmlparser(cpexmlfile):
         cpe_entry['version'] = cpe_text[5]
 
         # CPE Product URL
-
+        cpe_entry['product_ref'] = ''
         if cpe_item.get('references') and cpe_item['references'].get('reference'):
             try:
                 cpe_entry['product_ref'] = cpe_item['references']['reference'][0]['@href']
 
             # Handle non-existing references
             except KeyError:
-                cpe_entry['product_ref'] = ''
-
+                pass
             except TypeError:
-                cpe_entry['product_ref'] = ''
+                pass
         else:
-            cpe_entry['product_ref'] = ''
+            pass
 
         # Accumlate entries
         cpe_entries.append(cpe_entry)

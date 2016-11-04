@@ -43,35 +43,22 @@ def extract_cpe(cpe_2_2_items):
 # Read XML
 def get_cpe_data(cpe_latest_xml):
     print("[+] CPE Extraction Started")
-    #
-    # xml_data = dict()
-    # with open(cpe_latest_xml) as f:
-    #     xml_data = xmltodict.parse(f.read())
-    
     cpe_2_3_dictionary = cpexmlparser(cpe_latest_xml)
-
     return cpe_2_3_dictionary
 
 
-def populate_cpes(cpe_data):
+def populate_cpes(cpe_entries):
     print("[+]Writing to database")
     pipeline = DataPipeline()
-
-    cpe_entries = []
-    for cpe_item in extract_cpe(cpe_data):
-        cpe_entry = dict()
-        cpe_entry['cpe_id'] = cpe_item
-        cpe_entries.append(cpe_entry)
-
     pipeline.process_cpe_many(cpe_entries)
 
 
-
-
-
-
-if __name__ == '__main__':
-    cpe_data = ''
+def start_cpe_population():
+    # Drop CPE table before doing this op
+    cleanup()
     cpe_data = get_cpe_data(download_cpe_xml_zip(cpe_latest_zip))
     cleanup()
     populate_cpes(cpe_data)
+
+if __name__ == '__main__':
+    start_cpe_population()
