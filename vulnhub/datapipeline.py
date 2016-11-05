@@ -1,7 +1,8 @@
 import time
 from sqlalchemy.orm import sessionmaker
-from schema import db_connect, create_nvd_tables
-from schema import CveItem, CpeItem
+
+from .schema import db_connect, create_nvd_tables
+from .schema import CveItem, CpeItem
 
 
 class DataPipeline(object):

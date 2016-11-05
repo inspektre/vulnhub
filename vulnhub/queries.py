@@ -1,6 +1,6 @@
 import json
 from itertools import groupby
-from datapipeline import DataPipeline
+from .datapipeline import DataPipeline
 
 
 def print_json(results):

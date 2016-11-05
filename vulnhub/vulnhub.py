@@ -20,9 +20,9 @@ Report bugs to <skorlimarla@unomaha.edu>.
 
 from docopt import docopt
 import sys
-from queries import search_vulnerabilities
-from queries import search_vulnerable_products
-from queries import search_by_year
+from .queries import search_vulnerabilities
+from .queries import search_vulnerable_products
+from .queries import search_by_year
 
 
 def main(option, searchtext):

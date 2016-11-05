@@ -3,8 +3,8 @@ import os
 import zipfile
 import wget
 
-from cpexmlparser import cpexmlparser
-from datapipeline import DataPipeline
+from .cpexmlparser import cpexmlparser
+from .datapipeline import DataPipeline
 
 cpe_latest_zip = 'http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip'
 

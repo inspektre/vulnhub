@@ -1,28 +1,28 @@
 import wget
 
-from cvexmlparser import cvexmlparser
-from datapipeline import DataPipeline
-from spider_cves import get_cve_feeds
-from populate_cpes import *
+from .cvexmlparser import cvexmlparser
+from .datapipeline import DataPipeline
+from .spider_cves import get_cve_feeds
+from .populate_cpes import *
 
 def get_cve_all():
     feeds = get_cve_feeds()
     feeds = list(set(feeds))
     feeds.sort()
+    pipeline = DataPipeline()
     for feed in feeds:
         filename = download_cpe_xml_zip(feed)
-        populate_cves(filename)
+        populate_cves(filename, pipeline)
         cleanup()
     print("[+]CVEs Populated")
 
 
-
-def populate_cves(cvefilename):
-    print("[+] Parsing CVE XML File {}".format(cvefilename))
-    cve_entries = cvexmlparser(cvefilename)
+def populate_cves(filename, pipeline):
+    print("[+] Parsing CVE XML File {}".format(filename))
+    cve_entries = cvexmlparser(filename)
     print("[+] Parsing completed")
     print("[+] Adding to database")
-    pipeline = DataPipeline()
+
     pipeline.process_cve_many(cve_entries)
     print("[+] Done")
 
