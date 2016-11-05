@@ -1,6 +1,29 @@
 from itertools import groupby
 from .datapipeline import DataPipeline
 import json
+import re
+import sys
+
+
+def validate_year(year):
+    year_pattern = re.compile('\d\d\d\d')
+    if year_pattern.findall(year):
+        return True
+    return False
+
+
+def validate_cve(cveid):
+    cve_pattern = re.compile('CVE-\d\d\d\d-\d\d\d\d')
+    if cve_pattern.findall(cveid):
+        return True
+    return False
+
+
+def validate_cpe(cpeid):
+    cpe_pattern = re.compile('cpe:/[aoh]:.*:.*:.*')
+    if cpe_pattern.findall(cpeid):
+        return True
+    return False
 
 
 def print_json(results):
@@ -16,6 +39,8 @@ def print_json(results):
 def search_vulnerable_products(cpeid, search_limit):
     datapileline = DataPipeline()
     # Add validation
+    if not validate_cpe(cpeid):
+        sys.exit(print("Invalid CPEID"))
     results = datapileline.query_cpe(cpeid, search_limit)
     return print_json(results)
 
@@ -23,14 +48,19 @@ def search_vulnerable_products(cpeid, search_limit):
 def search_vulnerabilities(cveid, search_limit):
     datapileline = DataPipeline()
     # Add validation
+    if not validate_cve(cveid):
+        sys.exit(print("Invalid CVEID"))
     results = datapileline.query_cve(cveid, search_limit)
     return print_json(results)
 
 
 def search_by_year(year, search_limit):
-    search_query = 'CVE-' + str(year) + '-%'
+    year_string = str(year)
+    search_query = 'CVE-' + year_string + '-%'
     datapileline = DataPipeline()
     # Add validation
+    if not validate_year(search_query):
+        sys.exit(print("Invalid Year"))
     results = datapileline.query_year(search_query, search_limit)
     return print_json(results)
 
