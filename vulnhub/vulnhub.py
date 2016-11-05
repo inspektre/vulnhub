@@ -11,7 +11,8 @@ Usage:
   vulnhub stats
   vulnhub search [-c --cpe] [-v --cve] [-y --year] [-j --json] [-l --limit] <search_term>
   vulnhub update [-c --cpe] [-v --cve] [-a --all]
-  vulnhub dbinit [-no--cofirm]
+  vulnhub config [--generate] [--driver]
+  vulnhub dbinit [--no-confirm]
   vulnhub --version
   vulnhub (-h | --help)
 
@@ -19,6 +20,7 @@ Commands:
     stats              Display stats on Vulnerable products.
     search             Search NVD database by CPE, CVE or Year.
     update             Update Local copy of NVD Database.
+    config             Change configuration.
     dbinit             Initialize database and create tables.
 
 Options:
@@ -29,6 +31,8 @@ Options:
   -l, --limit=limit    Limit Search results.
   -a --all             Update Both CVE and CPE Dictionaries.
   --no-confirm         Drop database without being asked for confirmation.
+  --generate           Generate a new Configuration.
+  --driver           Set a new database driver.
   -h --help            vulnhub help and usage.
 
 Maintainer: Uday Korlimarla
@@ -42,13 +46,8 @@ import os
 from . import queries
 from . import populate_cpes
 from . import populate_cves
+from . import config
 
-
-def hello(name):
-    print('Hello, {0}'.format(name))
-
-def goodbye(name):
-    print('bye, {0}'.format(name))
 
 def main(sysargv=None):
     '''
@@ -64,6 +63,7 @@ def main(sysargv=None):
 
     # Setting up Default Limit
     search_limit = 5
+
     try:
         search_limit = int(argv['--limit'])
     except ValueError:
@@ -108,6 +108,11 @@ def main(sysargv=None):
             populate_cpes.start_cpe_population()
         else:
             print(docopt(__doc__))
+    elif argv['config']:
+        if argv['--generate']:
+            config.generate_config()
+        elif argv['--driver']:
+            print("SQL Driver change option is not implemented")
     elif argv['--help']:
         print(docopt(__doc__))
     else:
