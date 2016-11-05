@@ -1,11 +1,11 @@
 ````
- __      __      _         _    _         _
- \ \    / /     | |       | |  | |       | |
-  \ \  / /_   _ | | _ __  | |__| | _   _ | |__
-   \ \/ /| | | || || '_ \ |  __  || | | || '_ \ 
-    \  / | |_| || || | | || |  | || |_| || |_) |
-     \/   \__,_||_||_| |_||_|  |_| \__,_||_.__/ 
-                                                
+                                                 __      __      _         _    _         _
+                                                 \ \    / /     | |       | |  | |       | |
+                                                  \ \  / /_   _ | | _ __  | |__| | _   _ | |__
+                                                   \ \/ /| | | || || '_ \ |  __  || | | || '_ \ 
+                                                    \  / | |_| || || | | || |  | || |_| || |_) |
+                                                     \/   \__,_||_||_| |_||_|  |_| \__,_||_.__/ 
+                                                                                                
  ````                                               
 
 # vulnhub
@@ -27,14 +27,34 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
 
 
    * Step1: Install external dependencies (#Dependencies)
-   * libpq-dev (Postgres Client library is the only external dependency
-        * (Optional) If `pip3` is not installed, installed pip3 with `apt-get install python3-pip`
+   * `libpq-dev` `libxml2-dev` `libxslt-dev` are the required dependencies.
+   * (Optional) If `pip3` is not installed, installed pip3 with `apt-get install python3-pip`
    * Python dependencies are installed automatically
    * To install:
 	    1. Clone repository `git clone https://github.com/UShan89/vulnhub vulnhub`
 	    2. Change directory to vulnhub `cd vulnhub`
 	    3. Install vulnhub with pip `pip install .`
 
+# configuration
+
+   * Initial setup requires the following configuration
+        * Create a directory `.vulnhub` in the user root directory and navigate to the directory.
+            * Instance: If root is `/home/ushan`, then the directory of interest is `/home/ushan/.vulnhub`
+        * Create a Configuration JSON File as below with appropriate changes. Save the file as `dbconfig.json`.
+        
+        
+             {
+                "DATABASE": {
+                                "drivername": "postgres",
+                                "host": "localhost",
+                                "port": "5432",
+                                "username": "postgres",
+                                "password": "password",
+                                "database": "nvddb"
+                             }
+              }
+        
+        
 # Usage
 
    Seach Options
@@ -103,7 +123,8 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
 
 
    * The Following are External dependencies (Ubuntu)
-   * libpq-dev (Client library for Postgres)
+        * libpq-dev (Client library for Postgres).
+        * libxml2-dev are libxslt-dev Python lxml parser dependencies.
 
    * The following Python dependencies are used (Immediate dependencies)
         * wget (Download files from remote locations)

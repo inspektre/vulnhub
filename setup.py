@@ -7,6 +7,8 @@ _vulnhub_version = '0.0.001'
 
 install_requires=[
     'wget',
+    'BeautifulSoup4',
+    'lxml',
     'sqlalchemy',
     'psycopg2',
     'docopt',
