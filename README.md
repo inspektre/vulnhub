@@ -34,7 +34,7 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
    * To install:
 	    1. Clone repository `git clone https://github.com/UShan89/vulnhub vulnhub`
 	    2. Change directory to vulnhub `cd vulnhub`
-	    3. Install vulnhub with pip `pip install .`
+	    3. Install vulnhub with pip `pip3 install .` (using python3-pip)
 
 # configuration
 
@@ -64,6 +64,8 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
         Use `vulnhub search --year <year>` to search for vulnerabilities by year
         Use `vulnhub stats` to Observe stats
 
+   Default Search Result Limit
+        Default Search limit is set to 10. `--limit=<integer>` can be used to increase or decrease search result limit.
 # Database
 
 

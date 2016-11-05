@@ -66,19 +66,19 @@ class DataPipeline(object):
             session.close()
         return
 
-    def query_cpe(self, cpe_entry):
+    def query_cpe(self, cpe_entry, search_limit):
         session = self._Session()
-        query_result = session.query(CveItem).filter(CveItem.software_list.any(cpe_entry)).all()
+        query_result = session.query(CveItem).filter(CveItem.software_list.any(cpe_entry)).limit(search_limit).all()
         return query_result
 
-    def query_cve(self, cve_entry):
+    def query_cve(self, cve_entry, search_limit):
         session = self._Session()
-        query_result = session.query(CveItem).filter(CveItem.cve_id == cve_entry).all()
+        query_result = session.query(CveItem).filter(CveItem.cve_id == cve_entry).limit(search_limit).all()
         return query_result
 
-    def query_year(self, cve_year):
+    def query_year(self, cve_year, search_limit):
         session = self._Session()
-        query_result = session.query(CveItem).filter(CveItem.cve_id.like(cve_year))
+        query_result = session.query(CveItem).filter(CveItem.cve_id.like(cve_year)).limit(search_limit).all()
         return  query_result
 
     def process_cpe(self, cpe_entry):
