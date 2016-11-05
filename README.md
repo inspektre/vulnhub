@@ -80,6 +80,9 @@ Search NVD locally
 # Dependencies
 
 ---
+    * The Following are External dependencies (Ubuntu)
+	* libpq-dev (Client library for Postgres)
+
     * The following Python dependencies are used (Immediate dependencies)
         * wget (Download files from remote locations)
         * sqlalchemy (Python ORM for database agnostic CRUD operations)
