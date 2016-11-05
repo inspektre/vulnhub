@@ -5,7 +5,7 @@ from .datapipeline import DataPipeline
 from .spider_cves import get_cve_feeds
 from .populate_cpes import *
 
-def get_cve_all():
+def start_cve_population():
     feeds = get_cve_feeds()
     feeds = list(set(feeds))
     feeds.sort()
@@ -29,5 +29,5 @@ def populate_cves(filename, pipeline):
 
 
 if __name__ == '__main__':
-    get_cve_all()
+    start_cve_population()
     #populate_cves('test/nvdcve-2.0-recent.xml')

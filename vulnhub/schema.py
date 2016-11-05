@@ -5,9 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import *
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.engine.url import URL
-from sqlalchemy.orm import relationship
-
-# Fetch Database Settings
 
 
 # Instantiate declarative base
@@ -17,9 +14,10 @@ DeclarativeBase = declarative_base()
 def db_connect():
     '''Returns a connection and a metadata object'''
     config_file = os.path.expanduser('~') + '/.vulnhub/dbconfig.json'
+    # Fetch Database Settings
     with open(config_file) as config:
         config_data = json.load(config)
-    return create_engine(URL(**config_data.DATABASE))
+    return create_engine(URL(**config_data['DATABASE']))
 
 
 def create_nvd_tables(engine):
@@ -82,7 +80,6 @@ class CveItem(DeclarativeBase):
 
 if __name__ == '__main__':
     engine = db_connect()
-    print(engine)
     create_nvd_tables(engine=engine)
 
 

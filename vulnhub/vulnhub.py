@@ -20,9 +20,10 @@ Report bugs to <skorlimarla@unomaha.edu>
 from docopt import docopt
 import sys
 import os
-# from .queries import search_vulnerabilities
-# from .queries import search_vulnerable_products
-# from .queries import search_by_year
+
+from . import queries
+from . import populate_cpes
+from . import populate_cves
 
 def hello(name):
     print('Hello, {0}'.format(name))
@@ -44,9 +45,10 @@ def main(sysargv=None):
 
     if argv['search']:
         if argv['--cpe']:
-            print("CPE Search with {0}".format(search_term))
+            queries.search_vulnerable_products(search_term)
         elif argv['--cve']:
-            print("CVE Search with {0}".format(search_term))
+            populate_cves.start_cve_population()
+            #queries.search_vulnerabilities(search_term)
         elif argv['--year']:
             print("year search with {0}".format(search_term))
         else:
@@ -56,6 +58,12 @@ def main(sysargv=None):
     else:
         print(__doc__)
 
+
+# Populate CPEs
+# populate_cpes.start_cpe_population()
+
+# Populate CVEs
+# populate_cves.start_cve_population()
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
