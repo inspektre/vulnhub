@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from .schema import db_connect, create_nvd_tables
 from .schema import CveItem, CpeItem
-import sys
+
 
 class DataPipeline(object):
     """pipeline for storing scraped items in the database"""
@@ -16,25 +16,34 @@ class DataPipeline(object):
         create_nvd_tables(engine)
         self._Session = sessionmaker(bind=engine)
 
-    def process_cve(self, cve_entry):
+    def process_cpe_many(self, cpe_entries):
         """Save deals in the database.
 
         This method is called for every item pipeline component.
 
         """
         session = self._Session()
+        print("[+] Bulk Insert initated")
+        for cpe_entry in cpe_entries:
+            cpe_item = CpeItem(**cpe_entry)
+            if self.query_cpe(cpe_entry['cpeid'], 1):
+                # Update existing by CVE
+                session.query(CpeItem).filter(CpeItem.cpeid == cpe_entry['cpeid']).\
+                    update({
+                            CpeItem.cpeid: cpe_entry['cpeid'],
+                            CpeItem.classification : cpe_entry['classification'],
+                            })
 
-        cve_item = CveItem(**cve_entry)
+            else:
+                session.add(cpe_item)
 
         try:
-            session.add(cve_item)
             session.commit()
         except:
             session.rollback()
             raise
         finally:
             session.close()
-
         return
 
     def process_cve_many(self, cve_entries):
@@ -47,11 +56,12 @@ class DataPipeline(object):
         session = self._Session()
         for cve_entry in cve_entries:
             cve_item = CveItem(**cve_entry)
-
-            if self.query_cve(cve_entry['cve_id']):
+            if self.query_cve(cve_entry['cve_id'], 1):
                 # Update existing by CVE
                 session.query(CveItem).filter(CveItem.cve_id == cve_entry['cve_id']).\
-                    update({CveItem.software_list: cve_entry['software_list']})
+                    update({
+                            CveItem.software_list: cve_entry['software_list']
+                            })
             else:
                 session.add(cve_item)
 
@@ -80,53 +90,6 @@ class DataPipeline(object):
         session = self._Session()
         query_result = session.query(CveItem).filter(CveItem.cve_id.like(cve_year)).limit(search_limit).all()
         return  query_result
-
-    def process_cpe(self, cpe_entry):
-        """Save deals in the database.
-
-        This method is called for every item pipeline component.
-
-        """
-
-        session = self._Session()
-
-
-        cpe_item = CpeItem(**cpe_entry)
-
-        try:
-            session.add(cpe_item)
-            session.commit()
-        except:
-            session.rollback()
-            raise
-        finally:
-            session.close()
-
-        return
-
-    def process_cpe_many(self, cpe_entries):
-        """Save deals in the database.
-
-        This method is called for every item pipeline component.
-
-        """
-
-        session = self._Session()
-
-        for cpe_entry in cpe_entries:
-            cpe_item = CpeItem(**cpe_entry)
-            session.add(cpe_item)
-        print("[+] Bulk Insert initated")
-        try:
-
-            session.commit()
-        except:
-            session.rollback()
-            raise
-        finally:
-            session.close()
-
-        return
 
 def test_cpe_insert():
     pipeline = DataPipeline()

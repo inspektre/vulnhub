@@ -32,7 +32,7 @@ Options:
   -a --all             Update Both CVE and CPE Dictionaries.
   --no-confirm         Drop database without being asked for confirmation.
   --generate           Generate a new Configuration.
-  --driver           Set a new database driver.
+  --driver             Set a new database driver.
   -h --help            vulnhub help and usage.
 
 Maintainer: Uday Korlimarla
