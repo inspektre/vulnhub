@@ -18,16 +18,19 @@ def cvexmlparser(xmlfile):
         #if cve_item.get('vuln:vulnerable-configuration'):
         #    cve_entry['configuration_id'] = cve_item['vuln:vulnerable-configuration']
         cve_entry['configuration_id'] = ''
-
+        cpes_entry = []
         if cve_item.get('vuln:vulnerable-software-list') and cve_item['vuln:vulnerable-software-list'].get('vuln:product'):
-            cpes_entry = []
             if type(cve_item['vuln:vulnerable-software-list']['vuln:product']) == str:
                 cpes_entry.append(cve_item['vuln:vulnerable-software-list']['vuln:product'])
 
             else:
                 cpes_entry = list(cve_item['vuln:vulnerable-software-list']['vuln:product'])
 
-            cve_entry['software_list'] = cpes_entry
+            if not cpes_entry:
+                cpes_entry.append('NO CPE Entry')
+                print("hello")
+
+        cve_entry['software_list'] = cpes_entry
 
         if cve_entry.get('vuln:published-datetime'):
             cve_entry['publish_date'] = cve_item['vuln:published-datetime']

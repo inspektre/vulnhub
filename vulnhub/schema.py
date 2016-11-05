@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import *
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.engine.url import URL
+from sqlalchemy.pool import SingletonThreadPool
 
 
 # Instantiate declarative base
@@ -17,7 +18,7 @@ def db_connect():
     # Fetch Database Settings
     with open(config_file) as config:
         config_data = json.load(config)
-    return create_engine(URL(**config_data['DATABASE']))
+    return create_engine(URL(**config_data['DATABASE']), pool_size=500, poolclass=SingletonThreadPool)
 
 
 def create_nvd_tables(engine):
@@ -35,7 +36,7 @@ class CpeItem(DeclarativeBase):
 
     id = Column(INTEGER, primary_key=True)
     # CPE version 2.2 - CVE CPE relation
-    cpeid = Column("cpeid", String, nullable=False)
+    cpeid = Column("cpeid", String, unique=True, nullable=False)
 
     # Text description of CPE URI
     cpetext = Column('cpetext', String, nullable=True)
@@ -58,9 +59,9 @@ class CveItem(DeclarativeBase):
     __tablename__ = "CveItem"
 
     id = Column(INTEGER, primary_key=True)
-    cve_id = Column("cveid", String, nullable=False)
+    cve_id = Column("cveid", String, unique=True, nullable=False)
     configuration_id = Column("configuration_id", String)
-    software_list = Column("software_list", ARRAY(String, dimensions=1))
+    software_list = Column("software_list", ARRAY(String, dimensions=1), nullable=False)
     publish_date = Column("publish_date", DateTime)
     modified_date = Column("modified_date", DateTime)
     Base_Score = Column("base_score", FLOAT)

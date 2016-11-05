@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from .schema import db_connect, create_nvd_tables
 from .schema import CveItem, CpeItem
-
+import sys
 
 class DataPipeline(object):
     """pipeline for storing scraped items in the database"""
@@ -43,11 +43,19 @@ class DataPipeline(object):
         This method is called for every item pipeline component.
 
         """
+        print('[+] Bulk processing started')
         session = self._Session()
         for cve_entry in cve_entries:
             cve_item = CveItem(**cve_entry)
-            session.add(cve_item)
-        print('[+] Bulk processing started')
+
+            if self.query_cve(cve_entry['cve_id']):
+                # Update existing by CVE
+                session.query(CveItem).filter(CveItem.cve_id == cve_entry['cve_id']).\
+                    update({CveItem.software_list: cve_entry['software_list']})
+            else:
+                session.add(cve_item)
+
+        print('[+] Bulk processing done')
 
         try:
             session.commit()
@@ -56,7 +64,6 @@ class DataPipeline(object):
             raise
         finally:
             session.close()
-
         return
 
     def query_cpe(self, cpe_entry):
