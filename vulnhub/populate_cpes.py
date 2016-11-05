@@ -1,5 +1,3 @@
-
-
 from .cpexmlparser import cpexmlparser
 from .datapipeline import DataPipeline
 from .util import cleanup, download_xml_zip
