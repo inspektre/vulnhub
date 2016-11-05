@@ -63,7 +63,7 @@ def main(sysargv=None):
     search_term = argv['<search_term>']
 
     # Setting up Default Limit
-    search_limit = 10
+    search_limit = 5
     try:
         search_limit = int(argv['--limit'])
     except ValueError:
@@ -73,9 +73,11 @@ def main(sysargv=None):
 
     if argv['search']:
         if argv['--cpe']:
-            queries.search_vulnerable_products(search_term, search_limit)
+            sys.stdout.write(queries.search_vulnerable_products(search_term, search_limit))
+            sys.stdout.write("\n")
         elif argv['--cve']:
-            queries.search_vulnerabilities(search_term, search_limit)
+            sys.stdout.write(queries.search_vulnerabilities(search_term, search_limit))
+            sys.stdout.write("\n")
         elif argv['--year']:
             try:
                 year = int(search_term)
@@ -84,7 +86,8 @@ def main(sysargv=None):
             except TypeError:
                 pass
             finally:
-                queries.search_by_year(year, search_limit)
+                sys.stdout.write(queries.search_by_year(year, search_limit))
+                sys.stdout.write("\n")
         elif argv['--json']:
             print("JSON")
         else:
