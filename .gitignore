@@ -1,4 +1,5 @@
 .idea/
+vulnhub.egg-info/
 *.gz
 *.zip
 *.pyc
