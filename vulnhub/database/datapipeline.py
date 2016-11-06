@@ -14,6 +14,8 @@ def drop_cpes():
         DeclarativeBase.metadata.tables['CpeItem'].drop(engine)
     except ProgrammingError:
         print("[-] Table may have been dropped already!, Try --dbinit")
+    finally:
+        DeclarativeBase.metadata.tables['CpeItem'].create(engine)
 
 
 def drop_cves():
@@ -21,6 +23,8 @@ def drop_cves():
         DeclarativeBase.metadata.tables['CveItem'].drop(engine)
     except ProgrammingError:
         print("[-] Table may have been dropped already! Try --dbinit")
+    finally:
+        DeclarativeBase.metadata.tables['CveItem'].create(engine)
 
 
 def initialize():
@@ -81,7 +85,23 @@ class DataPipeline(object):
                 # Update existing by CVE
                 session.query(CveItem).filter(CveItem.cve_id == cve_entry['cve_id']).\
                     update({
-                            CveItem.software_list: cve_entry['software_list']
+                                CveItem.software_list: cve_entry['software_list'],
+                                CveItem.configuration_id: cve_entry['configuration_id'],
+                                CveItem.publish_date: cve_entry['publish_date'],
+                                CveItem.modified_date: cve_entry['modified'],
+                                CveItem.Base_Score : cve_entry['Base_score'],
+                                CveItem.Base_Access_Vector : cve_entry['Base_Access_Vector'],
+                                CveItem.Base_Access_Complexity : cve_entry['Nase_Access_Complexity'],
+                                CveItem.Base_Authentication : cve_entry['Base_Authentication'],
+                                CveItem.Base_Confidentiality_Impact : cve_entry['Base_Confidentiality_Impact'],
+                                CveItem.Base_Integrity_Impact : cve_entry['Base_Integrity_Impact'],
+                                CveItem.Base_Availability_Impact : cve_entry['Base_Availability_Impact'],
+                                CveItem.Base_Source : cve_entry['Base_Source'],
+                                CveItem.Base_generation : cve_entry['Base_generation'],
+                                CveItem.cwe_id : cve_entry['cwe_id'],
+                                CveItem.vulnerability_source : cve_entry['vulnerability_source'],
+                                CveItem.vulnerability_source_reference : cve_entry['vulnerability_source_reference'],
+                                CveItem.summary : cve_entry['']
                             })
             else:
                 session.add(cve_item)

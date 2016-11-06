@@ -61,9 +61,8 @@ class CveItem(DeclarativeBase):
 
     id = Column(INTEGER, primary_key=True)
     cve_id = Column("cveid", String, unique=True, nullable=False)
-    configuration_id = Column("configuration_id", String)
     software_list = Column("software_list", ARRAY(String, dimensions=1), nullable=False)
-    publish_date = Column("publish_date", DateTime)
+    published_date = Column("published_date", DateTime)
     modified_date = Column("modified_date", DateTime)
     Base_Score = Column("base_score", FLOAT)
     Base_Access_Vector = Column("access_vector", String)

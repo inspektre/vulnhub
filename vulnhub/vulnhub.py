@@ -10,7 +10,8 @@
 Usage:
   vulnhub stats
   vulnhub search [-c --cpe] [-v --cve] [-y --year] [-j --json] [-l --limit] <search_term>
-  vulnhub update [-c --cpe] [-v --cve] [-a --all]
+  vulnhub populate [-c --cpe] [-v --cve] [-a --all]
+  vulnhub update [-v --cve]
   vulnhub config [--generate] [--driver]
   vulnhub dbinit [--no-confirm] [-c --cpe] [-v --cve] [-all]
   vulnhub --version
@@ -19,7 +20,7 @@ Usage:
 Commands:
     stats              Display stats on Vulnerable products.
     search             Search NVD database by CPE, CVE or Year.
-    update             Update Local copy of NVD Database.
+    populate           Populate Local copy of NVD Database.
     config             Change configuration.
     dbinit             Initialize database and create tables.
 
@@ -95,12 +96,12 @@ def main(sysargv=None):
             print(docopt(__doc__))
     elif argv['stats']:
         print("Generate Stats")
-    elif argv['update']:
+    elif argv['populate']:
         if argv['--cpe']:
             print("Populating CPE Dictionary")
             populate_cpes.start_cpe_population()
         elif argv['--cve']:
-            print("Populating CPE Dictionary")
+            print("Populating CVE Dictionary")
             populate_cves.start_cve_population()
         elif argv['--all']:
             print("Populating CVE Dictionary")
@@ -115,10 +116,8 @@ def main(sysargv=None):
         elif argv['--driver']:
             print("SQL Driver change option is not implemented")
     elif argv['dbinit']:
+        # Implement confirmation message - for later
         if argv['--no-confirm']:
-            pass
-        else:
-            # Post a confirmation before drop
             pass
         if argv['--cpe']:
             queries.drop_cpes()
@@ -131,9 +130,6 @@ def main(sysargv=None):
     elif argv['--help']:
         print(docopt(__doc__))
     else:
-        print("[-------------------------]")
-        print("[-] please verify usage [-]")
-        print("[-------------------------]")
         print(docopt(__doc__))
 
 
