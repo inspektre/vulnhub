@@ -1,7 +1,7 @@
-from .cvexmlparser import cvexmlparser
-from .datapipeline import DataPipeline
-from .spider_cves import get_cve_feeds
-from .util import cleanup, download_xml_zip
+from vulnhub.database.datapipeline import DataPipeline
+from vulnhub.util.sharedactions import cleanup, download_xml_zip
+from vulnhub.util.cvexmlparser import cvexmlparser
+from vulnhub.util.spider_cves import get_cve_feeds
 
 
 def populate_cve(filename, pipeline):

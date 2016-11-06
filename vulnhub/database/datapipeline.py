@@ -1,11 +1,10 @@
 import time
-from sqlalchemy.orm import sessionmaker
+
 from sqlalchemy.exc import ProgrammingError
-
-from .schema import db_connect, create_nvd_tables
-from .schema import CveItem, CpeItem
-from .schema import DeclarativeBase
-
+from sqlalchemy.orm import sessionmaker
+from vulnhub.database.schema import CveItem, CpeItem
+from vulnhub.database.schema import DeclarativeBase
+from vulnhub.database.schema import db_connect, create_nvd_tables
 
 engine = db_connect()
 

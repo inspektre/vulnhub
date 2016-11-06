@@ -1,11 +1,11 @@
-from itertools import groupby
-from .datapipeline import DataPipeline
 import json
 import re
 import sys
-from .datapipeline import drop_cpes
-from .datapipeline import drop_cves
-from .datapipeline import initialize
+
+from vulnhub.database.datapipeline import DataPipeline
+from vulnhub.database.datapipeline import drop_cpes
+from vulnhub.database.datapipeline import drop_cves
+from vulnhub.database.datapipeline import initialize
 
 
 def process_cpe_drop():

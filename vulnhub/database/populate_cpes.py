@@ -1,6 +1,6 @@
-from .cpexmlparser import cpexmlparser
-from .datapipeline import DataPipeline
-from .util import cleanup, download_xml_zip
+from vulnhub.database.datapipeline import DataPipeline
+from vulnhub.util.sharedactions import cleanup, download_xml_zip
+from vulnhub.util.cpexmlparser import cpexmlparser
 
 cpe_latest_zip = 'http://static.nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip'
 

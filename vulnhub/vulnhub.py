@@ -39,15 +39,14 @@ Maintainer: Uday Korlimarla
 Report bugs to <skorlimarla@unomaha.edu>
 """
 
-from docopt import docopt
-import sys
 import os
+import sys
 
-from . import queries
-from . import populate_cpes
-from . import populate_cves
-from . import config
-
+from docopt import docopt
+from vulnhub.core import queries
+from vulnhub.database import populate_cves
+from vulnhub.config import config
+from vulnhub.database import populate_cpes
 
 
 #

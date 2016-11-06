@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 _config_template = dict()
 _config_template["DATABASE"] = dict()
