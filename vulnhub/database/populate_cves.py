@@ -14,6 +14,27 @@ def populate_cve(filename, pipeline):
     print("[+] Done")
 
 
+def update_cve_dictionary():
+    print("[+] Updating CVE Dictionary")
+    feeds = list(set(get_cve_feeds()))
+    feeds.sort()
+    update_feeds = []
+    pipeline = DataPipeline()
+    cleanup()
+    for feed in feeds:
+        if 'Modified' in feed:
+            update_feeds.append(feed)
+        elif 'Recent' in feed:
+            update_feeds.append(feed)
+        else:
+            pass
+    for update_feed in update_feeds:
+        filename = download_xml_zip(update_feed)
+        populate_cve(filename, pipeline)
+        cleanup()
+    print("[+]CVEs Updated")
+
+
 def start_cve_population():
     feeds = get_cve_feeds()
     feeds = list(set(feeds))

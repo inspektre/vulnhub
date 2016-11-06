@@ -169,3 +169,33 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
     wget (vulnhub.util.sharedactions)
     xmltodict (vulnhub.util.cpexmlparser,vulnhub.util.cvexmlparser)
 ---
+
+# Populating CVES - Order
+
+---
+    * The current order for populating CVEs as following:
+    
+        `https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-Recent.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2002.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2003.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2004.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2005.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2006.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2007.xml.zip` `
+        https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2008.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2009.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2010.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2011.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2012.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2013.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2014.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2015.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2016.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-Modified.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-Recent.xml.zip`
+     
+    * CVE Feeds are spidered and downloaded in the order.
+    * A CVE that appears in older document will be replaced with information from the latest document
+    * Updates download and use `Modified` and `Recent` feeds only.
+    
+----

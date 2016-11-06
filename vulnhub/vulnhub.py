@@ -21,6 +21,7 @@ Commands:
     stats              Display stats on Vulnerable products.
     search             Search NVD database by CPE, CVE or Year.
     populate           Populate Local copy of NVD Database.
+    update             Update a specific dictionary
     config             Change configuration.
     dbinit             Initialize database and create tables.
 
@@ -96,6 +97,9 @@ def main(sysargv=None):
             print(docopt(__doc__))
     elif argv['stats']:
         print("Generate Stats")
+    elif argv['update']:
+        if argv['--cve']:
+            populate_cves.update_cve_dictionary()
     elif argv['populate']:
         if argv['--cpe']:
             print("Populating CPE Dictionary")

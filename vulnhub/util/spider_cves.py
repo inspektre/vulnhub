@@ -13,8 +13,8 @@ def get_cve_feeds():
 
     for cve_element in cve_elements:
         if 'nvdcve-2.0' in cve_element['href'] and 'xml.zip' in cve_element['href']:
-            cve_feeds.append(cve_element['href'])
-
+            if not 'https://nvd.nist.gov/' in cve_element['href']:
+                cve_feeds.append(cve_element['href'])
     return cve_feeds
 
 
