@@ -1,19 +1,25 @@
-import sys
+# -*- coding: utf-8 -*-
+"""CPE XML Parser
+    This module parses NVD CPE XML feed and returns a list of dictionaries with CPE URI Information
+"""
+
+
 import xmltodict
 
 
-
 def cpexmlparser(cpexmlfile):
+    """
+    Parse NVD CPE XML file and return list of CPE URI dictionaries with CPE Elements
+    :param cpexmlfile: CPE Feed XML file (Relative or absolute path)
+    :return: List of dictionaries
+    """
     xmldoc = open(cpexmlfile, 'r')
     xmlcont = xmldoc.read()
     xmldoc.close()
     tree = xmltodict.parse(xmlcont)
-
     cpe_entries = []
-
     for cpe_item in tree['cpe-list']['cpe-item']:
-        cpe_entry = {}
-
+        cpe_entry = dict()
         cpe_entry['cpeid'] = str(cpe_item['@name'])
 
         cpe_entry['cpetext'] = ''
@@ -56,7 +62,3 @@ def cpexmlparser(cpexmlfile):
 
     # Return CPE dictionary as iterable
     return cpe_entries
-
-if __name__ == '__main__':
-    #Consume CPE v 2.3
-    cpexmlparser('Test/official-cpe-dictionary_v2.3.xml')

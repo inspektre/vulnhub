@@ -181,8 +181,8 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
         `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2004.xml.zip` 
         `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2005.xml.zip` 
         `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2006.xml.zip` 
-        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2007.xml.zip` `
-        https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2008.xml.zip` 
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2007.xml.zip`
+        `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2008.xml.zip` 
         `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2009.xml.zip` 
         `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2010.xml.zip` 
         `https://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2011.xml.zip` 

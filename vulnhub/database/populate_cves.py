@@ -1,3 +1,9 @@
+""" CVE CRUD operations with database
+
+    Actions:
+        Populate CVEs to database
+        Update CVES.
+"""
 from vulnhub.database.datapipeline import DataPipeline
 from vulnhub.util.sharedactions import cleanup, download_xml_zip
 from vulnhub.util.cvexmlparser import cvexmlparser
@@ -5,6 +11,12 @@ from vulnhub.util.spider_cves import get_cve_feeds
 
 
 def populate_cve(filename, pipeline):
+    """
+    Save CVEs to database
+    :param filename: CVE XML Feed to save into database
+    :param pipeline: Database connection object
+    :return: None
+    """
     print("[+] Parsing CVE XML File {}".format(filename))
     cve_entries = cvexmlparser(filename)
     print("[+] Parsing completed")
@@ -15,6 +27,10 @@ def populate_cve(filename, pipeline):
 
 
 def update_cve_dictionary():
+    """
+    Update CVEs in the database
+    :return: None
+    """
     print("[+] Updating CVE Dictionary")
     feeds = list(set(get_cve_feeds()))
     feeds.sort()
@@ -36,6 +52,11 @@ def update_cve_dictionary():
 
 
 def start_cve_population():
+    """
+    Initiate CVE Population
+    Dummy function to start CVE population - For export outside the module
+    :return: None
+    """
     feeds = get_cve_feeds()
     feeds = list(set(feeds))
     feeds.sort()
@@ -46,8 +67,3 @@ def start_cve_population():
         populate_cve(filename, pipeline)
         cleanup()
     print("[+]CVEs Populated")
-
-
-if __name__ == '__main__':
-    start_cve_population()
-    #populate_cves('test/nvdcve-2.0-recent.xml')

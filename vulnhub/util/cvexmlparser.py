@@ -1,7 +1,17 @@
+# -*- coding: utf-8 -*-
+"""CVE XML Parser
+    NIST NVD CVE XML Feeds are parsed with xmltodict and returned as list of dictionaries
+"""
 import xmltodict
 
 
 def cvexmlparser(xmlfile):
+    """
+    Parse NVD CVE XML feed and extract CVE, CPE, CVSS Base Metrics and CVE References
+    :param xmlfile: NVD CVE Feed (XML File Location)
+    :return: List of Dictionaries (CVEs in XML File with CPEs, CVSS Base Metrics and CVE references
+    """
+
     xmldoc = open(xmlfile, 'r')
     xmlcont = xmldoc.read()
     xmldoc.close()
@@ -15,7 +25,7 @@ def cvexmlparser(xmlfile):
 
         cpes_entry = []
         if cve_item.get('vuln:vulnerable-software-list') and cve_item['vuln:vulnerable-software-list'].get('vuln:product'):
-            if type(cve_item['vuln:vulnerable-software-list']['vuln:product']) == str:
+            if isinstance(cve_item['vuln:vulnerable-software-list']['vuln:product'], str):
                 cpes_entry.append(cve_item['vuln:vulnerable-software-list']['vuln:product'])
             else:
                 cpes_entry = list(cve_item['vuln:vulnerable-software-list']['vuln:product'])
@@ -28,43 +38,43 @@ def cvexmlparser(xmlfile):
         if cve_entry.get('vuln:published-datetime'):
             cve_entry['published_date'] = cve_item['vuln:published-datetime']
         else:
-            pass
+            cve_entry['published_date'] = tree['nvd']['@pub_date']
         cve_entry['modified_date'] = cve_item['vuln:last-modified-datetime']
 
         if cve_item.get('vuln:cvss') and cve_item['vuln:cvss'].get('cvss:base_metrics'):
             cve_entry['Base_Score'] = float(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:score'])
             # CVSS Base Information
 
-            if type(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-vector']) != str:
+            if not isinstance(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-vector'], str):
                 cve_entry['Base_Access_Vector'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-vector']['#text']
             else:
                 cve_entry['Base_Access_Vector'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-vector']
 
-            if type(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-complexity']) != str:
+            if not isinstance(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-complexity'], str):
                 cve_entry['Base_Access_Complexity'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-complexity']['#text']
             else:
                 cve_entry['Base_Access_Complexity'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:access-complexity']
 
-            if type(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:authentication']) != str:
+            if not isinstance(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:authentication'], str):
                 cve_entry['Base_Authentication'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:authentication']['#text']
             else:
                 cve_entry['Base_Authentication'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:authentication']
 
-            if type(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:confidentiality-impact']) != str:
+            if not isinstance(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:confidentiality-impact'], str):
                 cve_entry['Base_Confidentiality_Impact'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:confidentiality-impact']['#text']
             else:
                 cve_entry['Base_Confidentiality_Impact'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:confidentiality-impact']
 
-            if type(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:integrity-impact'])!=str:
+            if not isinstance(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:integrity-impact'], str):
                 cve_entry['Base_Integrity_Impact'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:integrity-impact']['#text']
             else:
                 cve_entry['Base_Integrity_Impact'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:integrity-impact']
 
-            if type(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:availability-impact']) != str:
+            if not isinstance(cve_item['vuln:cvss']['cvss:base_metrics']['cvss:availability-impact'], str):
                 cve_entry['Base_Availability_Impact'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:availability-impact']['#text']
             else:
                 cve_entry['Base_Availability_Impact'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:availability-impact']
-                
+
             cve_entry['Base_Source'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:source']
             cve_entry['Base_generation'] = cve_item['vuln:cvss']['cvss:base_metrics']['cvss:generated-on-datetime']
 
@@ -80,14 +90,13 @@ def cvexmlparser(xmlfile):
                 cwe.append(cwe_entry['@id'])
 
         cve_entry['cwe_id'] = list(cwe)
+        cve_entry['vulnerability_source_reference'] = ''
 
         # Fill from references dict
-
         if cve_item.get('vuln:references'):
             try:
                 cve_entry['vulnerability_source'] = cve_item['vuln:references'][0]['vuln:source']
-                vuln_source = ''
-                if type(cve_entry['vulnerability_source_reference']) != str:
+                if not isinstance(cve_entry['vulnerability_source_reference'], str):
                     vuln_source = cve_entry['vulnerability_source_reference']['#text']
                 else:
                     vuln_source = cve_item['vuln:references'][0]['vuln:reference']
@@ -108,8 +117,3 @@ def cvexmlparser(xmlfile):
 
     # Return list of dictionaries
     return cve_entries
-
-
-if __name__ =='__main__':
-
-    cvexmlparser('nvdcve-2.0-recent.xml')

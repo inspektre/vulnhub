@@ -1,8 +1,13 @@
+"""Schema
+
+    Schema for NVD CVEs and CPEs in the database.
+"""
 import json
 import os
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import *
+from sqlalchemy import create_engine
+from sqlalchemy import Column, INTEGER, String, DateTime, FLOAT, TEXT
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.engine.url import URL
 from sqlalchemy.pool import SingletonThreadPool
@@ -13,7 +18,11 @@ DeclarativeBase = declarative_base()
 
 
 def db_connect():
-    '''Returns a connection and a metadata object'''
+    """
+    Connect to Database with configuration from Configuration file on disk
+    Returns a connection and a metadata object
+    :return: Database Connection instance with a pool_size=500, poolclass=SingletonThreaPool type
+    """
     config_file = os.path.expanduser('~') + '/.vulnhub/dbconfig.json'
     # Fetch Database Settings
     with open(config_file) as config:
@@ -77,10 +86,3 @@ class CveItem(DeclarativeBase):
     vulnerability_source = Column("vulnerability_source", ARRAY(String, dimensions=1))
     vulnerability_source_reference = Column("vulnerability_source_reference", ARRAY(String, dimensions=1))
     summary = Column("summary", TEXT)
-
-
-if __name__ == '__main__':
-    engine = db_connect()
-    create_nvd_tables(engine=engine)
-
-
