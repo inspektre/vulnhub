@@ -21,6 +21,7 @@ def db_connect():
     return create_engine(URL(**config_data['DATABASE']), pool_size=500, poolclass=SingletonThreadPool)
 
 
+
 def create_nvd_tables(engine):
     """
     Create tables with a postgres connection for NVD Database

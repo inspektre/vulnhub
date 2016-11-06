@@ -12,7 +12,7 @@ Usage:
   vulnhub search [-c --cpe] [-v --cve] [-y --year] [-j --json] [-l --limit] <search_term>
   vulnhub update [-c --cpe] [-v --cve] [-a --all]
   vulnhub config [--generate] [--driver]
-  vulnhub dbinit [--no-confirm]
+  vulnhub dbinit [--no-confirm] [-c --cpe] [-v --cve] [-all]
   vulnhub --version
   vulnhub (-h | --help)
 
@@ -47,7 +47,7 @@ from . import queries
 from . import populate_cpes
 from . import populate_cves
 from . import config
-
+from . import datapipeline
 
 def main(sysargv=None):
     '''
@@ -113,6 +113,21 @@ def main(sysargv=None):
             config.generate_config()
         elif argv['--driver']:
             print("SQL Driver change option is not implemented")
+    elif argv['dbinit']:
+        if argv['--no-confirm']:
+            pass
+        else:
+            # Post a confirmation before drop
+            pass
+        if argv['--cpe']:
+            datapipeline.drop_cpes()
+        elif argv['--cve']:
+            datapipeline.drop_cves()
+        elif argv['--all']:
+            datapipeline.drop_cpes()
+            datapipeline.drop_cves()
+        else:
+            pass
     elif argv['--help']:
         print(docopt(__doc__))
     else:

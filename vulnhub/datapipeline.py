@@ -1,8 +1,36 @@
 import time
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import ProgrammingError
 
 from .schema import db_connect, create_nvd_tables
 from .schema import CveItem, CpeItem
+from .schema import DeclarativeBase
+
+engine = db_connect()
+
+
+def drop_cpes():
+    try:
+        DeclarativeBase.metadata.tables['CpeItem'].drop(engine)
+    except ProgrammingError:
+        print("[-] Table may have been dropped already!, Try --dbinit")
+
+
+def drop_cves():
+    try:
+        DeclarativeBase.metadata.tables['CveItem'].drop(engine)
+    except ProgrammingError:
+        print("[-] Table may have been dropped already! Try --dbinit")
+
+
+def initialize():
+    print("[+] Dropping tables")
+    try:
+        DeclarativeBase.metadata.drop_all(engine)
+    except ProgrammingError:
+        print("[-] Table(s) may have been dropped already!")
+    print("[+] Creating tables")
+    DeclarativeBase.metadata.create_all(engine)
 
 
 class DataPipeline(object):
@@ -22,20 +50,13 @@ class DataPipeline(object):
         This method is called for every item pipeline component.
 
         """
+        drop_cpes()
         session = self._Session()
+
         print("[+] Bulk Insert initated")
         for cpe_entry in cpe_entries:
             cpe_item = CpeItem(**cpe_entry)
-            if self.query_cpe(cpe_entry['cpeid'], 1):
-                # Update existing by CVE
-                session.query(CpeItem).filter(CpeItem.cpeid == cpe_entry['cpeid']).\
-                    update({
-                            CpeItem.cpeid: cpe_entry['cpeid'],
-                            CpeItem.classification : cpe_entry['classification'],
-                            })
-
-            else:
-                session.add(cpe_item)
+            session.add(cpe_item)
 
         try:
             session.commit()
