@@ -44,8 +44,8 @@ import sys
 
 from docopt import docopt
 from vulnhub.core import queries
-from vulnhub.database import populate_cves
 from vulnhub.config import config
+from vulnhub.database import populate_cves
 from vulnhub.database import populate_cpes
 
 

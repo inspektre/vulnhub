@@ -32,9 +32,9 @@ setup(
     license='GNU General Public License v2 or later (GPLv2+)',
 
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers, Security',
-        'Topic :: Software Development :: Security',
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: System Administrators',
+        'Topic :: System :: Software Administration',
         'Topic :: Software Development :: Security Tools',
         'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
         'Programming Language :: Python :: 3.5',
