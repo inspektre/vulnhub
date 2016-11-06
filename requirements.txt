@@ -5,3 +5,4 @@ docopt
 xmltodict
 plotly
 BeautifulSoup4
+pylint

@@ -124,18 +124,48 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
 
 # Dependencies
 
-
-   * The Following are External dependencies (Ubuntu)
+---
+    * The Following are External dependencies (Ubuntu)
         * libpq-dev (Client library for Postgres).
         * libxml2-dev are libxslt-dev Python lxml parser dependencies.
 
-   * The following Python dependencies are used (Immediate dependencies)
+    * The following Python dependencies are used (Immediate dependencies)
         * wget (Download files from remote locations)
         * sqlalchemy (Python ORM for database agnostic CRUD operations)
         * psycopg2 (PostgreSQL adapter for Python)
         * docopt (Command Line Options)
         * xmltodict (Parse XML)
         * plotly (Generate Plots and Graphs)
-    
-          
+        * pylint (PEP8 and Python code styling guide helper)
+---       
         
+---
+    * Code structure (Dependency structure)
+---------------------
+
+    bs4 (vulnhub.util.spider_cves)
+    docopt (vulnhub.vulnhub)
+    sqlalchemy 
+      \-dialects 
+      | \-postgresql (vulnhub.database.schema)
+      \-engine 
+      | \-url (vulnhub.database.schema)
+      \-exc (vulnhub.database.datapipeline)
+      \-ext 
+      | \-declarative (vulnhub.database.schema)
+      \-orm (vulnhub.database.datapipeline)
+      \-pool (vulnhub.database.schema)
+    vulnhub (vulnhub.vulnhub)
+      \-config (vulnhub.vulnhub)
+      \-core (vulnhub.vulnhub)
+      \-database 
+      | \-datapipeline (vulnhub.database.populate_cpes,vulnhub.core.queries,vulnhub.database.populate_cves)
+      | \-schema (vulnhub.database.datapipeline)
+      \-util 
+        \-cpexmlparser (vulnhub.database.populate_cpes)
+        \-cvexmlparser (vulnhub.database.populate_cves)
+        \-sharedactions (vulnhub.database.populate_cpes,vulnhub.database.populate_cves)
+        \-spider_cves (vulnhub.database.populate_cves)
+    wget (vulnhub.util.sharedactions)
+    xmltodict (vulnhub.util.cpexmlparser,vulnhub.util.cvexmlparser)
+---

@@ -1,0 +1,415 @@
+************* Module vulnhub.vulnhub
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\/'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\ '. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\/'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\_'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W:  1, 0: Anomalous backslash in string: '\_'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+C:142, 0: Trailing newlines (trailing-newlines)
+R: 53, 0: Too many branches (30/12) (too-many-branches)
+R: 53, 0: Too many statements (75/50) (too-many-statements)
+************* Module vulnhub.config.config
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  4, 0: Invalid constant name "_config_template" (invalid-name)
+C: 14, 0: Invalid constant name "_directory_path" (invalid-name)
+C: 16, 0: Invalid constant name "_file_path" (invalid-name)
+C: 19, 0: Missing function docstring (missing-docstring)
+************* Module vulnhub.core.queries
+W: 27, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 27, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 27, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 27, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 34, 0: Anomalous backslash in string: '\d'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+C: 53, 0: Exactly one space required after assignment
+        formatted_results[result.cve_id] =  result_dictionary
+                                         ^ (bad-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+C: 11, 0: Missing function docstring (missing-docstring)
+C: 16, 0: Missing function docstring (missing-docstring)
+C: 21, 0: Missing function docstring (missing-docstring)
+C: 26, 0: Missing function docstring (missing-docstring)
+C: 33, 0: Missing function docstring (missing-docstring)
+C: 40, 0: Missing function docstring (missing-docstring)
+C: 47, 0: Missing function docstring (missing-docstring)
+C: 57, 0: Missing function docstring (missing-docstring)
+C: 66, 0: Missing function docstring (missing-docstring)
+C: 75, 0: Missing function docstring (missing-docstring)
+E: 87, 4: No value for argument 'search_limit' in function call (no-value-for-parameter)
+E: 88, 4: No value for argument 'search_limit' in function call (no-value-for-parameter)
+************* Module vulnhub.database.datapipeline
+C: 84, 0: Wrong hanging indentation (remove 4 spaces).
+                            CveItem.software_list: cve_entry['software_list']
+                        |   ^ (bad-continuation)
+C: 85, 0: Wrong hanging indentation.
+                            })
+                    |   |   ^ (bad-continuation)
+C:102, 0: Line too long (116/100) (line-too-long)
+C:107, 0: Line too long (107/100) (line-too-long)
+C:112, 0: Line too long (109/100) (line-too-long)
+C:151, 0: Exactly one space required before assignment
+    cve_item['cwe_id']  = ['123', 'abc']
+                        ^ (bad-whitespace)
+C:165, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  9, 0: Invalid constant name "engine" (invalid-name)
+C: 12, 0: Missing function docstring (missing-docstring)
+C: 19, 0: Missing function docstring (missing-docstring)
+C: 26, 0: Missing function docstring (missing-docstring)
+C: 45, 8: Invalid attribute name "_Session" (invalid-name)
+W: 43, 8: Redefining name 'engine' from outer scope (line 9) (redefined-outer-name)
+C:100, 4: Missing method docstring (missing-docstring)
+C:105, 4: Missing method docstring (missing-docstring)
+C:110, 4: Missing method docstring (missing-docstring)
+C:116, 0: Missing function docstring (missing-docstring)
+E:129, 4: Instance of 'DataPipeline' has no 'process_cpe' member (no-member)
+C:132, 0: Missing function docstring (missing-docstring)
+E:156, 4: Instance of 'DataPipeline' has no 'process_cve' member (no-member)
+************* Module vulnhub.database.populate_cpes
+C:  5, 0: Line too long (107/100) (line-too-long)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  5, 0: Invalid constant name "cpe_latest_zip" (invalid-name)
+C:  8, 0: Missing function docstring (missing-docstring)
+C: 14, 0: Missing function docstring (missing-docstring)
+C: 20, 0: Missing function docstring (missing-docstring)
+C: 26, 0: Missing function docstring (missing-docstring)
+************* Module vulnhub.database.populate_cves
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  7, 0: Missing function docstring (missing-docstring)
+C: 17, 0: Missing function docstring (missing-docstring)
+************* Module vulnhub.database.schema
+C: 21, 0: Line too long (102/100) (line-too-long)
+C: 79, 0: Line too long (106/100) (line-too-long)
+C: 87, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  5, 0: Wildcard import sqlalchemy (wildcard-import)
+C: 12, 0: Invalid constant name "DeclarativeBase" (invalid-name)
+W: 25,22: Redefining name 'engine' from outer scope (line 84) (redefined-outer-name)
+C: 38, 4: Invalid class attribute name "id" (invalid-name)
+R: 34, 0: Too few public methods (0/2) (too-few-public-methods)
+C: 62, 4: Invalid class attribute name "id" (invalid-name)
+R: 58, 0: Too few public methods (0/2) (too-few-public-methods)
+C: 84, 4: Invalid constant name "engine" (invalid-name)
+W:  5, 0: Unused import not_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import false from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import outerjoin from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import lateral from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import engine_from_config from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import update from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import modifier from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import CLOB from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import inspect from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import or_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import and_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Enum from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import between from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import ThreadLocalMetaData from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import join from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import true from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import DATE from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import literal from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import PickleType from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import PrimaryKeyConstraint from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import bindparam from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import cast from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import case from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import union_all from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import subquery from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import collate from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import ForeignKeyConstraint from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import NVARCHAR from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import BOOLEAN from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import VARCHAR from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import within_group from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import null from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import PassiveDefault from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Time from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import ForeignKey from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import ColumnDefault from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import alias from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import delete from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import union from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import intersect_all from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Table from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import insert from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import intersect from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import funcfilter from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import text from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import DECIMAL from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import extract from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import table from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import TIME from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import CHAR from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import SmallInteger from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import TypeDecorator from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import SMALLINT from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Integer from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import UnicodeText from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import REAL from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import func from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import UniqueConstraint from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import NUMERIC from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import desc from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import DDL from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import LargeBinary from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import all_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Index from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import TIMESTAMP from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import exists from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import BigInteger from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import NCHAR from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import except_all from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import outparam from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import asc from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Constraint from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import except_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Boolean from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Binary from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import distinct from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import any_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import tuple_ from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Numeric from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import BIGINT from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Interval from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Unicode from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Date from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Sequence from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import VARBINARY from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import literal_column from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Float from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import over from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import INT from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import BINARY from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import BLOB from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import FetchedValue from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import tablesample from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import JSON from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import Text from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import type_coerce from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import DATETIME from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import BLANK_SCHEMA from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import CheckConstraint from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import MetaData from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import DefaultClause from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import column from wildcard import (unused-wildcard-import)
+W:  5, 0: Unused import select from wildcard import (unused-wildcard-import)
+************* Module vulnhub.util.cpexmlparser
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  6, 0: Missing function docstring (missing-docstring)
+W:  1, 0: Unused import sys (unused-import)
+************* Module vulnhub.util.cvexmlparser
+C: 22, 0: Line too long (123/100) (line-too-long)
+C: 82, 0: Exactly one space required after comparison
+if __name__ =='__main__':
+            ^^ (bad-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  5, 0: Missing function docstring (missing-docstring)
+C: 23,15: Using type() instead of isinstance() for a typecheck. (unidiomatic-typecheck)
+W:  3, 0: Unused import sys (unused-import)
+C:  2, 0: standard import "import time" comes before "import xmltodict" (wrong-import-order)
+C:  3, 0: standard import "import sys" comes before "import xmltodict" (wrong-import-order)
+************* Module vulnhub.util.sharedactions
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  7, 0: Missing function docstring (missing-docstring)
+C:  8,42: Invalid variable name "z" (invalid-name)
+C: 15, 0: Missing function docstring (missing-docstring)
+C: 25, 0: Missing function docstring (missing-docstring)
+************* Module vulnhub.util.spider_cves
+C: 21, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  5, 0: Missing function docstring (missing-docstring)
+C:  2, 0: standard import "from urllib.request import urlopen" comes before "from bs4 import BeautifulSoup" (wrong-import-order)
+
+
+Report
+======
+483 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |16     |16         |=          |37.50       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |3      |3          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |6      |6          |=          |50.00       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |31     |31         |=          |9.68        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    bs4 (vulnhub.util.spider_cves)
+    docopt (vulnhub.vulnhub)
+    sqlalchemy 
+      \-dialects 
+      | \-postgresql (vulnhub.database.schema)
+      \-engine 
+      | \-url (vulnhub.database.schema)
+      \-exc (vulnhub.database.datapipeline)
+      \-ext 
+      | \-declarative (vulnhub.database.schema)
+      \-orm (vulnhub.database.datapipeline)
+      \-pool (vulnhub.database.schema)
+    vulnhub (vulnhub.vulnhub)
+      \-config (vulnhub.vulnhub)
+      \-core (vulnhub.vulnhub)
+      \-database 
+      | \-datapipeline (vulnhub.database.populate_cpes,vulnhub.core.queries,vulnhub.database.populate_cves)
+      | \-schema (vulnhub.database.datapipeline)
+      \-util 
+        \-cpexmlparser (vulnhub.database.populate_cpes)
+        \-cvexmlparser (vulnhub.database.populate_cves)
+        \-sharedactions (vulnhub.database.populate_cpes,vulnhub.database.populate_cves)
+        \-spider_cves (vulnhub.database.populate_cves)
+    wget (vulnhub.util.sharedactions)
+    xmltodict (vulnhub.util.cpexmlparser,vulnhub.util.cvexmlparser)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |524    |64.93 |524      |=          |
++----------+-------+------+---------+-----------+
+|docstring |68     |8.43  |68       |=          |
++----------+-------+------+---------+-----------+
+|comment   |43     |5.33  |43       |=          |
++----------+-------+------+---------+-----------+
+|empty     |172    |21.31 |172      |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |72     |72       |=          |
++-----------+-------+---------+-----------+
+|refactor   |4      |4        |=          |
++-----------+-------+---------+-----------+
+|warning    |132    |132      |=          |
++-----------+-------+---------+-----------+
+|error      |4      |4        |=          |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-------------------------------+------+--------+---------+-----------+
+|module                         |error |warning |refactor |convention |
++===============================+======+========+=========+===========+
+|vulnhub.core.queries           |50.00 |9.09    |0.00     |16.67      |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.database.datapipeline  |50.00 |0.76    |0.00     |25.00      |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.database.schema        |0.00  |79.55   |50.00    |11.11      |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.vulnhub                |0.00  |9.09    |50.00    |1.39       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.util.cvexmlparser      |0.00  |0.76    |0.00     |9.72       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.util.cpexmlparser      |0.00  |0.76    |0.00     |2.78       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.database.populate_cpes |0.00  |0.00    |0.00     |9.72       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.util.sharedactions     |0.00  |0.00    |0.00     |6.94       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.config.config          |0.00  |0.00    |0.00     |6.94       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.util.spider_cves       |0.00  |0.00    |0.00     |5.56       |
++-------------------------------+------+--------+---------+-----------+
+|vulnhub.database.populate_cves |0.00  |0.00    |0.00     |4.17       |
++-------------------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++------------------------------+------------+
+|message id                    |occurrences |
++==============================+============+
+|unused-wildcard-import        |103         |
++------------------------------+------------+
+|missing-docstring             |41          |
++------------------------------+------------+
+|anomalous-backslash-in-string |24          |
++------------------------------+------------+
+|invalid-name                  |11          |
++------------------------------+------------+
+|line-too-long                 |7           |
++------------------------------+------------+
+|trailing-newlines             |4           |
++------------------------------+------------+
+|wrong-import-order            |3           |
++------------------------------+------------+
+|bad-whitespace                |3           |
++------------------------------+------------+
+|unused-import                 |2           |
++------------------------------+------------+
+|too-few-public-methods        |2           |
++------------------------------+------------+
+|redefined-outer-name          |2           |
++------------------------------+------------+
+|no-value-for-parameter        |2           |
++------------------------------+------------+
+|no-member                     |2           |
++------------------------------+------------+
+|bad-continuation              |2           |
++------------------------------+------------+
+|wildcard-import               |1           |
++------------------------------+------------+
+|unidiomatic-typecheck         |1           |
++------------------------------+------------+
+|too-many-statements           |1           |
++------------------------------+------------+
+|too-many-branches             |1           |
++------------------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 5.28/10 (previous run: 5.28/10, +0.00)
+

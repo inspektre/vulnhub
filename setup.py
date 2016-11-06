@@ -13,7 +13,8 @@ install_requires=[
     'psycopg2',
     'docopt',
     'xmltodict',
-    'plotly'
+    'plotly',
+    'pylint'
     ]
 
 tests_require=[

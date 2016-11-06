@@ -4,3 +4,4 @@ vulnhub.egg-info/
 *.zip
 *.pyc
 *.xml
+ignore_lint.txt
