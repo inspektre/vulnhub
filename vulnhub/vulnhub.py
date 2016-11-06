@@ -47,14 +47,16 @@ from . import queries
 from . import populate_cpes
 from . import populate_cves
 from . import config
-from . import datapipeline
 
+
+
+#
 def main(sysargv=None):
-    '''
+    """"
     Search query happens this way
         search_vulnerabilities('CVE-2009-2696')
         search_vulnerable_products('cpe:/h:ruckus:wireless_h500:-')
-    '''
+    """
     argv = docopt(
         doc=__doc__.format(os.path.basename(sys.argv[0])),
         argv=sysargv
@@ -120,12 +122,11 @@ def main(sysargv=None):
             # Post a confirmation before drop
             pass
         if argv['--cpe']:
-            datapipeline.drop_cpes()
+            queries.drop_cpes()
         elif argv['--cve']:
-            datapipeline.drop_cves()
+            queries.drop_cves()
         elif argv['--all']:
-            datapipeline.drop_cpes()
-            datapipeline.drop_cves()
+            queries.initialize()
         else:
             pass
     elif argv['--help']:

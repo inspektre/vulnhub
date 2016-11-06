@@ -3,6 +3,24 @@ from .datapipeline import DataPipeline
 import json
 import re
 import sys
+from .datapipeline import drop_cpes
+from .datapipeline import drop_cves
+from .datapipeline import initialize
+
+
+def process_cpe_drop():
+    # Request for dropping db table for CPEs
+    drop_cpes()
+
+
+def process_cve_drop():
+    # Request for dropping db talbe for CVEs
+    drop_cves()
+
+
+def process_dbinit():
+    # Drop tables and initalize tables
+    initialize()
 
 
 def validate_year(year):
@@ -63,6 +81,7 @@ def search_by_year(year, search_limit):
         sys.exit(print("Invalid Year"))
     results = datapileline.query_year(search_query, search_limit)
     return print_json(results)
+
 
 if __name__ == '__main__':
     search_vulnerabilities('CVE-2009-2696')

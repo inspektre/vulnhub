@@ -6,6 +6,7 @@ from .schema import db_connect, create_nvd_tables
 from .schema import CveItem, CpeItem
 from .schema import DeclarativeBase
 
+
 engine = db_connect()
 
 
@@ -112,6 +113,7 @@ class DataPipeline(object):
         query_result = session.query(CveItem).filter(CveItem.cve_id.like(cve_year)).limit(search_limit).all()
         return  query_result
 
+
 def test_cpe_insert():
     pipeline = DataPipeline()
 
@@ -126,6 +128,7 @@ def test_cpe_insert():
     # cpe_entry['nvd_id'] = 1111
 
     pipeline.process_cpe(cpe_entry)
+
 
 def test_cve_insert():
     pipeline = DataPipeline()
@@ -153,8 +156,8 @@ def test_cve_insert():
 
     pipeline.process_cve(cve_item)
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     # pipeline.process_cve(cpe_item)
     # pipeline.process_cpe(cpe_item)
     print("Import DataPipeline for data processing")
