@@ -113,10 +113,10 @@ def main(sysargv=None):
             print("Populating CVE Dictionary")
             populate_cves.start_cve_population()
         elif argv['--all']:
-            print("Populating CVE Dictionary")
-            populate_cves.start_cve_population()
             print("Populating CPE Dictionary")
             populate_cpes.start_cpe_population()
+            print("Populating CVE Dictionary")
+            populate_cves.start_cve_population()
         else:
             print(docopt(__doc__))
     elif argv['config']:

@@ -107,7 +107,7 @@ class DataPipeline(object):
                                 CveItem.modified_date: cve_entry['modified_date'],
 
                                 # OLD CVSS Metrics are retained
-                                 
+
                                 CveItem.cwe_id : cve_entry['cwe_id'],
                                 CveItem.vulnerability_source: cve_entry['vulnerability_source'],
                                 CveItem.vulnerability_source_reference: cve_entry['vulnerability_source_reference'],
