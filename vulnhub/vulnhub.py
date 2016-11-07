@@ -8,7 +8,7 @@
 |    \/  \__,_||_||_| |_||_|  |_| \__,_||_.__/     |
  ---------------------------------------------------
 Usage:
-  vulnhub stats
+  vulnhub stats [--vendor] [--product]
   vulnhub search [-c --cpe] [-v --cve] [-y --year] [-j --json] [-l --limit] [--no-limit] <search_term>
   vulnhub populate [-c --cpe] [-v --cve] [-a --all]
   vulnhub update [-v --cve]
