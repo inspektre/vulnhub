@@ -97,34 +97,24 @@ class DataPipeline(object):
         print('[+] Bulk processing started')
         session = self._Session()
         for cve_entry in cve_entries:
-            try:
-                cve_item = CveItem(**cve_entry)
-                if self.query_cve(cve_entry['cve_id'], 1):
-                    # Update existing by CVE
-                    session.query(CveItem).filter(CveItem.cve_id == cve_entry['cve_id']).\
-                        update({
-                                    CveItem.software_list: cve_entry['software_list'],
-                                    CveItem.published_date: cve_entry['published_date'],
-                                    CveItem.modified_date: cve_entry['modified'],
-                                    CveItem.Base_Score: cve_entry['Base_score'],
-                                    CveItem.Base_Access_Vector : cve_entry['Base_Access_Vector'],
-                                    CveItem.Base_Access_Complexity: cve_entry['Nase_Access_Complexity'],
-                                    CveItem.Base_Authentication: cve_entry['Base_Authentication'],
-                                    CveItem.Base_Confidentiality_Impact: cve_entry['Base_Confidentiality_Impact'],
-                                    CveItem.Base_Integrity_Impact: cve_entry['Base_Integrity_Impact'],
-                                    CveItem.Base_Availability_Impact: cve_entry['Base_Availability_Impact'],
-                                    CveItem.Base_Source: cve_entry['Base_Source'],
-                                    CveItem.Base_generation: cve_entry['Base_generation'],
-                                    CveItem.cwe_id : cve_entry['cwe_id'],
-                                    CveItem.vulnerability_source: cve_entry['vulnerability_source'],
-                                    CveItem.vulnerability_source_reference: cve_entry['vulnerability_source_reference'],
-                                    CveItem.summary: cve_entry['']
-                                })
-                else:
-                    session.add(cve_item)
-            except KeyError as e:
-                print(cve_entry)
-                sys.exit(0)
+            cve_item = CveItem(**cve_entry)
+            if self.query_cve(cve_entry['cve_id'], 1):
+                # Update existing by CVE
+                session.query(CveItem).filter(CveItem.cve_id == cve_entry['cve_id']).\
+                    update({
+                                CveItem.software_list: cve_entry['software_list'],
+                                CveItem.published_date: cve_entry['published_date'],
+                                CveItem.modified_date: cve_entry['modified_date'],
+
+                                # OLD CVSS Metrics are retained
+                                 
+                                CveItem.cwe_id : cve_entry['cwe_id'],
+                                CveItem.vulnerability_source: cve_entry['vulnerability_source'],
+                                CveItem.vulnerability_source_reference: cve_entry['vulnerability_source_reference'],
+                                CveItem.summary: cve_entry['summary']
+                            })
+            else:
+                session.add(cve_item)
 
         print('[+] Bulk processing done')
 

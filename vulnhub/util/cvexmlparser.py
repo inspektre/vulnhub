@@ -2,6 +2,8 @@
 """CVE XML Parser
     NIST NVD CVE XML Feeds are parsed with xmltodict and returned as list of dictionaries
 """
+
+import sys
 import xmltodict
 
 
@@ -96,12 +98,22 @@ def cvexmlparser(xmlfile):
         if cve_item.get('vuln:references'):
             try:
                 cve_entry['vulnerability_source'] = cve_item['vuln:references'][0]['vuln:source']
-                if not isinstance(cve_entry['vulnerability_source_reference'], str):
-                    vuln_source = cve_entry['vulnerability_source_reference']['#text']
-                else:
-                    vuln_source = cve_item['vuln:references'][0]['vuln:reference']
-                cve_entry['vulnerability_source_reference'] = vuln_source
+                cve_entry['vulnerability_source_reference'] = cve_item['vuln:references'][0]['vuln:reference']['@href']
+                # print(cve_entry['vulnerability_source_reference'])
 
+                # if not isinstance(cve_item['vulnerability_source_reference'], str):
+                #     try:
+                #         vuln_source = cve_entry['vulnerability_source_reference']['@href']
+                #     except KeyError:
+                #         vuln_source = cve_entry['vulnerability_source_reference']['#text']
+                # else:
+                #     vuln_source = cve_item['vuln:references'][0]['vuln:reference']
+                # cve_entry['vulnerability_source_reference'] = vuln_source
+                if not isinstance(cve_entry['vulnerability_source_reference'], str):
+                    print("Found")
+                    print(cve_item['vuln:references'])
+                    print("Schema Violation")
+                    sys.exit(0)
             except KeyError:
                 cve_entry['vulnerability_source'] = ''
                 cve_entry['vulnerability_source_reference'] = ''

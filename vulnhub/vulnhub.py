@@ -9,7 +9,7 @@
  ---------------------------------------------------
 Usage:
   vulnhub stats
-  vulnhub search [-c --cpe] [-v --cve] [-y --year] [-j --json] [-l --limit] <search_term>
+  vulnhub search [-c --cpe] [-v --cve] [-y --year] [-j --json] [-l --limit] [--no-limit] <search_term>
   vulnhub populate [-c --cpe] [-v --cve] [-a --all]
   vulnhub update [-v --cve]
   vulnhub config [--generate] [--driver]
@@ -31,6 +31,7 @@ Options:
   -y, --year           Search by Year.
   -j, --json           JSON Output for search results.
   -l, --limit=limit    Limit Search results.
+  --no-limit           Get all results without default limit.
   -a --all             Update Both CVE and CPE Dictionaries.
   --no-confirm         Drop database without being asked for confirmation.
   --generate           Generate a new Configuration.
@@ -66,6 +67,8 @@ def main(sysargv=None):
 
     # Setting up Default Limit
     search_limit = 5
+    if argv['--no-limit']:
+        search_limit = None
 
     try:
         search_limit = int(argv['--limit'])
@@ -82,8 +85,10 @@ def main(sysargv=None):
             sys.stdout.write(queries.search_vulnerabilities(search_term, search_limit))
             sys.stdout.write("\n")
         elif argv['--year']:
+            # Default year to search
+            year = 2016
             try:
-                year = int(search_term)
+                year = search_term
             except ValueError:
                 pass
             except TypeError:
