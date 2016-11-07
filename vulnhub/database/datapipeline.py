@@ -2,9 +2,11 @@
 
     Main module to directly access Schema and perform all database operations
 """
-import sys
+import json
 from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import desc
+from sqlalchemy.sql import func
 from vulnhub.database.schema import CveItem, CpeItem
 from vulnhub.database.schema import DeclarativeBase
 from vulnhub.database.schema import db_connect, create_nvd_tables
@@ -138,6 +140,32 @@ class DataPipeline(object):
         query_result = session.query(CveItem).filter(CveItem.software_list.any(cpe_entry)).limit(search_limit).all()
         session.close()
         return query_result
+
+    def query_product_frequency(self):
+        """
+        Query CPE products and generate frequency of vendors
+        :return: Frequency of CPE products
+        """
+        session = self._Session()
+        query = session.query(CpeItem.product, func.count(CpeItem.product).label("product_count")).\
+                group_by(CpeItem.product).order_by(desc('product_count'))
+        query_res = query.all()
+        data = dict()
+        data['Results'] = query_res[0:9]
+        print(json.dumps(data))
+
+    def query_vendor_frequency(self):
+        """
+        Query CPE Vendors and generate frequecy of Vendors
+        :return: Frequency of CPE products (Top 10)
+        """
+        session = self._Session()
+        query = session.query(CpeItem.vendor, func.count(CpeItem.vendor).label("vendor_count")).\
+                group_by(CpeItem.vendor).order_by(desc('vendor_count'))
+        query_results = query.all()
+        data = dict()
+        data['Results'] = query_results[0:9]
+        print(json.dumps(data))
 
     def query_cve(self, cve_entry, search_limit):
         """

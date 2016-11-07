@@ -101,7 +101,12 @@ def main(sysargv=None):
         else:
             print(docopt(__doc__))
     elif argv['stats']:
-        print("Generate Stats")
+        if argv['--product']:
+            queries.product_frequency()
+        elif argv['--vendor']:
+            queries.vendor_frequency()
+        else:
+            print(docopt(__doc__))
     elif argv['update']:
         if argv['--cve']:
             populate_cves.update_cve_dictionary()

@@ -15,6 +15,24 @@ from vulnhub.database.datapipeline import drop_cves
 from vulnhub.database.datapipeline import initialize
 
 
+def product_frequency():
+    """
+    Get Product frequency from CPE
+    :return:
+    """
+    datapipeline = DataPipeline()
+    datapipeline.query_product_frequency()
+
+
+def vendor_frequency():
+    """
+    Get Vendor frequency from CPE
+    :return: Vendor Frequency from CPE
+    """
+    datapipeline = DataPipeline()
+    datapipeline.query_vendor_frequency()
+
+
 def process_cpe_drop():
     """
     Drop CVEs in database
