@@ -52,12 +52,13 @@ from vulnhub.database import populate_cves
 from vulnhub.database import populate_cpes
 
 
-#
+# Package entry point
 def main(sysargv=None):
-    """"
-    Search query happens this way
-        search_vulnerabilities('CVE-2009-2696')
-        search_vulnerable_products('cpe:/h:ruckus:wireless_h500:-')
+    """
+    VulnHub Entry Point
+    Command and Options processing with docopt
+    :param sysargv: Arguments from CLI - user input and options
+    :return:
     """
     argv = docopt(
         doc=__doc__.format(os.path.basename(sys.argv[0])),
@@ -97,7 +98,7 @@ def main(sysargv=None):
                 sys.stdout.write(queries.search_by_year(year, search_limit))
                 sys.stdout.write("\n")
         elif argv['--json']:
-            print("JSON")
+            print("JSON Feature is native! This will be deprecated")
         else:
             print(docopt(__doc__))
     elif argv['stats']:

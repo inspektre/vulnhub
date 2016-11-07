@@ -58,33 +58,32 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
         
 # Usage
 
-   Seach Options
-        Use `vulnhub search --cve <CVEID>` to search NVD by CVE
-        Use `vulnhub search --cpe <cpeid>` to search NVD by CPE
-        Use `vulnhub search --year <year>` to search for vulnerabilities by year
-        Use `vulnhub stats` to Observe stats
-
-   Default Search Result Limit
-        Default Search limit is set to 10. `--limit=<integer>` can be used to increase or decrease search result limit.
+[**Visit the USAGE guide**](USAGE.md) 
+    
 # Database
 
-
-   Step 1: Install docker 
-   [**Visit Docker installation instructions**](http://www.docker.com/products/overview) 
-   Pull postgres docker image
-        `docker pull postgres:latest`
-   Start postgres container
-        `docker run --rm -e POSTGRES_PASSWORD=password -p 5432:5432 --name nvd_instance postgres`
-        `--rm` option Automatically remove the container when it exits
-        `-p 5432:5432` is portmapping as `<docker_host_port>:<container_port>`
-        `-e` Option is to enable a password. Change `password` to a value of choice (Recommended)
-        `--name` option sets friendly name for the container
-
+---
+    POSTGRES on Docker
+        Step 1: Install docker 
+            visit Docker installation instructions**](http://www.docker.com/products/overview) 
+        Step 2: Pull postgres docker image
+            `docker pull postgres:latest`
+        Step 3: Start postgres container
+        Step 4:`docker run --rm -e POSTGRES_PASSWORD=password -p 5432:5432 --name nvd_instance postgres`
+            `--rm` option Automatically remove the container when it exits
+            `-p 5432:5432` is portmapping as `<docker_host_port>:<container_port>`
+            `-e` Option is to enable a password. Change `password` to a value of choice (Recommended)
+            `--name` option sets friendly name for the container
+    Databases supported:
+        * POSTGRES
+        * SQLITE (Install Sqlite-dev library for ubuntu)
+        * MySQL  (Install mysql client library for ubuntu)
+---
 
 # NVD Data
 
-
-   * CPE
+---
+    * CPE
         * CPE version 2.3 is used
         * CPE version 2.2 is used for backward compatibility with CVEs.
         * Vendor, Product and Version information is saved for each CPE
@@ -102,11 +101,11 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
             * This field is optional.
         * Parsing & Populating
             * Official CPE 2.3 dictinary is parsed with xmltodict.
-            * [**Parsing fails on Windows - PIP Reference**](https://github.com/pypa/pip/issues/3992)
+            Parsing fails on Windows - PIP Reference #1 in Issues.
             * CPE parsing limits platform to Linux and has been tested on Ubuntu 16:04.
             * Postgres bulk insert option is used to populate the database with CPEs.
      
-   * CVE
+    * CVE
         * CVE Identifier is saved. CVE 2.0 dictionaries are used.
         * Accompanying CVE Information is saved.
             * Vulnerability Summary (Vulnerability Information Text) is saved as Summary.
@@ -120,7 +119,7 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
             * CVE feeds are spidered from NVD Feeds and zipped (*.zip) versions are used instead of gunzip (*.gz) formats.
             * CVEs are populated from the last known year to the latest year as the order.
             * Postgres bulk insert option is used to populate the database with CVEs.
-
+---
 
 # Dependencies
 
@@ -199,3 +198,10 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
     * Updates download and use `Modified` and `Recent` feeds only.
     
 ----
+
+# Maintainer
+
+---
+    Maintainer: Uday Korlimarla
+    Report bugs to <skorlimarla@unomaha.edu>
+---
