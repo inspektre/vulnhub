@@ -9,6 +9,8 @@
  ````                                               
 [![Build Status](https://travis-ci.org/UShan89/vulnhub.svg?branch=master)](https://travis-ci.org/UShan89/vulnhub)
 
+Special thanks to @miradam for helping restore the repo back to me :) - Cheers mate!
+
 # vulnhub
 Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) and Vulnerable packages (CPEs)
 
