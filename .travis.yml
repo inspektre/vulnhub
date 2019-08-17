@@ -1,0 +1,10 @@
+dist: trusty
+addons:
+  sonarcloud:
+    organization: "udaykor-github"
+    token:
+      secure: "EPB0qOb/INOlrr0aYRnGqW+xaIoaSR4lVy4Q/Jt4tFPe1fRpM5I2UbczFqzaKA9/aq2JqIgL/CKrFuXziOXP+h5QgiLZJrgSHSezp89R4TojotCJyR/CMPBaqX9SFI3SNK66QvDEJ3JpaiJk2wLz8RUsMefv8CeeaxVLM73H4l48FwlkCMFfplk6ZXFk0lIOlZEZSeaJfxiJeIIzX1jJEPhAwdBejOkVD35d/nvJxB8Ls8rRrjUjBqEqJwiRH5vNYOa0SXZHgRXAcpP6Z3p1c/Gkcj3CghE52urFauUOWCK7oy25vjDA+R1XxiInwPeW0kKAqF3HNLfgiscbzGNqfLfJ2JehML9S1nBty4AilJJrYkPd7cXsq3PUz/UpNdTo0mQ0eIbW4bmK6ux7mcCMoVYgPB2dcSriM0J5aV2gRBoRD34Yb+o/bMkmHKzNhZPi9NW/D21X+vrfmP6x9hocOatRtOGN0NUIKQWYWAl9knYN46DTRs9jjV9vutfUVQuoeuhvQ556urtV8p6cKOtFpykUEC4UFCcMj5HyLxZn7OF6co/BLSiMnCADCuA+STKSEsJdEtumxuPJOtP2cq8w6ylajNwvB3r8Zhkbxx2t4PZmGYj2i7SdXx0/2AcxQ2kYgBKqmj/irAdJ1bVGJKJQ6O2GfGfIveVtKpdnHxCx50M="
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - sonar-scanner
