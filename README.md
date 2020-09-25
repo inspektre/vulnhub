@@ -7,9 +7,10 @@
                                                      \/   \__,_||_||_| |_||_|  |_| \__,_||_.__/ 
                                                                                                 
  ````                                               
-[![Build Status](https://travis-ci.org/UShan89/vulnhub.svg?branch=master)](https://travis-ci.org/UShan89/vulnhub)
+:warning: **Ownership Changes**
+- Inspektre (Inspektre Pty Ltd) is taking full ownership and responsibility to maintain this repository.
+- Python and Postgres will not be used anymore. Please keep watching this repository for more changes.
 
-Special thanks to @miradam for helping restore the repo back to me :) - Cheers mate!
 
 # vulnhub
 Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) and Vulnerable packages (CPEs)
@@ -198,12 +199,4 @@ Search National Vulnerability Database (NVD) locally for Vulnerabilities (CVEs) 
     * CVE Feeds are spidered and downloaded in the order.
     * A CVE that appears in older document will be replaced with information from the latest document
     * Updates download and use `Modified` and `Recent` feeds only.
-    
-----
-
-# Maintainer
-
----
-    Maintainer: Uday Korlimarla
-    Report bugs to <skorlimarla@unomaha.edu>
----
+ 
