@@ -1,0 +1,21 @@
+{
+  "name": "vulnhub",
+  "version": "0.0.1",
+  "description": "NVD Vulnerability Database",
+  "main": "index.js",
+  "repository": "git@github.com:inspektre/vulnhub.git",
+  "author": "contact@inspektre.io",
+  "license": "Apache-2.0",
+  "private": false,
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "dotenv": "^8.2.0",
+    "glob": "^7.1.6",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "seed": "./node_modules/.bin/babel-node index.js"
+  }
+}

@@ -1,8 +1,2 @@
-.idea/
-vulnhub.egg-info/
-*.gz
-*.zip
-*.pyc
-*.xml
-ignore_lint.txt
-*.tmp
+node_modules
+feeds
