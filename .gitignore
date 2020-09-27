@@ -1,4 +1,4 @@
-node_modules
+/node_modules
 feeds
-node_modules
 .env
+yarn.lock

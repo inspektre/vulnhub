@@ -18,7 +18,11 @@ const vulnhub = new VulnHub();
 // Download CVE Feeds
 // vulnhub.getfeeds();
 vulnhub.transforms()
-.then(data => console.log(data.cpes.length))
+.then(data => {
+    console.log(Object.keys(data));
+    data.cpes.forEach(cpe => console.log(cpe));
+    // cves.forEach(cve => console.dir(cve));
+})
 .catch(err => console.log(err));
 
 

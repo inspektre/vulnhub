@@ -9,6 +9,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const cweRex = /[0-9]{1,4}$/;
+const cveRex = /CVE-[]{1,4}-[]{1,6}/;
 
 const getCveFeedFiles = async () => {
     const feedFilesPromise = new Promise((resolve, reject) => {
@@ -94,14 +95,16 @@ const extractCpes = (entry) => {
 // Extract and create CPE Record
 const extractCpeRecords = (entry) => {
     const cpes = [];
+    const cveId = entry.cve["CVE_data_meta"].ID;
     entry.configurations.nodes.forEach(node => {
         const cpeEntries = node.cpe_match;
         if(cpeEntries && cpeEntries.length > 0) {
             cpeEntries.forEach(cpeEntry => {
-                return {
-                    cpe: cpeEntry.cpe23Uri,
-                    vulnerable: cpeEntry.vulnerable
-                }
+                cpes.push({
+                    uri: cpeEntry.cpe23Uri,
+                    vulnerable: cpeEntry.vulnerable,
+                    cveId: cveId
+                });
             });
         };
     });
@@ -136,9 +139,6 @@ const transformFeeds = () => {
                     // CPE Configurations
                     cveRecord.cpes = extractCpes(entry);
                     
-                    // Create CPE Records
-                    cpeRecords.concat(extractCpeRecords(entry));
-                    8
                     // CVE Impact
                     cveRecord.severity = entry.impact.severity;
                     cveRecord.impactScore = parseFloat(entry.impact.impactScore);
@@ -156,7 +156,7 @@ const transformFeeds = () => {
                     cveRecord.cvssV2IntegrityImpact = null;
                     cveRecord.cvssV2AvailabilityImpact = null
                     cveRecord.cvssV2BaseScore = 0.0;
-                    if (Object.keys(entry.impact).length > 0) {
+                    if (entry.impact && Object.keys(entry.impact).length > 0 && entry.impact.baseMetricV2 && Object.keys(entry.impact.baseMetricV2).length >0 ) {
                         cveRecord.cvssV2VectorString = entry.impact.baseMetricV2.cvssV2.vectorString;
                         cveRecord.cvssV2AccessVector = entry.impact.baseMetricV2.cvssV2.accessVector;
                         cveRecord.cvssV2AccessComplexity = entry.impact.baseMetricV2.cvssV2.accessComplexity;
@@ -168,13 +168,16 @@ const transformFeeds = () => {
 
                     }
                     
-
+                    // Create CVE Record
                     cveRecords.push(cveRecord);
+                    // Create CPE Records
+                    extractCpeRecords(entry).forEach(cpeRec => cpeRecords.push(cpeRec));
                 });
             });
+            console.log(cpeRecords.length);
             resolve({
                 cves: cveRecords,
-                cpes: cpeRecords
+                cpes: [...new Set(cpeRecords)]
             });
             
         })

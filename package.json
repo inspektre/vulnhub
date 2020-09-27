@@ -24,5 +24,9 @@
     "start": "./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
     "serve": "node build/index.js",
     "seed": "./node_modules/.bin/babel-node src/seed.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "shx": "^0.3.2"
   }
 }

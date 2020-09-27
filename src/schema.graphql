@@ -1,0 +1,11 @@
+type Cve {
+    id: String!
+    cwes: [Int]
+    cpes: [String]
+}
+
+type Cpe {
+    uri: String!
+    vulnerable: Boolean!
+    cveId: String!
+}
