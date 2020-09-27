@@ -2,20 +2,27 @@
   "name": "vulnhub",
   "version": "0.0.1",
   "description": "NVD Vulnerability Database",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "git@github.com:inspektre/vulnhub.git",
   "author": "contact@inspektre.io",
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {
+    "apollo-server": "^2.18.1",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "dotenv": "^8.2.0",
-    "glob": "^7.1.6",
+    "graphql-tag": "^2.11.0",
+    "neo4j-driver": "^4.1.2",
+    "neo4j-graphql-js": "^2.16.3",
     "node-fetch": "^2.6.1"
   },
   "scripts": {
-    "seed": "./node_modules/.bin/babel-node index.js"
+    "test": "jest",
+    "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp .env.build build 2>/dev/null || : && shx cp src/schema.graphql build",
+    "start": "./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
+    "serve": "node build/index.js",
+    "seed": "./node_modules/.bin/babel-node src/seed.js"
   }
 }

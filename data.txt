@@ -1,0 +1,429 @@
+yarn run v1.22.5
+$ ./node_modules/.bin/babel-node src/index.js
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:N/I:N/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'NONE',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:N/I:N/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'NONE',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:P/I:N/A:N',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'PARTIAL',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'NONE',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:N/I:N/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'NONE',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:P/I:N/A:N',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'PARTIAL',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'NONE',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:P/I:P/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'PARTIAL',
+      integrityImpact: 'PARTIAL',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 7.5
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 6.4,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: true,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:L/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'LOCAL',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 7.2
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 3.9,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:N/I:N/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'NONE',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:N/I:N/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'NONE',
+      integrityImpact: 'NONE',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:P/I:P/A:P',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'PARTIAL',
+      integrityImpact: 'PARTIAL',
+      availabilityImpact: 'PARTIAL',
+      baseScore: 7.5
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 6.4,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: true,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:C/I:C/A:C',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'COMPLETE',
+      integrityImpact: 'COMPLETE',
+      availabilityImpact: 'COMPLETE',
+      baseScore: 10
+    },
+    severity: 'HIGH',
+    exploitabilityScore: 10,
+    impactScore: 10,
+    obtainAllPrivilege: true,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{
+  baseMetricV2: {
+    cvssV2: {
+      version: '2.0',
+      vectorString: 'AV:N/AC:L/Au:N/C:N/I:P/A:N',
+      accessVector: 'NETWORK',
+      accessComplexity: 'LOW',
+      authentication: 'NONE',
+      confidentialityImpact: 'NONE',
+      integrityImpact: 'PARTIAL',
+      availabilityImpact: 'NONE',
+      baseScore: 5
+    },
+    severity: 'MEDIUM',
+    exploitabilityScore: 10,
+    impactScore: 2.9,
+    obtainAllPrivilege: false,
+    obtainUserPrivilege: false,
+    obtainOtherPrivilege: false,
+    userInteractionRequired: false
+  }
+}
+{}
+TypeError: Cannot read property 'cvssV2' of undefined
+    at /Users/uday/vulnhub/src/transforms.js:149:78
+    at Array.forEach (<anonymous>)
+    at /Users/uday/vulnhub/src/transforms.js:117:27
+    at Array.forEach (<anonymous>)
+    at /Users/uday/vulnhub/src/transforms.js:115:19
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+Done in 10.36s.
