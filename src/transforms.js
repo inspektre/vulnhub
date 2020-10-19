@@ -147,7 +147,7 @@ const getCveSeedMutations = async () => {
     const seedMutationsPromise = await new Promise((resolve, reject) => {
         try {
             resolve(generateCveMutations(feeds));
-        } catch {
+        } catch(err) {
             reject(err);
         };
     });
