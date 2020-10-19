@@ -2,28 +2,20 @@
 Author: Uday Korlimarla
 Copyright (c) Inspektre Pty Ltd
 */
-import { getJsonCveFeeds } from './feeds';
-import { transformFeeds } from './transforms';
+import { getJsonCveFeeds } from './downloadFeeds';
+import { runCveMutations } from './transforms';
 
-// Manage CVE Feeds
-class VulnHub {
-    constructor() {
-        this.getfeeds = getJsonCveFeeds;
-        this.transforms = transformFeeds;
-    }
-}
 
-const vulnhub = new VulnHub();
 
 // Download CVE Feeds
-// vulnhub.getfeeds();
-vulnhub.transforms()
-.then(data => {
-    console.log(Object.keys(data));
-    data.cpes.forEach(cpe => console.log(cpe));
-    // cves.forEach(cve => console.dir(cve));
-})
-.catch(err => console.log(err));
+// getJsonCveFeeds();
 
+// CVE Mutations
+console.log("Initializgin CVE Seed Mutations");
+
+// const maxYear = new Date().getFullYear();
+runCveMutations()
+.then(() => console.log("completed"))
+.catch(err => console.log("erred", err));
 
 

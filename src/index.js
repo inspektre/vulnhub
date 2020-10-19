@@ -27,12 +27,9 @@ const server = new ApolloServer({
   context: ({ req }) => {
     return {
       driver,
-      headers: req.headers,
+      neo4jDatabase: process.env.NEO4J_DATABASE,
       req
     }
-  },
-  engine: {    
-    reportSchema: true
   },
   schema: augmentedSchema,
   introspection: true,
