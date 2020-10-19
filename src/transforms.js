@@ -74,7 +74,7 @@ const transformFeeds = async () => {
                     let cveRecord = {};
                     
                     // CVE-2011-1234
-                    
+                    console.log("Entry", entry.cve["CVE_data_meta"].ID);
                     cveRecord.id = entry.cve["CVE_data_meta"].ID
                     cveRecord.cwes = extractCwe(entry);
                     // CPE Configurations
