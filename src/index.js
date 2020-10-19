@@ -17,10 +17,7 @@ const driver = neo4j.driver(
   neo4j.auth.basic(
     process.env.NEO4J_USER,
     process.env.NEO4J_PASSWORD,
-  ),
-  {
-    encrypted: process.env.NEO4J_ENCRYPTED ? 'ENCRYPTION_ON' : 'ENCRYPTION_OFF'
-  }
+  )
 );
 
 const server = new ApolloServer({
