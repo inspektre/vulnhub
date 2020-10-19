@@ -145,12 +145,12 @@ const generateCveMutations = (records) => {
 const getCveSeedMutations = async () => {
     const feeds = await transformFeeds();
     const seedMutationsPromise = await new Promise((resolve, reject) => {
-        // resolve(generateCveMutations(feeds));
-        try {
-            resolve(generateCveMutations(feeds));
-        } catch {
-            reject(err);
-        };
+        resolve(generateCveMutations(feeds));
+        // try {
+        //     resolve(generateCveMutations(feeds));
+        // } catch {
+        //     reject(err);
+        // };
     });
     
     return seedMutationsPromise;
