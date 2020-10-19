@@ -8,7 +8,7 @@ import { runCveMutations } from './transforms';
 
 
 // Download CVE Feeds
-getJsonCveFeeds();
+// getJsonCveFeeds();
 
 // CVE Mutations
 console.log("Initializgin CVE Seed Mutations");
