@@ -22,7 +22,7 @@ const client = new ApolloClient({
 
 // Read the JSON CVE Feeds into an array
 const readData = async (year) => {
-    console.log()
+    console.log(path.join(process.cwd() ,`src/feeds/nvdcve-1.1-${year}.json`));
     const file = path.join(process.cwd() ,`src/feeds/nvdcve-1.1-${year}.json`);
     const readFeedsPromise = new Promise((resolve, reject) => {
         try {
