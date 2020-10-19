@@ -67,6 +67,7 @@ const transformFeeds = async () => {
         const maxYear = new Date().getFullYear();
         // const maxYear = 2003;
         for (let year=2002; year<=maxYear; year++) {
+            console.log("Reading data for year", year);
             readData(year)
             .then(data => {
                 data.forEach(entry => {
