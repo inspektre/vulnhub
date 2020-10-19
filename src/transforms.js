@@ -87,16 +87,14 @@ const transformFeeds = async (year) => {
                 cveRecord.severity = '';
                 cveRecord.impactScore = 0;
                 cveRecord.exploitabilityScore = 0;
-                
-                cveRecord.baseScore = 0.0;
 
+                cveRecord.baseScore = 0.0;
                 if (entry.impact && Object.keys(entry.impact).length > 0 && entry.impact.baseMetricV2 &&Object.keys(entry.impact.baseMetricV2).length > 0 ) {
                     cveRecord.baseScore = entry.impact.baseMetricV2.cvssV2.baseScore;
                     cveRecord.severity = entry.impact.baseMetricV2.severity;
                     cveRecord.impactScore = entry.impact.baseMetricV2.impactScore;
                     cveRecord.exploitabilityScore = entry.impact.baseMetricV2.exploitabilityScore;
                 }
-
                 // Create CVE Record
                 cveRecords.push(cveRecord);
             });
@@ -104,10 +102,7 @@ const transformFeeds = async (year) => {
         })
         .catch(err => {
             reject(err);
-        })
-            
-        
-        
+        });
     });
     return transformsPromise;  
 };
