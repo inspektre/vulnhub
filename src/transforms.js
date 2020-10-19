@@ -157,7 +157,7 @@ const getCveSeedMutations = async () => {
 };
 
 const runCveMutations = async () => {
-    const cveMutations = await getCveSeedMutations();
+    const cveMutations = await getCveSeedMutations().catch(err => console.log("seed mutations failed", err));
     if(cveMutations) {
         console.log("Records:", cveMutations.length);
         return Promise.all(
@@ -169,7 +169,7 @@ const runCveMutations = async () => {
                 })
                 .catch(err => {
                     // console.log("Mutation failed", err);
-                    console.log(Object.keys(err));
+                    console.log(err);
                     // console.log(err.networkError);
                     // console.log(variables.id);
                 })
