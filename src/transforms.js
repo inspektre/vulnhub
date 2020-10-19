@@ -169,7 +169,7 @@ const runCveMutations = async () => {
                 })
                 .catch(err => {
                     // console.log("Mutation failed", err);
-                    // console.log(Object.keys(err));
+                    console.log(Object.keys(err));
                     // console.log(err.networkError);
                     // console.log(variables.id);
                 })
