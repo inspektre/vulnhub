@@ -1,11 +1,12 @@
 import fs from 'fs';
 import ApolloClient from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
+// import { HttpLink } from 'apollo-link-http';
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import gql from 'graphql-tag';
+import path from 'path';
 
 dotenv.config();
 const cweRex = /[0-9]{1,4}$/;
@@ -21,7 +22,8 @@ const client = new ApolloClient({
 
 // Read the JSON CVE Feeds into an array
 const readData = async (year) => {
-    const file = `src/feeds/nvdcve-1.1-${year}.json`;
+    console.log()
+    const file = path.join(process.cwd() ,`src/feeds/nvdcve-1.1-${year}.json`);
     const readFeedsPromise = new Promise((resolve, reject) => {
         try {
            resolve(JSON.parse(fs.readFileSync(file))["CVE_Items"]);
