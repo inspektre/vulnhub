@@ -72,6 +72,7 @@ const transformFeeds = async () => {
             console.log("Reading data for year", year);
             readData(year)
             .then(data => {
+                console.log("data", data.length);
                 data.forEach(entry => {
                     let cveRecord = {};
                     
@@ -103,10 +104,10 @@ const transformFeeds = async () => {
                 });
                 
             })
-                .catch(err => {
-                    reject(err);
-                });
-            }
+            .catch(err => {
+                reject(err);
+            });
+        }
         resolve(cveRecords);
     });
     return transformsPromise;  
