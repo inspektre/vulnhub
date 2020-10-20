@@ -15,7 +15,7 @@ const cweRex = /[0-9]{1,4}$/;
 const uri = 'http://localhost:4000';
 
 const client = new ApolloClient({
-    link: new BatchHttpLink({ uri, fetch, batchInterval: 300, batchMax: 20 }),
+    link: new BatchHttpLink({ uri, fetch, batchInterval: 10, batchMax: 1000 }),
     cache: new InMemoryCache()
 });
 
