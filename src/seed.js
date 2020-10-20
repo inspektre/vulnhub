@@ -17,7 +17,7 @@ const iterCves = async (year) => {
     // const complete = await runCveMutations(year);
     // console.log("Completed ", year);
     let currentYear;
-    const maxYear = 2002; //new Date().getFullYear();
+    const maxYear = new Date().getFullYear();
     for (currentYear = 2002; currentYear <= maxYear; currentYear++) {
         const complete = await runCveMutations(currentYear);
         console.log(complete);
