@@ -15,7 +15,7 @@ const cweRex = /[0-9]{1,4}$/;
 const uri = 'http://localhost:4000';
 
 const client = new ApolloClient({
-    link: new BatchHttpLink({ uri, fetch }),
+    link: new BatchHttpLink({ uri, fetch, batchInterval: 10, batchMax: 100 }),
     cache: new InMemoryCache()
 });
 
@@ -70,11 +70,12 @@ const transformFeeds = async (year) => {
         console.log("Reading data for year", year);
         readData(year)
         .then(data => {
-            console.log("data", data.length);
+            // console.log("data", data.length);
             data.forEach(entry => {
                 let cveRecord = {};
+                
                 // CVE-2011-1234
-                console.log("Entry", entry.cve["CVE_data_meta"].ID);
+                // console.log("Entry", entry.cve["CVE_data_meta"].ID);
                 cveRecord.id = entry.cve["CVE_data_meta"].ID
                 cveRecord.cwes = extractCwe(entry);
                 // CPE Configurations
@@ -108,7 +109,7 @@ const transformFeeds = async (year) => {
 
 
 const generateCveMutations = (records) => {
-    console.log("records total", records.length);
+    // console.log("records total", records.length);
     return records.map((rec) => {
         return {
             mutation: gql`
@@ -155,7 +156,7 @@ const getCveSeedMutations = async (year) => {
 const runCveMutations = async (year) => {
     const cveMutations = await getCveSeedMutations(year).catch(err => console.log("seed mutations failed", err));
     if(cveMutations) {
-        console.log("Records:", cveMutations.length);
+        // console.log("Records:", cveMutations.length);
         return Promise.all(
             cveMutations.map(({mutation, variables}) => {
                 // console.log("Creating muttion for:", variables.id);
@@ -165,7 +166,7 @@ const runCveMutations = async (year) => {
                 })
                 .catch(err => {
                     // console.log("Mutation failed", err);
-                    console.log(err);
+                    console.log("err", variables.id);
                     // console.log(err.networkError);
                     // console.log(variables.id);
                 })
