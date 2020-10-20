@@ -15,7 +15,7 @@ const cweRex = /[0-9]{1,4}$/;
 const uri = 'http://localhost:4000';
 
 const client = new ApolloClient({
-    link: new BatchHttpLink({ uri, fetch, batchInterval: 10, batchMax: 2500 }),
+    link: new BatchHttpLink({ uri, fetch }),
     cache: new InMemoryCache()
 });
 
@@ -62,55 +62,46 @@ const extractCpes = (entry) => {
 
 
 //Transform CVEs to Records
-const transformFeeds = async () => {
+const transformFeeds = async (year) => {
     const transformsPromise = new Promise((resolve, reject) => {
         const cveRecords = [];
         // const cpeRecords = [];
-        let currentYear;
-        const maxYear = new Date().getFullYear();
         
-        for (currentYear = 2002; currentYear <= maxYear; currentYear++) {
-            // const complete = await runCveMutations(currentYear);
-            // console.log(complete);
-        
-            console.log("Reading data for year", currentYear );
-            readData(currentYear)
-            .then(data => {
-                console.log("data", data.length);
-                data.forEach(entry => {
-                    let cveRecord = {};
-                    
-                    // CVE-2011-1234
-                    console.log("Entry", entry.cve["CVE_data_meta"].ID);
-                    cveRecord.id = entry.cve["CVE_data_meta"].ID
-                    cveRecord.cwes = extractCwe(entry);
-                    // CPE Configurations
-                    cveRecord.cpes = extractCpes(entry);
-                    
-                    // CVE Impact
-                    // console.log(entry.impact);
-                    // CVE Impact cvss V2
-                    cveRecord.severity = '';
-                    cveRecord.impactScore = 0;
-                    cveRecord.exploitabilityScore = 0;
+        console.log("Reading data for year", year);
+        readData(year)
+        .then(data => {
+            console.log("data", data.length);
+            data.forEach(entry => {
+                let cveRecord = {};
+                // CVE-2011-1234
+                console.log("Entry", entry.cve["CVE_data_meta"].ID);
+                cveRecord.id = entry.cve["CVE_data_meta"].ID
+                cveRecord.cwes = extractCwe(entry);
+                // CPE Configurations
+                cveRecord.cpes = extractCpes(entry);
+                
+                // CVE Impact
+                // console.log(entry.impact);
+                // CVE Impact cvss V2
+                cveRecord.severity = '';
+                cveRecord.impactScore = 0;
+                cveRecord.exploitabilityScore = 0;
 
-                    cveRecord.baseScore = 0.0;
-                    if (entry.impact && Object.keys(entry.impact).length > 0 && entry.impact.baseMetricV2 &&Object.keys(entry.impact.baseMetricV2).length > 0 ) {
-                        cveRecord.baseScore = entry.impact.baseMetricV2.cvssV2.baseScore;
-                        cveRecord.severity = entry.impact.baseMetricV2.severity;
-                        cveRecord.impactScore = entry.impact.baseMetricV2.impactScore;
-                        cveRecord.exploitabilityScore = entry.impact.baseMetricV2.exploitabilityScore;
-                    }
-                    // Create CVE Record
-                    cveRecords.push(cveRecord);
-                });
-            })
-            .catch(err => {
-                reject(err);
+                cveRecord.baseScore = 0.0;
+                if (entry.impact && Object.keys(entry.impact).length > 0 && entry.impact.baseMetricV2 &&Object.keys(entry.impact.baseMetricV2).length > 0 ) {
+                    cveRecord.baseScore = entry.impact.baseMetricV2.cvssV2.baseScore;
+                    cveRecord.severity = entry.impact.baseMetricV2.severity;
+                    cveRecord.impactScore = entry.impact.baseMetricV2.impactScore;
+                    cveRecord.exploitabilityScore = entry.impact.baseMetricV2.exploitabilityScore;
+                }
+                // Create CVE Record
+                cveRecords.push(cveRecord);
             });
-            console.log("Records", cveRecords.length);
-        }
-        resolve(cveRecords);
+            resolve(cveRecords);
+        })
+        .catch(err => {
+            reject(err);
+        });
     });
     return transformsPromise;  
 };
@@ -148,8 +139,8 @@ const generateCveMutations = (records) => {
     })
 };
 
-const getCveSeedMutations = async () => {
-    const feeds = await transformFeeds();
+const getCveSeedMutations = async (year) => {
+    const feeds = await transformFeeds(year);
     const seedMutationsPromise = await new Promise((resolve, reject) => {
         try {
             resolve(generateCveMutations(feeds));
@@ -161,8 +152,8 @@ const getCveSeedMutations = async () => {
     return seedMutationsPromise;
 };
 
-const runCveMutations = async () => {
-    const cveMutations = await getCveSeedMutations().catch(err => console.log("seed mutations failed", err));
+const runCveMutations = async (year) => {
+    const cveMutations = await getCveSeedMutations(year).catch(err => console.log("seed mutations failed", err));
     if(cveMutations) {
         console.log("Records:", cveMutations.length);
         return Promise.all(

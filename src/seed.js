@@ -12,16 +12,15 @@ import { runCveMutations } from './transforms';
 
 // CVE Mutations
 console.log("Initializgin CVE Seed Mutations");
-runCveMutations();
 
-// const iterCves = async () => {
-//     let currentYear;
-//     const maxYear = new Date().getFullYear();
+const iterCves = async () => {
+    let currentYear;
+    const maxYear = new Date().getFullYear();
     
-//     for (currentYear = 2002; currentYear <= maxYear; currentYear++) {
-//         const complete = await runCveMutations(currentYear);
-//         console.log(complete);
-//     }
-// };
+    for (currentYear = 2002; currentYear <= maxYear; currentYear++) {
+        const complete = await runCveMutations(currentYear);
+        console.log(complete);
+    }
+};
 
-// iterCves();
+iterCves();
