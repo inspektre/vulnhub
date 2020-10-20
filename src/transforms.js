@@ -159,7 +159,7 @@ const runCveMutations = async () => {
         console.log("Records:", cveMutations.length);
         return Promise.all(
             cveMutations.map(({mutation, variables}) => {
-                // console.log("Creating muttion for:", variables.id);
+                console.log("Creating muttion for:", variables.id);
                 return client.mutate({
                     mutation,
                     variables,
