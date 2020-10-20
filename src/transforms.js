@@ -108,6 +108,7 @@ const transformFeeds = async () => {
             .catch(err => {
                 reject(err);
             });
+            console.log("Records", cveRecords.length);
         }
         resolve(cveRecords);
     });
