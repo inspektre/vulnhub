@@ -166,7 +166,9 @@ const runCveMutations = async (year) => {
                 })
                 .catch(err => {
                     // console.log("Mutation failed", err);
-                    console.log("err", variables.id);
+                    // console.log("err", variables.id);
+                    console.log(err);
+                    process.exit(1);
                     // console.log(err.networkError);
                     // console.log(variables.id);
                 })
