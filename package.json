@@ -28,7 +28,8 @@
     "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp .env.build build 2>/dev/null || : && shx cp src/schema.graphql build",
     "start": "./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
     "serve": "node build/index.js",
-    "seed": "./node_modules/.bin/babel-node src/seed.js"
+    "seed": "./node_modules/.bin/babel-node src/seed.js",
+    "download": "./node_modules/.bin/babel-node src/download.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
