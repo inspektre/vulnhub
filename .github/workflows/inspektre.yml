@@ -29,4 +29,4 @@ jobs:
           INSPEKTRE_CLIENT_SECRET: ${{secrets.INSPEKTRE_CLIENT_SECRET}}
         run: |
           ~/.npm-global/bin/inspektre reauthorize
-          ~/.npm-global/bin/inspektre inspect -f $GITHUB_WORKSPACE/AppInspectorResults.json --sarif output.sarif --deepcode
+          ~/.npm-global/bin/inspektre inspect -p @inspektre/vulnhub -f $GITHUB_WORKSPACE/AppInspectorResults.json --sarif output.sarif --deepcode
