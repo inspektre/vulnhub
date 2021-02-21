@@ -13,7 +13,7 @@
     "apollo-client": "^2.6.10",
     "apollo-link-batch-http": "^1.2.14",
     "apollo-link-http": "^1.5.17",
-    "apollo-server": "^2.17.0",
+    "apollo-server": "^2.19.2",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
