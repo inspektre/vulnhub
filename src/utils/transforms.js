@@ -1,23 +1,14 @@
 import fs from 'fs';
-import ApolloClient from 'apollo-client';
-// import { HttpLink } from 'apollo-link-http';
-import { BatchHttpLink } from "apollo-link-batch-http";
-import { InMemoryCache } from 'apollo-cache-inmemory';
+
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import gql from 'graphql-tag';
-import path from 'path';
 
 dotenv.config();
+
 const cweRex = /[0-9]{1,4}$/;
-// const cveRex = /^CVE-[0-9]{1,4}-[0-9]{1,6}$/;
+const cveRex = /^CVE-[0-9]{1,4}-[0-9]{1,6}$/;
 
-const uri = 'http://localhost:4000';
-
-const client = new ApolloClient({
-    link: new BatchHttpLink({ uri, fetch, batchInterval: 10, batchMax: 100 }),
-    cache: new InMemoryCache()
-});
 
 
 // Read the JSON CVE Feeds into an array

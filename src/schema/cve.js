@@ -1,4 +1,7 @@
-type Cve {
+import { gql } from 'apollo-server-micro';
+
+export default Cve = gql`
+  type Cve {
     id: String
     cwes: [Int]
     cpes: [String]
@@ -6,10 +9,5 @@ type Cve {
     impactScore: Float
     exploitabilityScore: Float
     baseScore: Float
-}
-
-type Cpe {
-    uri: String
-    vulnerable: Boolean
-    cveId: String
-}
+  }
+`
