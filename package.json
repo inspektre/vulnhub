@@ -14,12 +14,12 @@
     "babel-preset-env": "^1.7.0",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
-    "neo4j-driver": "^4.0.2",
-    "node-fetch": "^2.6.0"
+    "gunzip-file": "^0.1.1",
+    "neo4j-driver": "^4.0.2"
   },
   "scripts": {
     "test": "jest",
-    "seed": "./node_modules/.bin/babel-node src/seed.js",
-    "download": "./node_modules/.bin/babel-node src/utils/download.js"
+    "download": "./node_modules/.bin/babel-node src/utils/download.js",
+    "seed": "./node_modules/.bin/babel-node src/utils/seed.js"
   }
 }
