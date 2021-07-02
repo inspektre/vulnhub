@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
-import { BASE_DIR, CVE_FEEDS, CREATE_CVE } from './constants';
+import { BASE_DIR, CVE_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from './constants';
 import driver from './driver';
 
 dotenv.config();
@@ -92,30 +92,16 @@ const transformFeeds = async (year) => {
     return transformsPromise;  
 };
 
-const createCves = async () => {
-    const session = await driver.session({database: process.env.NEO4J_DATABASE});
-    const cypherList = asvs.map((rec) => {
-      const { chapterId, chapterName, sectionId, sectionName, requirementId, description, level1, level2, level3 } = rec;
-      const nistId = rec.nistId? rec.nistId: '';
-      const cweId = rec.cweId? rec.cweId: '';
-      return {
-        chapterId, chapterName, sectionId, sectionName, requirementId, description, level1, level2, level3, nistId, cweId
-      }
-    });
-    await session.run(
-      CREATE_ASVS,
-      { cypherList }
-    ).catch(err => console.dir(err));
+const createCves = async (data) => {
+    await driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: data })
 };
 
-CVE_FEEDS.forEach(async (entry) => {
-    if(!fs.existsSync(BASE_DIR)){
-      console.log('Please run `yarn init` or npm run init. Could not fund downlods')
+
+const readCVEs = async () => {
+    const cveRecords = await Promise.all(CVE_FEEDS.map(feed => transformFeeds(feed.idx)));
+    for (const rec of cveRecords) {
+        const chunks = createChunk(rec);
+        await Promise.all(chunks.map(chunk => createCves(chunk)));
     }
-    const data = await transformFeeds(entry.idx).catch(err => console.log('err', err));
-    if(!data) {
-        console.log(`could not read feed nvdcve-1.1-${entry}.json.idx`);
-    } else {
-        console.log(data.length);
-    }
-});
+};
+readCVEs().then(() => { console.log('NVD CVE seeding is now complete!')}).catch(err => console.error(err));
