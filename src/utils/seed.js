@@ -3,13 +3,11 @@ const path = require('path');
 const dotenv = require('dotenv');
 const { BASE_DIR, CVE_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } = require('./constants');
 const driver = require('./driver');
-const cliProgress = require('cli-progress');
-const { error } = require('console');
 
 dotenv.config();
-const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 const cweRex = /[0-9]{1,4}$/;
 const cveRex = /^CVE-[0-9]{1,4}-[0-9]{1,6}$/;
+
 
 // Read the JSON CVE Feeds into an array
 const readData = async (year) => {
@@ -37,7 +35,6 @@ const extractCwe = (entry) => {
     return [...new Set(cwes)];
 };
 
-
 // Extract CPEs
 const extractCpes = (entry) => {
     const cpes = [];
@@ -49,7 +46,6 @@ const extractCpes = (entry) => {
     });
     return [...new Set(cpes)];
 };
-
 
 //Transform CVEs to Records
 const transformFeeds = async (year) => {
@@ -94,36 +90,21 @@ const transformFeeds = async (year) => {
     return transformsPromise;  
 };
 
-
-// return await Promise.all(cveRecords.map(async (rec) => {
-//     try {
-//         let res;
-//         const chunks = createChunk(rec);
-//         res = chunks.map(chunk => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk }));
-//     } catch(err) {
-//         console.log(err);
-//     } finally {
-//         console.dir(res);
-//         return res;
-//     }
-
-// }));
-
 const histCVEs = async (year) => {
     let res;
     try {
         const cveRecords = await transformFeeds(year);
-        res = await driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: cveRecords });
+        const chunks = createChunk(cveRecords);
+        console.log(`Records: ${cveRecords.length} for year: ${year}, Chunks: ${chunks.length}`);
+        res = await Promise.all(chunks.map(chunk => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
     } catch(err) {
         console.log(err);
     } finally {
-        return { h: res.summary.resultAvailableAfter }
+        console.log('Completed CVE entries for :', year)
+        return res;
     }    
 };
 
-// histCVEs().then((data) => { data.forEach(res => { console.log(res.summary.resultAvailableAfter)})})
-// histCVEs(2003).then((data) => console.log(data))
-// .catch(err => console.error(err));
 
 const update = async () => {
     let resModified;
@@ -136,29 +117,46 @@ const update = async () => {
     } catch(err) {
         console.log(err);
     } finally {
+        console.log("finishing updates");
         return { m: resModified.summary.resultAvailableAfter, r: resRecent.summary.resultAvailableAfter }
     }
 };
 
-bar1.start(CVE_FEEDS.length+2, 0);
-let progress = 0;
+
 
 const seed = async () => {
-    const upd = await update().catch(err => console.log(err));
-    if (upd) {
-        progress += 2;
-        bar1.update(progress);
-    }
-    CVE_FEEDS.forEach(async (feed) => {
-        const res = await histCVEs(feed.idx).catch(err => console.log(err));
-        if(res) {
-            progress += 1;
-            bar1.update(progress);
-        }
-    })
+    await histCVEs(2002);
+    await histCVEs(2003);
+    await histCVEs(2004);
+    await histCVEs(2005);
+    await histCVEs(2006);
+    await histCVEs(2007);
+    await histCVEs(2008);
+    await histCVEs(2009);
+    await histCVEs(2010);
+    await histCVEs(2011);
+    await histCVEs(2012);
+    await histCVEs(2013);
+    await histCVEs(2014);
+    await histCVEs(2015);
+    await histCVEs(2016);
+    await histCVEs(2017);
+    await histCVEs(2018);
+    await histCVEs(2019);
+    await histCVEs(2020);
+    await histCVEs(2021);
+    await update();
 }
 
+
 seed().then(() => {
-    bar1.stop();
-    process.exit(0);
+   console.log('completed');
+   process.exit(0);
 });
+
+
+module.exports = {
+    transformFeeds,
+    seed,
+    update
+}
