@@ -1,4 +1,4 @@
-import { homedir } from 'os';
+const { homedir } = require('os');
 
 const BASE_DIR = `${homedir()}/.config/inspektre/feeds/cve`;
 
@@ -30,7 +30,7 @@ const UPDATE_CVE_FEEDS_RECENT = {
 };
 
 
-export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
+const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   { 
     id: i.id,
     cwes: i.cwes,
@@ -38,11 +38,11 @@ export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
     severity: i.severity,
     impactScore: i.impactScore,
     exploitabilityScore: i.exploitabilityScore,
-    baseScore: i.baseScore,
-    createdAt: datetime(),
-    updatedAt: datetime()
-  }) ON MATCH SET c.id = i.id, c.cwes=i.cwes, c.cpes=i.cpes, c.severity=i.severity, c.impactScore=i.impactScore, c.exploitabilityScore=i.exploitabilityScore, c.baseScore=i.baseScore, c.updatedAt=datetime();
+    baseScore: i.baseScore
+  }) ON MATCH SET c.id = i.id, c.cwes=i.cwes, c.cpes=i.cpes, c.severity=i.severity, c.impactScore=i.impactScore, c.exploitabilityScore=i.exploitabilityScore, c.baseScore=i.baseScore;
 `;
+
+const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
 
 const createChunk = (data) => {
   const perChunk = 2000;
@@ -65,5 +65,6 @@ module.exports = {
   UPDATE_CVE_FEEDS_MODIFIED,
   UPDATE_CVE_FEEDS_RECENT,
   CREATE_CVE,
+  CVE_INDEX,
   createChunk
 }
