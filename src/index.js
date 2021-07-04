@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const commander = require('commander');
 const packageJson = require('../package.json');
 const { seed, update } = require('./utils/seed');
-const download = require('./utils/download');
+const { download } = require('./utils/download');
 dotenv.config();
 
 const program = new commander.Command();
@@ -44,7 +44,7 @@ program
 .command('download')
 .description('Download & Extract gzip JSON feeds from NVD')
 .action(() => {
-  update().then(() => { process.exit(0)}).catch(err => console.error(err));
+  download();
 });
 
 program.parse();

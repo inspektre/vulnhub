@@ -29,6 +29,9 @@ const UPDATE_CVE_FEEDS_RECENT = {
   json: `${BASE_DIR}/nvdcve-1.1-recent.json`
 };
 
+const DOWNLOAD_FEEDS = CVE_FEEDS;
+DOWNLOAD_FEEDS.push(UPDATE_CVE_FEEDS_MODIFIED);
+DOWNLOAD_FEEDS.push(UPDATE_CVE_FEEDS_RECENT);
 
 const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   { 
@@ -65,6 +68,7 @@ module.exports = {
   CVE_FEEDS,
   UPDATE_CVE_FEEDS_MODIFIED,
   UPDATE_CVE_FEEDS_RECENT,
+  DOWNLOAD_FEEDS,
   CREATE_CVE,
   CVE_INDEX,
   createChunk

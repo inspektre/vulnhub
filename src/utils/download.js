@@ -1,9 +1,7 @@
-/*
-Author: Uday Korlimarla
-Copyright (c) inspektre.io Pty Ltd
-*/
+/*  Copyright (c) iUday Korlimarla */
+
 const fs = require('fs');
-const { BASE_DIR, CVE_FEEDS } = require('./constants');
+const { BASE_DIR, DOWNLOAD_FEEDS } = require('./constants');
 const fetch = require('node-fetch');
 const gunzip = require('gunzip-file');
 
@@ -24,6 +22,8 @@ const cveFeedDownload = (entry) => {
         gunzip(entry.compressed, entry.json,  (err, res) => {
           if(!err) {
             console.log(`nvdcve-1.1-${entry.idx} extracted`);
+          } else {
+            console.error(err);
           }
         });
         fs.unlinkSync(entry.compressed);
@@ -37,7 +37,7 @@ const cveFeedDownload = (entry) => {
 
 
 const download = () => {
-  CVE_FEEDS.forEach((entry) => {
+  DOWNLOAD_FEEDS.forEach((entry) => {
     if(!fs.existsSync(BASE_DIR)){
       fs.mkdirSync(BASE_DIR);
     }
@@ -45,4 +45,6 @@ const download = () => {
   });
 }
 
-module.exports = download;
+module.exports = {
+  download
+};
