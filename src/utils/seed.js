@@ -129,16 +129,45 @@ const update = async () => {
 };
 
 
-const seed = async () => {
-    await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
+const seed = async (db) => {
+    process.env.NEO4J_DATABASE = db;
+    // To-Do: Future-proof for 2022 and on-wards.
+    // Avoid this for Neo connection acqusition timeouts;
+    // await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
+    await histCVEs(2002);
+    await histCVEs(2003);
+    await histCVEs(2004);
+    await histCVEs(2005);
+    await histCVEs(2006);
+    await histCVEs(2007);
+    await histCVEs(2008);
+    await histCVEs(2009);
+    await histCVEs(2010);
+    await histCVEs(2011);
+    await histCVEs(2012);
+    await histCVEs(2013);
+    await histCVEs(2014);
+    await histCVEs(2015);
+    await histCVEs(2016);
+    await histCVEs(2017);
+    await histCVEs(2018);
+    await histCVEs(2019);
+    await histCVEs(2020);
+    await histCVEs(2021);
     await update();
 }
 
+const run = async () => {
+    const dbs = ["test.io", "test.com", "test.com.au", "nvd"];
+    await Promise.all(dbs.map(db => seed(db)))
+}
 
-seed().then(() => { process.exit(0)}).catch(err => console.log(err));
+
+
 
 module.exports = {
     transformFeeds,
     seed,
-    update
+    update,
+    run
 }
