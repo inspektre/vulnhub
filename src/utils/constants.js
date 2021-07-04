@@ -33,6 +33,7 @@ const UPDATE_CVE_FEEDS_RECENT = {
 const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   { 
     id: i.id,
+    year: i.year,
     cwes: i.cwes,
     cpes: i.cpes,
     severity: i.severity,
@@ -45,7 +46,7 @@ const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
 const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
 
 const createChunk = (data) => {
-  const perChunk = 200;
+  const perChunk = 1500;
   return data.reduce((resultArray, item, index) => { 
     const chunkIndex = Math.floor(index/perChunk)
     if(!resultArray[chunkIndex]) {

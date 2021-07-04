@@ -60,6 +60,7 @@ const transformFeeds = async (year) => {
                 // CVE-2011-1234
                 // console.log("Entry", entry.cve["CVE_data_meta"].ID);
                 cveRecord.id = entry.cve["CVE_data_meta"].ID
+                cveRecord.year = entry.cve["CVE_data_meta"].ID.split('-')[1];
                 cveRecord.cwes = extractCwe(entry);
                 // CPE Configurations
                 cveRecord.cpes = extractCpes(entry);
@@ -151,7 +152,7 @@ const seed = async () => {
 
 seed().then(() => {
    console.log('completed');
-   process.exit(0);
+    process.exit(0);
 });
 
 
