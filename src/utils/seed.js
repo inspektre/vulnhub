@@ -129,8 +129,7 @@ const update = async () => {
 };
 
 
-const seed = async (db) => {
-    process.env.NEO4J_DATABASE = db;
+const seed = async () => {
     // To-Do: Future-proof for 2022 and on-wards.
     // Avoid this for Neo connection acqusition timeouts;
     // await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
@@ -157,17 +156,9 @@ const seed = async (db) => {
     await update();
 }
 
-const run = async () => {
-    const dbs = ["test.io", "test.com", "test.com.au", "nvd"];
-    await Promise.all(dbs.map(db => seed(db)))
-}
-
-
-
 
 module.exports = {
     transformFeeds,
     seed,
-    update,
-    run
+    update
 }

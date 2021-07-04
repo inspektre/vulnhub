@@ -29,6 +29,14 @@ CVE - https://cve.mitre.org/ - MITRE.
 - To run GraphQL Server, type `yarn start`.
 - To seed database with CVEs, type `yarn seed`.
 
+## Environment variables
+The name of the database can be anything string. However, nvd is the most appropriate.
+```
+NEO4J_URI=bolt+s://<IP/FQDN>:7687
+NEO4J_USER=<username>
+NEO4J_PASSWORD=<pwd>
+NEO4J_DATABASE=nvd
+```
 
 # Why Neo4J
 

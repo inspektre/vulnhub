@@ -10,6 +10,7 @@
   "dependencies": {
     "apollo-server-micro": "^2.25.2",
     "cli-progress": "^3.9.0",
+    "commander": "^8.0.0",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "gunzip-file": "^0.1.1",
@@ -17,7 +18,6 @@
   },
   "scripts": {
     "test": "jest",
-    "download": "node src/utils/download.js",
-    "seed": "node src/utils/seed.js"
+    "cli": "node src/index.js"
   }
 }

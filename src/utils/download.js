@@ -45,4 +45,4 @@ const download = () => {
   });
 }
 
-download();
+module.exports = download;
