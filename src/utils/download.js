@@ -2,10 +2,10 @@
 Author: Uday Korlimarla
 Copyright (c) inspektre.io Pty Ltd
 */
-import fs from 'fs';
-import { BASE_DIR, CVE_FEEDS } from './constants';
-import fetch from 'node-fetch';
-import gunzip from 'gunzip-file';
+const fs = require('fs');
+const { BASE_DIR, CVE_FEEDS } = require('./constants');
+const fetch = require('node-fetch');
+const gunzip = require('gunzip-file');
 
 
 const cveFeedDownload = (entry) => {

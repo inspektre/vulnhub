@@ -9,7 +9,7 @@ const download = require('./utils/download');
 dotenv.config();
 
 const program = new commander.Command();
-program.storeOptionsAsProperties(true).passCommandToAction(true);
+program.storeOptionsAsProperties(true).passThroughOptions(true);
 // Set Version from package.json
 program.version(packageJson.version);
 program.description('inspektre vulnhub'.concat(` v${packageJson.version}`));
@@ -46,3 +46,5 @@ program
 .action(() => {
   update().then(() => { process.exit(0)}).catch(err => console.error(err));
 });
+
+program.parse();
