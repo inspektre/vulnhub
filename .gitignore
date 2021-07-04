@@ -3,3 +3,4 @@ feeds
 .env
 .env.local
 yarn.lock
+.DS_Store
