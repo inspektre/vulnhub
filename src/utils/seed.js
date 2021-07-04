@@ -111,10 +111,15 @@ const update = async () => {
     let resModified;
     let resRecent;
     try {
+        const sessionM = await driver.session({database: process.env.NEO4J_DATABASE});
         const cveRecordsM = await transformFeeds(UPDATE_CVE_FEEDS_MODIFIED.idx);
-        resModified = await driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: cveRecordsM });
+        resModified = await sessionM.run(CREATE_CVE, { cypherList: cveRecordsM });
+        await sessionM.close();
+
+        const sessionR = await driver.session({database: process.env.NEO4J_DATABASE});
         const cveRecordsR = await transformFeeds(UPDATE_CVE_FEEDS_RECENT.idx);
-        resRecent = await driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: cveRecordsR });
+        resRecent = await sessionR.run(CREATE_CVE, { cypherList: cveRecordsR });
+        await sessionR.close();
     } catch(err) {
         console.log(err);
     } finally {
@@ -124,37 +129,13 @@ const update = async () => {
 };
 
 
-
 const seed = async () => {
-    await histCVEs(2002);
-    await histCVEs(2003);
-    await histCVEs(2004);
-    await histCVEs(2005);
-    await histCVEs(2006);
-    await histCVEs(2007);
-    await histCVEs(2008);
-    await histCVEs(2009);
-    await histCVEs(2010);
-    await histCVEs(2011);
-    await histCVEs(2012);
-    await histCVEs(2013);
-    await histCVEs(2014);
-    await histCVEs(2015);
-    await histCVEs(2016);
-    await histCVEs(2017);
-    await histCVEs(2018);
-    await histCVEs(2019);
-    await histCVEs(2020);
-    await histCVEs(2021);
+    await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
     await update();
 }
 
 
-seed().then(() => {
-   console.log('completed');
-    process.exit(0);
-});
-
+seed().then(() => { process.exit(0)}).catch(err => console.log(err));
 
 module.exports = {
     transformFeeds,
