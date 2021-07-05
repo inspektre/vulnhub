@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const dotenv = require('dotenv');
-const { BASE_DIR, CVE_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } = require('./constants');
-const driver = require('./driver');
+import fs from'fs';
+import path from'path';
+import dotenv from'dotenv';
+import { BASE_DIR, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
+import driver from'./driver';
 
 dotenv.config();
 const cweRex = /[0-9]{1,4}$/;

@@ -1,12 +1,12 @@
-const { homedir } = require('os');
+import { homedir } from 'os';
 
-const BASE_DIR = `${homedir()}/.config/inspektre/feeds/cve`;
+export const BASE_DIR = `${homedir()}/.config/inspektre/feeds/cve`;
 
 // All retrospective CVEs
-const CVE_FEEDS = Array.from({length: new Date().getFullYear() - 2001}, (_, i) => {
+export const CVE_FEEDS = Array.from({length: new Date().getFullYear() - 2001}, (_, i) => {
   const idx = 2001+i+1;
   return { 
-    idx,
+    idx: idx.toString(),
     uri : `https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-${idx}.json.gz`,
     compressed: `${BASE_DIR}/nvdcve-1.1-${idx}.json.gz`,
     json: `${BASE_DIR}/nvdcve-1.1-${idx}.json`
@@ -14,7 +14,7 @@ const CVE_FEEDS = Array.from({length: new Date().getFullYear() - 2001}, (_, i) =
 });
 
 // Modified CVEs
-const UPDATE_CVE_FEEDS_MODIFIED = { 
+export const UPDATE_CVE_FEEDS_MODIFIED = { 
   idx: 'modified',
   uri: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-modified.json.gz',
   compressed: `${BASE_DIR}/nvdcve-1.1-modified.json.gz`,
@@ -22,18 +22,21 @@ const UPDATE_CVE_FEEDS_MODIFIED = {
 };
 
 // Latest Releases of CVEs
-const UPDATE_CVE_FEEDS_RECENT = { 
+export const UPDATE_CVE_FEEDS_RECENT = { 
   idx: 'recent', 
   uri: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-recent.json.gz',
   compressed: `${BASE_DIR}/nvdcve-1.1-recent.json.gz`,
   json: `${BASE_DIR}/nvdcve-1.1-recent.json`
 };
 
-const DOWNLOAD_FEEDS = CVE_FEEDS;
-DOWNLOAD_FEEDS.push(UPDATE_CVE_FEEDS_MODIFIED);
-DOWNLOAD_FEEDS.push(UPDATE_CVE_FEEDS_RECENT);
+const x = CVE_FEEDS;
+x.push(UPDATE_CVE_FEEDS_MODIFIED);
+x.push(UPDATE_CVE_FEEDS_RECENT);
+export const DOWNLOAD_FEEDS = x;
 
-const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
+
+
+export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   { 
     id: i.id,
     year: i.year,
@@ -46,9 +49,9 @@ const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   }) ON MATCH SET c.id = i.id, c.cwes=i.cwes, c.cpes=i.cpes, c.severity=i.severity, c.impactScore=i.impactScore, c.exploitabilityScore=i.exploitabilityScore, c.baseScore=i.baseScore;
 `;
 
-const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
+export const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
 
-const createChunk = (data) => {
+export const createChunk = (data: [any]) => {
   const perChunk = 1500;
   return data.reduce((resultArray, item, index) => { 
     const chunkIndex = Math.floor(index/perChunk)
@@ -63,13 +66,3 @@ const createChunk = (data) => {
 // Test chunk creation with a Really Large Integer
 // console.log(createChunk(Array.from({length: 100999999}, (x, i) => {a: i+1, b: i-1, c: "Hello World"})).length)
 
-module.exports = {
-  BASE_DIR,
-  CVE_FEEDS,
-  UPDATE_CVE_FEEDS_MODIFIED,
-  UPDATE_CVE_FEEDS_RECENT,
-  DOWNLOAD_FEEDS,
-  CREATE_CVE,
-  CVE_INDEX,
-  createChunk
-}

@@ -76,4 +76,3 @@ Vulnhub started originally in Nov 2016 as part of a programming-assignment for a
 
 **Special** note of thanks.
 [Adam Heczko](https://github.com/miradam) helped restore ownership in 2019. The repository is now back to the right owner and is being maintained under the Aegis of inspektre.
-

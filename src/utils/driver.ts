@@ -1,5 +1,5 @@
-const neo4j = require("neo4j-driver");
-const dotenv = require('dotenv');
+import neo4j from"neo4j-driver";
+import dotenv from'dotenv';
 
 dotenv.config();
 
