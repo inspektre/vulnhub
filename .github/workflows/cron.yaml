@@ -1,0 +1,27 @@
+name: vulnhub update
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: NVD Feed Update
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+          package: ./package.json
+          tag: "latest"
+          check-version: true
+      - run: yarn install
+      - run: ./bin/run update
+        env:
+          NEO4J_DATABASE: ${{secrets.NEO4J_DATABASE}}
+          NEO4J_URI: ${{secrets.NEO4J_URI}}
+          NEO4J_USER: ${{secrets.NEO4J_USER}}
+          NEO4J_PASSWORD: ${{secrets.NEO4J_PASSWORD}}
