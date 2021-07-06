@@ -1,3 +1,5 @@
+[![vulnhub](https://github.com/inspektre/vulnhub/actions/workflows/cron.yml/badge.svg?branch=main&event=workflow_run)](https://github.com/inspektre/vulnhub/actions/workflows/cron.yml) 
+
  ```
  __      __      _         _    _         _
  \ \    / /     | |       | |  | |       | |
