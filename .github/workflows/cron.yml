@@ -7,6 +7,9 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -23,5 +26,6 @@ jobs:
           NEO4J_PASSWORD: ${{secrets.NEO4J_PASSWORD}}
         run: |
             export PATH="$(yarn global bin):$PATH"
-            yarn global add @inspektre/vulnhub
-            vulnhub update
+            yarn global add oclif oclif-dev
+            yarn install
+            ./bin/run update
