@@ -13,7 +13,6 @@
     "@oclif/plugin-help": "^3.2.2",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
-    "gunzip-file": "^0.1.1",
     "neo4j-driver": "^4.3.1",
     "node-fetch": "^2.6.1",
     "tslib": "^1"

@@ -1,20 +1,21 @@
-import fs from'fs';
-import path from'path';
-import dotenv from'dotenv';
+import * as fs from'fs';
+import { Integer } from 'neo4j-driver';
+import * as path from'path';
 import { BASE_DIR, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
-import driver from'./driver';
+import { driver } from './driver'
+const dotenv = require('dotenv');
 
-dotenv.config();
+const envs = dotenv.config();
 const cweRex = /[0-9]{1,4}$/;
 const cveRex = /^CVE-[0-9]{1,4}-[0-9]{1,6}$/;
 
 
 // Read the JSON CVE Feeds into an array
-const readData = async (year) => {
+const readData = async (year: string) => {
     const file = path.join(BASE_DIR ,`nvdcve-1.1-${year}.json`);
     const readCveFilePromise = new Promise((resolve, reject) => {
         try {
-            resolve(JSON.parse(fs.readFileSync(file))["CVE_Items"]);
+            resolve(JSON.parse(fs.readFileSync(file).toString())["CVE_Items"]);
         } catch(err) {
             reject(err);
         }
@@ -22,10 +23,14 @@ const readData = async (year) => {
     return readCveFilePromise;
 };
 
+
+
+
 // Extract CWE IDs
-const extractCwe = (entry) => {
-    const cwes = [];
-    entry.cve.problemtype.problemtype_data.forEach(problem => {
+const extractCwe = (entry: { cve: { problemtype: { problemtype_data: { description: any[]; }[]; }; }; }) => {
+    console.log(entry)
+    const cwes = new Array();
+    entry.cve.problemtype.problemtype_data.forEach((problem: { description: any[]; }) => {
         problem.description.forEach(cwe => {
             const rexMatch = cweRex.exec(cwe.value);
             if(rexMatch) {
@@ -36,43 +41,47 @@ const extractCwe = (entry) => {
 };
 
 // Extract CPEs
-const extractCpes = (entry) => {
-    const cpes = [];
-    entry.configurations.nodes.forEach(node => {
+const extractCpes = (entry: { configurations: { nodes: any[]; }; }) => {
+    const cpes = new Array();
+    entry.configurations.nodes.forEach((node: { cpe_match: any; }) => {
         const cpeEntries = node.cpe_match;
         if(cpeEntries && cpeEntries.length > 0) {
-            cpeEntries.forEach(cpeEntry => cpes.push(cpeEntry.cpe23Uri));
+            cpeEntries.forEach((cpeEntry: { cpe23Uri: any; }) => cpes.push(cpeEntry.cpe23Uri));
         };
     });
     return [...new Set(cpes)];
 };
 
-//Transform CVEs to Records
-const transformFeeds = async (year) => {
-    const transformsPromise = new Promise((resolve, reject) => {
-        const cveRecords = [];
-        readData(year)
-        .then(data => {
-            // console.log("data", data.length);
-            data.forEach(entry => {
-                let cveRecord = {};
-                
-                // CVE-2011-1234
-                // console.log("Entry", entry.cve["CVE_data_meta"].ID);
-                cveRecord.id = entry.cve["CVE_data_meta"].ID
-                cveRecord.year = entry.cve["CVE_data_meta"].ID.split('-')[1];
-                cveRecord.cwes = extractCwe(entry);
-                // CPE Configurations
-                cveRecord.cpes = extractCpes(entry);
-                
-                // CVE Impact
-                // console.log(entry.impact);
-                // CVE Impact cvss V2
-                cveRecord.severity = '';
-                cveRecord.impactScore = 0;
-                cveRecord.exploitabilityScore = 0;
+type CveRecord = {
+    id: String,
+    year: Integer,
+    cwes: Array<any>,
+    cpes: Array<any>,
+    severity: String,
+    impactScore: number,
+    exploitabilityScore: number,
+    baseScore: number,
 
-                cveRecord.baseScore = 0.0;
+};
+//Transform CVEs to Records
+const transformFeeds = async (year: string) => {
+    const transformsPromise = new Promise((resolve, reject) => {
+        const cveRecords: Array<CveRecord> = [];
+        readData(year)
+        .then((data: any) => {
+            // console.log("data", data.length);
+            data.forEach((entry: any) => {
+                const cveRecord: CveRecord = {
+                    id : entry.cve["CVE_data_meta"].ID,
+                    year: entry.cve["CVE_data_meta"].ID.split('-')[1],
+                    cwes: extractCwe(entry),
+                    cpes: extractCpes(entry),
+                    severity: '',
+                    impactScore: 0.0,
+                    exploitabilityScore: 0.0,
+                    baseScore: 0.0
+                }
+
                 if (entry.impact && Object.keys(entry.impact).length > 0 && entry.impact.baseMetricV2 &&Object.keys(entry.impact.baseMetricV2).length > 0 ) {
                     cveRecord.baseScore = entry.impact.baseMetricV2.cvssV2.baseScore;
                     cveRecord.severity = entry.impact.baseMetricV2.severity;
@@ -91,13 +100,13 @@ const transformFeeds = async (year) => {
     return transformsPromise;  
 };
 
-const histCVEs = async (year) => {
+const histCVEs = async (year: string) => {
     let res;
     try {
-        const cveRecords = await transformFeeds(year);
+        const cveRecords: any = await transformFeeds(year);
         const chunks = createChunk(cveRecords);
         console.log(`Records: ${cveRecords.length} for year: ${year}, Chunks: ${chunks.length}`);
-        res = await Promise.all(chunks.map(chunk => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
+        res = await Promise.all(chunks.map((chunk: any) => driver.session({database: envs.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
     } catch(err) {
         console.log(err);
     } finally {
@@ -107,16 +116,16 @@ const histCVEs = async (year) => {
 };
 
 
-const update = async () => {
-    let resModified;
-    let resRecent;
+export const update = async () => {
+    let resModified: any;
+    let resRecent: any;
     try {
-        const sessionM = await driver.session({database: process.env.NEO4J_DATABASE});
+        const sessionM = await driver.session({database: envs.NEO4J_DATABASE});
         const cveRecordsM = await transformFeeds(UPDATE_CVE_FEEDS_MODIFIED.idx);
         resModified = await sessionM.run(CREATE_CVE, { cypherList: cveRecordsM });
         await sessionM.close();
 
-        const sessionR = await driver.session({database: process.env.NEO4J_DATABASE});
+        const sessionR = await driver.session({database: envs.NEO4J_DATABASE});
         const cveRecordsR = await transformFeeds(UPDATE_CVE_FEEDS_RECENT.idx);
         resRecent = await sessionR.run(CREATE_CVE, { cypherList: cveRecordsR });
         await sessionR.close();
@@ -129,36 +138,29 @@ const update = async () => {
 };
 
 
-const seed = async () => {
+export const seed = async () => {
     // To-Do: Future-proof for 2022 and on-wards.
     // Avoid this for Neo connection acqusition timeouts;
     // await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
-    await histCVEs(2002);
-    await histCVEs(2003);
-    await histCVEs(2004);
-    await histCVEs(2005);
-    await histCVEs(2006);
-    await histCVEs(2007);
-    await histCVEs(2008);
-    await histCVEs(2009);
-    await histCVEs(2010);
-    await histCVEs(2011);
-    await histCVEs(2012);
-    await histCVEs(2013);
-    await histCVEs(2014);
-    await histCVEs(2015);
-    await histCVEs(2016);
-    await histCVEs(2017);
-    await histCVEs(2018);
-    await histCVEs(2019);
-    await histCVEs(2020);
-    await histCVEs(2021);
+    await histCVEs('2002');
+    await histCVEs('2003');
+    await histCVEs('2004');
+    await histCVEs('2005');
+    await histCVEs('2006');
+    await histCVEs('2007');
+    await histCVEs('2008');
+    await histCVEs('2009');
+    await histCVEs('2010');
+    await histCVEs('2011');
+    await histCVEs('2012');
+    await histCVEs('2013');
+    await histCVEs('2014');
+    await histCVEs('2015');
+    await histCVEs('2016');
+    await histCVEs('2017');
+    await histCVEs('2018');
+    await histCVEs('2019');
+    await histCVEs('2020');
+    await histCVEs('2021');
     await update();
-}
-
-
-module.exports = {
-    transformFeeds,
-    seed,
-    update
-}
+};
