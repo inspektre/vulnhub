@@ -17,8 +17,8 @@ jobs:
           package: ./package.json
           tag: "latest"
           check-version: true
-      - run: yarn install
-      - run: ./bin/run update
+      - run: yarn global add vulnhub
+      - run: vulnhub update
         env:
           NEO4J_DATABASE: ${{secrets.NEO4J_DATABASE}}
           NEO4J_URI: ${{secrets.NEO4J_URI}}
