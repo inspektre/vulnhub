@@ -1,4 +1,5 @@
-import {Command, flags} from '@oclif/command'
+import {Command, flags} from '@oclif/command';
+import cli from 'cli-ux';
 import { update } from '../utils/seed';
 import { deltaFeeds } from '../utils/feeds';
 
@@ -19,10 +20,11 @@ export default class Update extends Command {
   static args = [];
 
   async run() {
+    cli.action.start('CVE Feed Updates');
     const {args, flags} = this.parse(Update);
     deltaFeeds();
     await update();
-    this.log('Delta is completed');
+    cli.action.stop();
     this.exit(0);
   }
 }

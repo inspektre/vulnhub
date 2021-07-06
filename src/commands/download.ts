@@ -1,4 +1,5 @@
-import {Command, flags} from '@oclif/command'
+import {Command, flags} from '@oclif/command';
+import cli from 'cli-ux';
 import { getFeeds } from '../utils/feeds';
 
 export default class Download extends Command {
@@ -18,7 +19,9 @@ export default class Download extends Command {
   static args = [{ name: "123"}];
 
   async run() {
+    cli.action.start('NVD CVE Feeds');
     const {args, flags} = this.parse(Download);
     getFeeds();
+    cli.action.stop();
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "vulnhub",
+  "name": "@inspektre/vulnhub",
   "description": "NVD Knowledge Graph",
   "version": "0.1.3",
   "author": "Uday Korlimarla @udaykor",
@@ -62,7 +62,10 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "inspektre/vulnhub",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inspektre/inspektre.git"
+  },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",

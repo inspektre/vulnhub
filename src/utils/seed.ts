@@ -109,7 +109,6 @@ const histCVEs = async (year: string) => {
     } catch(err) {
         console.log(err);
     } finally {
-        console.log('Completed CVE entries for :', year)
         return res;
     }    
 };
@@ -131,7 +130,6 @@ export const update = async () => {
     } catch(err) {
         console.log(err);
     } finally {
-        console.log("finished updates");
         return { m: resModified.summary.resultAvailableAfter, r: resRecent.summary.resultAvailableAfter }
     }
 };

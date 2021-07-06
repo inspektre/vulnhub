@@ -47,7 +47,6 @@ var gunzipFile = function(source: string, destination: any, callback: any) {
 const cveFeedDownload = (entry: any) => {
   fetch(entry.uri)
   .then((res: any) => {
-    console.log(`Feed: ${entry.idx}, Location: ${entry.compressed}`);
     const fileStream = fs.createWriteStream(entry.compressed);
     res.body.pipe(fileStream);
     res.body.on("error", (err: any) => {
@@ -62,9 +61,6 @@ const cveFeedDownload = (entry: any) => {
         if(err) {
           console.error('error in compressed file', entry.compressed);
         }
-        else {
-          console.log(`nvdcve-1.1-${entry.idx} extracted`);
-        }
       });
 
     });
@@ -75,7 +71,6 @@ const cveFeedDownload = (entry: any) => {
 };
 
 export const deltaFeeds = () => {
-  console.log('Fetching NVD Delta');
   cveFeedDownload(UPDATE_CVE_FEEDS_RECENT);
   cveFeedDownload(UPDATE_CVE_FEEDS_MODIFIED);
 };
