@@ -5,7 +5,7 @@ import { BASE_DIR, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CV
 import { driver } from './driver'
 const dotenv = require('dotenv');
 
-const envs = dotenv.config();
+dotenv.config();
 const cweRex = /[0-9]{1,4}$/;
 const cveRex = /^CVE-[0-9]{1,4}-[0-9]{1,6}$/;
 
@@ -28,7 +28,6 @@ const readData = async (year: string) => {
 
 // Extract CWE IDs
 const extractCwe = (entry: { cve: { problemtype: { problemtype_data: { description: any[]; }[]; }; }; }) => {
-    console.log(entry)
     const cwes = new Array();
     entry.cve.problemtype.problemtype_data.forEach((problem: { description: any[]; }) => {
         problem.description.forEach(cwe => {
@@ -106,7 +105,7 @@ const histCVEs = async (year: string) => {
         const cveRecords: any = await transformFeeds(year);
         const chunks = createChunk(cveRecords);
         console.log(`Records: ${cveRecords.length} for year: ${year}, Chunks: ${chunks.length}`);
-        res = await Promise.all(chunks.map((chunk: any) => driver.session({database: envs.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
+        res = await Promise.all(chunks.map((chunk: any) => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
     } catch(err) {
         console.log(err);
     } finally {
@@ -120,19 +119,19 @@ export const update = async () => {
     let resModified: any;
     let resRecent: any;
     try {
-        const sessionM = await driver.session({database: envs.NEO4J_DATABASE});
+        const sessionM = await driver.session({database: process.env.NEO4J_DATABASE});
         const cveRecordsM = await transformFeeds(UPDATE_CVE_FEEDS_MODIFIED.idx);
         resModified = await sessionM.run(CREATE_CVE, { cypherList: cveRecordsM });
         await sessionM.close();
 
-        const sessionR = await driver.session({database: envs.NEO4J_DATABASE});
+        const sessionR = await driver.session({database: process.env.NEO4J_DATABASE});
         const cveRecordsR = await transformFeeds(UPDATE_CVE_FEEDS_RECENT.idx);
         resRecent = await sessionR.run(CREATE_CVE, { cypherList: cveRecordsR });
         await sessionR.close();
     } catch(err) {
         console.log(err);
     } finally {
-        console.log("finishing updates");
+        console.log("finished updates");
         return { m: resModified.summary.resultAvailableAfter, r: resRecent.summary.resultAvailableAfter }
     }
 };

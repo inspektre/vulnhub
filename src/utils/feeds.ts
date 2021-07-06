@@ -1,6 +1,6 @@
 import * as fs from'fs';
 import * as zlib from 'zlib';
-import { BASE_DIR, DOWNLOAD_FEEDS } from './constants';
+import { BASE_DIR, DOWNLOAD_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED } from './constants';
 
 const fetch = require('node-fetch');
 
@@ -69,6 +69,11 @@ const cveFeedDownload = (entry: any) => {
   });
 };
 
+export const deltaFeeds = () => {
+  console.log('Fetching NVD Delta');
+  cveFeedDownload(UPDATE_CVE_FEEDS_RECENT);
+  cveFeedDownload(UPDATE_CVE_FEEDS_MODIFIED);
+};
 
 export const getFeeds = () => {
   DOWNLOAD_FEEDS.forEach((entry: any) => {

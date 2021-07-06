@@ -52,7 +52,7 @@ export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
 export const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
 
 export const createChunk = (data: [any]) => {
-  const perChunk = 1500;
+  const perChunk = 600;
   return data.reduce((resultArray, item, index) => { 
     const chunkIndex = Math.floor(index/perChunk)
     if(!resultArray[chunkIndex]) {
