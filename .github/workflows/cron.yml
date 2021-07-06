@@ -2,7 +2,7 @@ name: vulnhub
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/5 * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -23,5 +23,6 @@ jobs:
           NEO4J_PASSWORD: ${{secrets.NEO4J_PASSWORD}}
         run: |
             export PATH="$(yarn global bin):$PATH"
-            yarn global add @inspektre/vulnhub
-            vulnhub update
+            yarn global add oclif oclif-dev
+            yarn install
+            ./bin/run update
