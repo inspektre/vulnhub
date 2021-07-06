@@ -25,15 +25,20 @@ var gunzipFile = function(source: string, destination: any, callback: any) {
     // extract the archive
     // const gzip = zlib.createGunzip();
 		src.pipe(zlib.createGunzip()).pipe(fs.createWriteStream(destination)).on('error', (err) => {
+      src.close();
+      dest.close();
       throw err;
     });
 		// callback on extract completion
 		dest.on('close', function() {
+      src.close();
+      dest.close();
 			if ( typeof callback === 'function' ) {
 				callback();
 			}
 		});
 	} catch (err) {
+    
 		console.error('error in checking feed');
 	}
 };
