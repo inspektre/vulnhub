@@ -2,7 +2,7 @@ name: update inspektre NVD feeds
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/10 * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
