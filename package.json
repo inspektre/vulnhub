@@ -1,7 +1,7 @@
 {
   "name": "@inspektre/vulnhub",
   "description": "NVD Knowledge Graph",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "author": "Uday Korlimarla @udaykor",
   "bin": {
     "vulnhub": "./bin/run"
@@ -11,6 +11,7 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
+    "cli-ux": "^5.6.2",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "neo4j-driver": "^4.3.1",
@@ -67,6 +68,7 @@
     "url": "git+https://github.com/inspektre/inspektre.git"
   },
   "scripts": {
+    "pack": "oclif-dev pack",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",

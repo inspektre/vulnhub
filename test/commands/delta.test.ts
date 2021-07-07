@@ -1,10 +1,10 @@
 import {expect, test} from '@oclif/test'
 
-describe('update', () => {
+describe('delta', () => {
   test
   .stdout()
-  .command(['update'])
-  .it('runs update', ctx => {
+  .command(['delta'])
+  .it('runs delta', ctx => {
     expect(ctx.stdout).to.contain('Delta is completed')
   })
 })
