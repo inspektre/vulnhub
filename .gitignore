@@ -10,3 +10,4 @@ yarn.lock
 /package-lock.json
 /tmp
 node_modules
+inspektre-vulnhub-v*.tgz
