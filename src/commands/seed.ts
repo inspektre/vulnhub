@@ -22,7 +22,7 @@ export default class Seed extends Command {
     seed()
     .then(() => {
       this.log('Seeding is complete');
-      this.exit(0);
+      process.exit(1);
     })
     .catch(err => this.error('Seeding failed, Please try later or check access to db'));
   }

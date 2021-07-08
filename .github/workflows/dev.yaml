@@ -1,4 +1,4 @@
-name: publish distribution
+name: dev-pack
 
 on:
   push:
