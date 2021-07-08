@@ -1,7 +1,7 @@
 import * as fs from'fs';
 import { Integer } from 'neo4j-driver';
 import * as path from'path';
-import { BASE_DIR, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
+import { BASE_DIR, CVE_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
 import { driver } from './driver'
 const dotenv = require('dotenv');
 
