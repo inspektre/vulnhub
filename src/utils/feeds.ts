@@ -18,7 +18,7 @@ const fileExists = (filePath: string) => {
     }
 };
 
-const gunzipFile = (source: string, destination: any, callback: any) => {
+const gunzipFile = (source: string, destination: string, callback: any) => {
 	// check if source file exists
 	if (!fileExists(source) ) {
 		throw new Error("File does not exist");
@@ -36,13 +36,13 @@ const gunzipFile = (source: string, destination: any, callback: any) => {
     dest.close();
     fs.unlinkSync(source);
 		// callback on extract completion
-		// dest.on('close', function() {
-    //   src.close();
-    //   dest.close();
-		// 	if ( typeof callback === 'function' ) {
-		// 		callback();
-		// 	}
-		// });
+		dest.on('close', function() {
+      src.close();
+      dest.close();
+			if ( typeof callback === 'function' ) {
+				callback();
+			}
+		});
 	} catch (err) {
 		console.error('error in extracting feed');
 	}
@@ -73,7 +73,6 @@ const cveFeedDownload = async (entry: any) => {
     });
   })
   .catch((err: any) => {
-    console.log(err);
     console.log(`Failed to get entry for feed: ${entry.idx}. Try downloading again`);
   });
 };
