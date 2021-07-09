@@ -1,13 +1,24 @@
 name: NVD CVE Update
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/30 * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: call inspektre API
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: install vulnhub
+        env:
+          NPM_CONFIG_PREFIX: "~/.npm-global"
         run: |
-          curl --request POST \
-          --url 'https://inspektre.io/api/cve/update' \
-          --header 'Authorization: Bearer ${{ secrets.CVE_UPDATE_KEY }}'
+          export PATH="$(yarn global bin):$PATH"
+          yarn global add @inspektre/vulnhub
+      - name: inspektre inspect
+        env:
+          NEO4J_DATABASE: ${{secrets.NEO4J_DATABASE}}
+          NEO4J_PASSWORD: ${{secrets.NEO4J_PASSWORD}}
+          NEO4J_URI: ${{secrets.NEO4J_URI}}
+          NEO4J_USER: ${{secrets.NEO4J_USER}}
+        run: |
+          ~/.npm-global/bin/vulnhub delta -e
