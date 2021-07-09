@@ -74,6 +74,9 @@ const cveFeedDownload = async (entry: any) => {
 };
 
 export const deltaFeeds = () => {
+  if(!fs.existsSync(BASE_DIR)){
+    fs.mkdirSync(BASE_DIR);
+  }
   cveFeedDownload(UPDATE_CVE_FEEDS_RECENT);
   cveFeedDownload(UPDATE_CVE_FEEDS_MODIFIED);
 };
