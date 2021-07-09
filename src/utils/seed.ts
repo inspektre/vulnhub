@@ -1,8 +1,8 @@
 import * as fs from'fs';
-import { Integer } from 'neo4j-driver';
 import * as path from'path';
-import { BASE_DIR, CVE_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
+import { BASE_DIR, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
 import { driver } from './driver'
+import cli from 'cli-ux';
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -53,7 +53,7 @@ const extractCpes = (entry: { configurations: { nodes: any[]; }; }) => {
 
 type CveRecord = {
     id: String,
-    year: Integer,
+    year: number,
     cwes: Array<any>,
     cpes: Array<any>,
     severity: String,
@@ -72,7 +72,7 @@ const transformFeeds = async (year: string) => {
             data.forEach((entry: any) => {
                 const cveRecord: CveRecord = {
                     id : entry.cve["CVE_data_meta"].ID,
-                    year: entry.cve["CVE_data_meta"].ID.split('-')[1],
+                    year: parseInt(entry.cve["CVE_data_meta"].ID.split('-')[1]),
                     cwes: extractCwe(entry),
                     cpes: extractCpes(entry),
                     severity: '',
@@ -82,10 +82,10 @@ const transformFeeds = async (year: string) => {
                 }
 
                 if (entry.impact && Object.keys(entry.impact).length > 0 && entry.impact.baseMetricV2 &&Object.keys(entry.impact.baseMetricV2).length > 0 ) {
-                    cveRecord.baseScore = entry.impact.baseMetricV2.cvssV2.baseScore;
+                    cveRecord.baseScore = parseFloat(entry.impact.baseMetricV2.cvssV2.baseScore);
                     cveRecord.severity = entry.impact.baseMetricV2.severity;
-                    cveRecord.impactScore = entry.impact.baseMetricV2.impactScore;
-                    cveRecord.exploitabilityScore = entry.impact.baseMetricV2.exploitabilityScore;
+                    cveRecord.impactScore = parseFloat(entry.impact.baseMetricV2.impactScore);
+                    cveRecord.exploitabilityScore = parseFloat(entry.impact.baseMetricV2.exploitabilityScore);
                 }
                 // Create CVE Record
                 cveRecords.push(cveRecord);
@@ -104,7 +104,7 @@ const histCVEs = async (year: string) => {
     try {
         const cveRecords: any = await transformFeeds(year);
         const chunks = createChunk(cveRecords);
-        console.log(`Records: ${cveRecords.length} for year: ${year}, Chunks: ${chunks.length}`);
+        console.log(`Records: ${cveRecords.length} for feed: ${year}, Chunks: ${chunks.length}`);
         res = await Promise.all(chunks.map((chunk: any) => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
     } catch(err) {
         console.log(err);
@@ -117,6 +117,7 @@ const histCVEs = async (year: string) => {
 export const update = async () => {
     let resModified: any;
     let resRecent: any;
+    cli.action.start('Update CVE Nodes');
     try {
         const sessionM = await driver.session({database: process.env.NEO4J_DATABASE});
         const cveRecordsM = await transformFeeds(UPDATE_CVE_FEEDS_MODIFIED.idx);
@@ -130,6 +131,7 @@ export const update = async () => {
     } catch(err) {
         console.log(err);
     } finally {
+        cli.action.stop();
         return { m: resModified.summary.resultAvailableAfter, r: resRecent.summary.resultAvailableAfter }
     }
 };
@@ -139,6 +141,7 @@ export const seed = async () => {
     // To-Do: Future-proof for 2022 and on-wards.
     // Avoid this for Neo connection acqusition timeouts;
     // await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
+    cli.action.start('Creating CVE Nodes');
     await histCVEs('2002');
     await histCVEs('2003');
     await histCVEs('2004');
@@ -159,5 +162,6 @@ export const seed = async () => {
     await histCVEs('2019');
     await histCVEs('2020');
     await histCVEs('2021');
+    cli.action.stop();
     await update();
 };

@@ -1,4 +1,4 @@
-name: publish SDK
+name: npm
 
 on:
   push:

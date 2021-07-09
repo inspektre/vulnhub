@@ -16,7 +16,7 @@ export default class Download extends Command {
   static args = [];
 
   async run() {
-    // const {args, flags} = this.parse(Download);
+    const {args, flags} = this.parse(Download);
     await getFeeds();
   }
 }
