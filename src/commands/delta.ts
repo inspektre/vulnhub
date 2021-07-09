@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command';
-import cli from 'cli-ux';
 import { update } from '../utils/seed';
 import { deltaFeeds } from '../utils/feeds';
+import { createIndices, createGraphs } from '../utils/cveHelpers';
 
 export default class Delta extends Command {
   static description = 'Seed NVD CVEs to Neo4J'
@@ -15,16 +15,31 @@ export default class Delta extends Command {
 
   static flags = {
     help: flags.help({char: 'h'}),
+    'ensure-index': flags.boolean({char: 'e'}),
+    'create-graphs': flags.boolean({ char: 'c'})
   };
 
   static args = [];
 
   async run() {
-    cli.action.start('CVE Feed Updates');
     const {args, flags} = this.parse(Delta);
     deltaFeeds();
     await update();
-    cli.action.stop();
+    if(flags['create-graphs'] && flags['ensure-index']) {
+      this.log('CVE node indices will be crated/checked.');
+      await createIndices();
+      this.log('CVE node graphs will be created/checked.');
+      await createGraphs();
+    }
+    else if(flags['ensure-index']) {
+      this.log('CVE node indices will be crated/checked.');
+      await createIndices();
+    }
+    else if(flags['create-graphs']) {
+      this.log('CVE node graphs will be created/checked.');
+      await createGraphs();
+    }
+    
     this.exit(0);
   }
 }

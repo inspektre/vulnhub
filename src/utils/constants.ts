@@ -34,7 +34,25 @@ x.push(UPDATE_CVE_FEEDS_MODIFIED);
 x.push(UPDATE_CVE_FEEDS_RECENT);
 export const DOWNLOAD_FEEDS = x;
 
+// CPEs are large text dictionaries as Array in a CVE
+// BTREE strategy won't work or is not benefitial for us.
+// `CREATE INDEX cve_cpe_index IF NOT EXISTS FOR (c:Cve) ON (c.cpes)`,
+// To-Do: Break down CPEs to individual arrays and index arrays - Array of Orgs, Array of Version, Array of Products
+export const CREATE_CVE_INDICES = [
+  `CREATE INDEX cve_id_index IF NOT EXISTS FOR (c:Cve) ON (c.id)`,
+  `CREATE INDEX cve_year_index IF NOT EXISTS FOR (c:Cve) ON (c.year)`,
+  `CREATE INDEX cve_cwe_index IF NOT EXISTS FOR (c:Cve) ON (c.cwes)`,
+  `CREATE INDEX cve_severity_index IF NOT EXISTS FOR (c:Cve) ON (c.severity)`,
+  `CREATE INDEX cve_impactscore_index IF NOT EXISTS FOR (c:Cve) ON (c.impactScore)`,
+  `CREATE INDEX cve_exploitability_score_index IF NOT EXISTS FOR (c:Cve) ON (c.exploitabilityScore)`,
+  `CREATE INDEX cve_base_score_index IF NOT EXISTS FOR (c:Cve) ON (c.baseScore)`,
+];
 
+const SEARCH_STMT = `MATCH (n:Cve)-->(n1:Cve) WHERE n.id CONTAINS "CVE-2021-22210" RETURN n.id, n1.id, n.exploitabilityScore,n1.exploitabilityScore`;
+const STMT = `MATCH (c1:Cve), (c2:Cve) WHERE c1.year=2017 AND c2.year=2021 AND NOT(c1.id=c2.id) AND NOT(c1.cwes=c2.cwes=[]) AND any(cwe in c1.cwes WHERE cwe in c2.cwes) MERGE (c1)-[:CWE]-(c2);`;
+const years = Array.from({length: new Date().getFullYear() - 2001}, (_, i) => 2001+i+1);
+// export const CREATE_CWE_RELATION = years.map(year => `MATCH (c1:Cve), (c2:Cve) WHERE c1.year=${year} AND NOT(c1.id=c2.id) AND c1.cwes AND c2.cwes AND single(cwe in c1.cwes WHERE c2.cwes CONTAINS cwe) MERGE (c1)-[:CWE]-(c2);`);
+export const CREATE_CWE_RELATION = years.map(year => `MATCH (c1:Cve), (c2:Cve) WHERE c1.year=${year} AND NOT(c1.id=c2.id) AND NOT(c1.cwes=[]) AND NOT(c2.cwes=[]) AND any(cwe in c1.cwes WHERE cwe in c2.cwes) MERGE (c1)-[:CWE]-(c2);`);
 
 export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   { 
@@ -51,8 +69,10 @@ export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
 
 export const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
 
+// Test chunk creation with a Really Large Integer
+// console.log(createChunk(Array.from({length: 100999999}, (x, i) => {a: i+1, b: i-1, c: "Hello World"})).length)
 export const createChunk = (data: [any]) => {
-  const perChunk = 600;
+  const perChunk = 700;
   return data.reduce((resultArray, item, index) => { 
     const chunkIndex = Math.floor(index/perChunk)
     if(!resultArray[chunkIndex]) {
@@ -61,8 +81,4 @@ export const createChunk = (data: [any]) => {
     resultArray[chunkIndex].push(item)
     return resultArray
   }, []);
-}
-
-// Test chunk creation with a Really Large Integer
-// console.log(createChunk(Array.from({length: 100999999}, (x, i) => {a: i+1, b: i-1, c: "Hello World"})).length)
-
+};
