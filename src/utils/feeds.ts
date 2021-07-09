@@ -75,7 +75,7 @@ const cveFeedDownload = async (entry: any) => {
 
 export const deltaFeeds = () => {
   if(!fs.existsSync(BASE_DIR)){
-    fs.mkdirSync(BASE_DIR);
+    fs.mkdirSync(BASE_DIR, { recursive: true });
   }
   cveFeedDownload(UPDATE_CVE_FEEDS_RECENT);
   cveFeedDownload(UPDATE_CVE_FEEDS_MODIFIED);
@@ -83,7 +83,7 @@ export const deltaFeeds = () => {
 
 export const getFeeds = async () => {
   if(!fs.existsSync(BASE_DIR)){
-    fs.mkdirSync(BASE_DIR);
+    fs.mkdirSync(BASE_DIR, { recursive: true });
   }
   for await (const entry of DOWNLOAD_FEEDS) {
     cveFeedDownload(entry);
