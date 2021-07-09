@@ -1,0 +1,13 @@
+name: NVD CVE Update
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: call inspektre API
+        run: |
+          curl --request POST \
+          --url 'https://inspektre.io/api/cve/update' \
+          --header 'Authorization: Bearer ${{ secrets.CVE_UPDATE_KEY }}'
