@@ -16,8 +16,8 @@ jobs:
           package: ./package.json
           tag: "latest"
           check-version: true
-      env:
-        WORK_DIR: $GITHUB_WORKSPACE/feeds/cve
+        env:
+          WORK_DIR: $GITHUB_WORKSPACE/feeds/cve
       - run: yarn global add oclif @oclif/dev-cli
       - run: yarn install
       - run: yarn prepack
