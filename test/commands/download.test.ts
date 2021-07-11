@@ -5,6 +5,6 @@ describe('download', () => {
   .stdout()
   .command(['download'])
   .it('runs download', ctx => {
-    expect(ctx.stdout).to.contain('Feed')
+    expect(ctx.stdout).to.contain('Downloading Feeds to:')
   })
 })
