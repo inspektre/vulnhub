@@ -2,7 +2,7 @@ name: dev-pack
 
 on:
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
   dev-test:
