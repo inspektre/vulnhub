@@ -1,6 +1,6 @@
 import * as fs from'fs';
 import * as path from'path';
-import { BASE_DIR, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED, CREATE_CVE, createChunk } from'./constants';
+import { BASE_DIR, CREATE_CVE, createChunk } from'./constants';
 import { driver } from './driver'
 import cli from 'cli-ux';
 const dotenv = require('dotenv');
@@ -107,7 +107,7 @@ const recordCveFeed = async (idx: string) => {
         console.log(`Records: ${cveRecords.length} for feed: ${idx}, Chunks: ${chunks.length}`);
         res = await Promise.all(chunks.map((chunk: any) => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
     } catch(err) {
-        console.log(err);
+        console.log('File does not exist.');
     } finally {
         return res;
     }    

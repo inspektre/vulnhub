@@ -14,21 +14,6 @@
 
  ```(:Attacks)->[:THINK]-(:Graphs)-[:SHOULD_THINK]<-(:Defenders)```
 
-# Known Isssues
-
-When `vulnhub download` command is run, there are two issues identified.NVD 1.1 JSON compressed feeds are downloaded from NIST's NVD (gzip).As each compressed file is downloaded, JSON file is extracted.
-- Sometimes, a download may error out with invalid headers check
-```
-Error: incorrect header check
-    at Zlib.zlibOnError [as onerror] (zlib.js:188:17)
-```
-- Sometimes, NIST downloads timeout, especially when CVE Feeds are repeatedly downloaded.
-
-Until a stable fix can be put in, we have the following recommendations:
-1. `vulnhub download` needs to be complete only once successfully. Please retry 3-4 times until you succeed. Do not manually download the CVE Feeds. It is okay to do so, but that defeats the purpose of providing `vulnhub download`.
-2. `vulnhub seed` needs to be run only once on a database when `vulnhub download succeeds`.
-3. `vulnhub delta` needs to be run when both `vulnhub download` & `vulnhub seed` succeed. Ideal setup is a cronjob to run once every 20 mins.
-
 
 NVD CVEs in under 60 seconds.
 
@@ -39,14 +24,23 @@ Please visit  MITRE at https://cve.mitre.org/ to read more about what CVEs are. 
 - Common vulnerabilities & Exposures (CVEs) is a list of publicly disclosed computer/software/hardware security flaws, including security advisories from vendors. 
 - The format is CVE-YYYY-XXXXX and can be interpereted as a sequence in a given year starting from 2002.
 
+## Installation
+
+To install `vulnhub` as CLI, Please ensure to use either `npm` or `yarn` package managers.
+- `yarn`: `yarn global add @inspektre/vulnhub`.
+- `npm`: `npm i -g @inspektre/vulnhub`
+
+## Getting Started
+
+To get started, visit the wiki section.
+
 
 ## Prerequsities
 1. Nodejs v14+
 2. Yarn or npm to install JavaScript dependencies.
 3. Neo4J Database!
 
-## Getting Started
-
+## Development mode
 - To install dependencies, type `yarn run`.
 - To run GraphQL Server, type `yarn start`.
 - To seed database with CVEs, type `yarn seed`.
@@ -58,6 +52,7 @@ NEO4J_URI=bolt+s://<IP/FQDN>:7687
 NEO4J_USER=<username>
 NEO4J_PASSWORD=<pwd>
 NEO4J_DATABASE=nvd
+BASE_DIR=/home/vulnhub/feeds/cve
 ```
 
 # Why Neo4J
