@@ -37,6 +37,7 @@ export default class Seed extends Command {
 
   async run() {
     const {args, flags} = this.parse(Seed);
+    await seed();
     if(flags['create-graphs'] && flags['ensure-index']) {
       this.log('CVE node indices will be crated/checked.');
       await createIndices();
@@ -51,11 +52,6 @@ export default class Seed extends Command {
       this.log('CVE node graphs will be created/checked.');
       await createGraphs();
     }
-    seed()
-    .then(() => {
-      this.log('Seeding is complete');
-      process.exit(1);
-    })
-    .catch(err => this.error('Seeding failed, Please try later or check access to db'));
+    this.exit(0);
   }
 }
