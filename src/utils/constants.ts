@@ -1,6 +1,13 @@
 import { homedir } from 'os';
+const dotenv = require('dotenv');
 
-export const BASE_DIR = `${homedir()}/.config/inspektre/feeds/cve`;
+dotenv.config();
+export const BASE_DIR = process.env.BASE_DIR ? process.env.BASE_DIR: `${homedir()}/.config/inspektre/feeds/cve`;
+
+const idxs = Array.from({length: new Date().getFullYear() - 2001}, (_, i) => (2001+i+1).toString());
+idxs.push('modified');
+idxs.push('recent');
+export const IDXS = idxs;
 
 // All retrospective CVEs
 export const CVE_FEEDS = Array.from({length: new Date().getFullYear() - 2001}, (_, i) => {
@@ -48,8 +55,7 @@ export const CREATE_CVE_INDICES = [
   `CREATE INDEX cve_base_score_index IF NOT EXISTS FOR (c:Cve) ON (c.baseScore)`,
 ];
 
-const SEARCH_STMT = `MATCH (n:Cve)-->(n1:Cve) WHERE n.id CONTAINS "CVE-2021-22210" RETURN n.id, n1.id, n.exploitabilityScore,n1.exploitabilityScore`;
-const STMT = `MATCH (c1:Cve), (c2:Cve) WHERE c1.year=2017 AND c2.year=2021 AND NOT(c1.id=c2.id) AND NOT(c1.cwes=c2.cwes=[]) AND any(cwe in c1.cwes WHERE cwe in c2.cwes) MERGE (c1)-[:CWE]-(c2);`;
+
 const years = Array.from({length: new Date().getFullYear() - 2001}, (_, i) => 2001+i+1);
 // export const CREATE_CWE_RELATION = years.map(year => `MATCH (c1:Cve), (c2:Cve) WHERE c1.year=${year} AND NOT(c1.id=c2.id) AND c1.cwes AND c2.cwes AND single(cwe in c1.cwes WHERE c2.cwes CONTAINS cwe) MERGE (c1)-[:CWE]-(c2);`);
 export const CREATE_CWE_RELATION = years.map(year => `MATCH (c1:Cve), (c2:Cve) WHERE c1.year=${year} AND NOT(c1.id=c2.id) AND NOT(c1.cwes=[]) AND NOT(c2.cwes=[]) AND any(cwe in c1.cwes WHERE cwe in c2.cwes) MERGE (c1)-[:CWE]-(c2);`);
