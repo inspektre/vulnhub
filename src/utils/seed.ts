@@ -99,12 +99,12 @@ const transformFeeds = async (year: string) => {
     return transformsPromise;  
 };
 
-const histCVEs = async (year: string) => {
+const recordCveFeed = async (idx: string) => {
     let res;
     try {
-        const cveRecords: any = await transformFeeds(year);
+        const cveRecords: any = await transformFeeds(idx);
         const chunks = createChunk(cveRecords);
-        console.log(`Records: ${cveRecords.length} for feed: ${year}, Chunks: ${chunks.length}`);
+        console.log(`Records: ${cveRecords.length} for feed: ${idx}, Chunks: ${chunks.length}`);
         res = await Promise.all(chunks.map((chunk: any) => driver.session({database: process.env.NEO4J_DATABASE}).run(CREATE_CVE, { cypherList: chunk })));
     } catch(err) {
         console.log(err);
@@ -114,54 +114,29 @@ const histCVEs = async (year: string) => {
 };
 
 
-export const update = async () => {
-    let resModified: any;
-    let resRecent: any;
-    cli.action.start('Update CVE Nodes');
-    try {
-        const sessionM = await driver.session({database: process.env.NEO4J_DATABASE});
-        const cveRecordsM = await transformFeeds(UPDATE_CVE_FEEDS_MODIFIED.idx);
-        resModified = await sessionM.run(CREATE_CVE, { cypherList: cveRecordsM });
-        await sessionM.close();
-
-        const sessionR = await driver.session({database: process.env.NEO4J_DATABASE});
-        const cveRecordsR = await transformFeeds(UPDATE_CVE_FEEDS_RECENT.idx);
-        resRecent = await sessionR.run(CREATE_CVE, { cypherList: cveRecordsR });
-        await sessionR.close();
-    } catch(err) {
-        console.log(err);
-    } finally {
-        cli.action.stop();
-        return { m: resModified.summary.resultAvailableAfter, r: resRecent.summary.resultAvailableAfter }
-    }
-};
-
-
 export const seed = async () => {
-    // To-Do: Future-proof for 2022 and on-wards.
-    // Avoid this for Neo connection acqusition timeouts;
-    // await Promise.all(CVE_FEEDS.map(feed => histCVEs(feed.idx)));
-    cli.action.start('Creating CVE Nodes');
-    await histCVEs('2002');
-    await histCVEs('2003');
-    await histCVEs('2004');
-    await histCVEs('2005');
-    await histCVEs('2006');
-    await histCVEs('2007');
-    await histCVEs('2008');
-    await histCVEs('2009');
-    await histCVEs('2010');
-    await histCVEs('2011');
-    await histCVEs('2012');
-    await histCVEs('2013');
-    await histCVEs('2014');
-    await histCVEs('2015');
-    await histCVEs('2016');
-    await histCVEs('2017');
-    await histCVEs('2018');
-    await histCVEs('2019');
-    await histCVEs('2020');
-    await histCVEs('2021');
+    cli.action.start(`Seeding from: ${BASE_DIR}`);
+    await recordCveFeed('2002');
+    await recordCveFeed('2003');
+    await recordCveFeed('2004');
+    await recordCveFeed('2005');
+    await recordCveFeed('2006');
+    await recordCveFeed('2007');
+    await recordCveFeed('2008');
+    await recordCveFeed('2009');
+    await recordCveFeed('2010');
+    await recordCveFeed('2011');
+    await recordCveFeed('2012');
+    await recordCveFeed('2013');
+    await recordCveFeed('2014');
+    await recordCveFeed('2015');
+    await recordCveFeed('2016');
+    await recordCveFeed('2017');
+    await recordCveFeed('2018');
+    await recordCveFeed('2019');
+    await recordCveFeed('2020');
+    await recordCveFeed('2021');
+    await recordCveFeed('modified');
+    await recordCveFeed('recent');
     cli.action.stop();
-    await update();
 };

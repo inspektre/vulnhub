@@ -1,6 +1,6 @@
+import cli from 'cli-ux';
 import * as fs from'fs';
-import * as zlib from 'zlib';
-import { BASE_DIR, DOWNLOAD_FEEDS, UPDATE_CVE_FEEDS_RECENT, UPDATE_CVE_FEEDS_MODIFIED } from './constants';
+import { BASE_DIR, DOWNLOAD_FEEDS } from './constants';
 const fetch = require('node-fetch');
 
 type Entry = {
@@ -9,83 +9,42 @@ type Entry = {
   compressed: string,
   json: string,
 };
-// checks whether a file exists
-const fileExists = (filePath: string) => {
-    try {
-        return fs.statSync(filePath).isFile();
-    } catch (err) {
-        return false;
-    }
-};
 
-const gunzipFile = (source: string, destination: string, callback: any) => {
-	// check if source file exists
-	if (!fileExists(source) ) {
-		throw new Error("File does not exist");
-	}
-	try {
-		// prepare streams
-		var src = fs.createReadStream(source);
-		var dest = fs.createWriteStream(destination);
-    // extract the archive
-		src.pipe(zlib.createGunzip()).pipe(dest).on('error', (err) => {
-      src.close();
-      dest.close();
-      throw err;
-    }).on('close', function() {
-      src.close();
-      dest.close();
-			if ( typeof callback === 'function' ) {
-				callback();
-			}
-		});
-	} catch (err) {
-		console.error('error in extracting feed');
-	}
-};
 
-const cveFeedDownload = async (entry: any) => {
-  fetch(entry.uri)
-  .then((res: any) => {
-    const fileStream = fs.createWriteStream(entry.compressed);
-    res.body.pipe(fileStream);
-    res.body.on("error", (err: any) => {
-        fileStream.close();
-    });
-    fileStream.on("error", () => {
-      console.log("Error in saving download for: ", entry.idx);
-    })
-    fileStream.on("finish", () => {
-      fileStream.close();
-      gunzipFile(entry.compressed, entry.json,  (err: any, res: any) => {
-        if(err) {
-          console.error('error in compressed file', entry.compressed);
-        }
-        else {
-          console.log(`Feed: ${entry.idx} saved`)
-        }
+const cveFeedDownload = async (entry: Entry) => {
+  return new Promise((resolve, reject) => {
+    const options = {
+      times: 5,
+      initialDelay: 100,
+      retryDelay: 100
+    };
+    fetch(entry.uri, options)
+    .then((res: any) => {
+      const fileStream = fs.createWriteStream(entry.compressed);
+      res.body.pipe(fileStream);
+      res.body.on("error", (err: any) => {
+          fileStream.close();
       });
-
+      fileStream.on("error", () => {
+        console.log("Error in saving download for: ", entry.idx);
+      })
+      fileStream.on("finish", () => {
+        fileStream.close();
+        resolve({});
+      });
+    })
+    .catch((err: any) => {
+      reject(err);
     });
   })
-  .catch((err: any) => {
-    console.log(`Failed to get entry for feed: ${entry.idx}. Try downloading again`);
-  });
 };
 
-export const deltaFeeds = () => {
-  if(!fs.existsSync(BASE_DIR)){
-    fs.mkdirSync(BASE_DIR, { recursive: true });
-  }
-  cveFeedDownload(UPDATE_CVE_FEEDS_RECENT);
-  cveFeedDownload(UPDATE_CVE_FEEDS_MODIFIED);
-};
 
 export const getFeeds = async () => {
   if(!fs.existsSync(BASE_DIR)){
     fs.mkdirSync(BASE_DIR, { recursive: true });
   }
-  for await (const entry of DOWNLOAD_FEEDS) {
-    cveFeedDownload(entry);
-  };
+  cli.action.start(`Downloading Feeds to: ${BASE_DIR}`);
+  await Promise.all(DOWNLOAD_FEEDS.map(entry => cveFeedDownload(entry)));
+  cli.action.stop();
 };
