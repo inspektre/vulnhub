@@ -14,11 +14,12 @@ jobs:
         run: |
           export PATH="$(yarn global bin):$PATH"
           yarn global add @inspektre/vulnhub
-      - name: inspektre inspect
+      - name: vulnhub
         env:
           NEO4J_DATABASE: ${{secrets.NEO4J_DATABASE}}
           NEO4J_PASSWORD: ${{secrets.NEO4J_PASSWORD}}
           NEO4J_URI: ${{secrets.NEO4J_URI}}
           NEO4J_USER: ${{secrets.NEO4J_USER}}
         run: |
+          ~/.npm-global/bin/vulnhub download
           ~/.npm-global/bin/vulnhub delta -e
