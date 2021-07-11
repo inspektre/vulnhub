@@ -20,6 +20,9 @@ jobs:
           NEO4J_PASSWORD: ${{secrets.NEO4J_PASSWORD}}
           NEO4J_URI: ${{secrets.NEO4J_URI}}
           NEO4J_USER: ${{secrets.NEO4J_USER}}
+          WORK_DIR: $GITHUB_WORKSPACE/feeds/cve
         run: |
+          mkdir -p $GITHUB_WORKSPACE/feeds/cve
           ~/.npm-global/bin/vulnhub download
-          ~/.npm-global/bin/vulnhub delta -e
+          ~/.npm-global/bin/vulnhub extract
+          ~/.npm-global/bin/vulnhub seed -e
