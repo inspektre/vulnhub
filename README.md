@@ -14,6 +14,11 @@
 
  ```(:Attacks)->[:THINK]-(:Graphs)-[:SHOULD_THINK]<-(:Defenders)```
 
+## To-Do
+
+- Add CPEs to the seeding process.
+- @neo4j/graphql@2.0.0-alpha offers relationships in the beta library where connections to nodes can be made easily. This feature is soon to be realized with CPEs and CVEs
+
 
 NVD CVEs in under 60 seconds.
 
