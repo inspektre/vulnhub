@@ -1,12 +1,15 @@
-import { ApolloServer }from "apollo-server";
+import { ApolloServer }from "apollo-server-express";
 import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from "apollo-server-core";
 import{ Neo4jGraphQL } from "@neo4j/graphql";
 const dotenv = require('dotenv');
 import { driver } from './driver';
 const typeDefs = require("./schema");
 import { resolvers } from '../utils/resolvers';
+import * as express from 'express';
 
 dotenv.config();
+
+export const app: any = express();
 
 // For Authenticated clients, Checked authN & authZ with config section
 // config: {
@@ -41,4 +44,8 @@ export const server = new ApolloServer({
   },
 });
 
-export const port = process.env.PORT || 4000;
+
+module.exports = {
+  app,
+  server
+}
