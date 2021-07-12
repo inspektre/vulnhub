@@ -12,4 +12,5 @@ if(!(uri.startsWith('neo4j+s') || uri.startsWith('bolt+s'))) {
   process.exit(-1);
 };
 
+// Basic auth is username/password. For production use, consider using LDAPS.
 export const driver: typeof neo4j.Driver = neo4j.driver(uri, neo4j.auth.basic(process.env.NEO4J_USER!, process.env.NEO4J_PASSWORD!));

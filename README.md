@@ -14,6 +14,11 @@
 
  ```(:Attacks)->[:THINK]-(:Graphs)-[:SHOULD_THINK]<-(:Defenders)```
 
+## To-Do
+
+- Add CPEs to the seeding process.
+- @neo4j/graphql@2.0.0-alpha offers relationships in the beta library where connections to nodes can be made easily. This feature is soon to be realized with CPEs and CVEs
+
 
 NVD CVEs in under 60 seconds.
 
@@ -23,6 +28,7 @@ Please visit  MITRE at https://cve.mitre.org/ to read more about what CVEs are. 
 
 - Common vulnerabilities & Exposures (CVEs) is a list of publicly disclosed computer/software/hardware security flaws, including security advisories from vendors. 
 - The format is CVE-YYYY-XXXXX and can be interpereted as a sequence in a given year starting from 2002.
+
 
 ## Installation
 
@@ -34,6 +40,13 @@ To install `vulnhub` as CLI, Please ensure to use either `npm` or `yarn` package
 
 To get started, visit the wiki section.
 
+## Apollo Studio
+
+To start the GraphQl server, type: 
+- In Production mode: `vulnhub serve`
+- In Development mode: `./bin/run serve`
+
+![Apollo Studio - Chrome Recent High](screenshots/1-chrome.png)
 
 ## Prerequsities
 1. Nodejs v14+
