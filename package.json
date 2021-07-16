@@ -66,8 +66,14 @@
     "commands": "./lib/commands",
     "bin": "vulnhub",
     "plugins": [
-      "@oclif/plugin-help"
-    ]
+      "@oclif/plugin-help",
+      "@oclif/plugin-update"
+    ],
+    "update": {
+      "s3": {
+        "host": "inspektre-updates.s3.ap-southeast-2.amazonaws.com"
+      }
+    }
   },
   "repository": {
     "type": "git",
