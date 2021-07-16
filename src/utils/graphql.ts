@@ -1,12 +1,12 @@
 import { ApolloServer }from "apollo-server-express";
 import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from "apollo-server-core";
 import{ Neo4jGraphQL } from "@neo4j/graphql";
-const dotenv = require('dotenv');
 import { driver } from './driver';
-const typeDefs = require("./schema");
+import { typeDefs } from "./schema";
 import { resolvers } from '../utils/resolvers';
 import * as express from 'express';
 
+const dotenv = require('dotenv');
 dotenv.config();
 
 export const app: any = express();
