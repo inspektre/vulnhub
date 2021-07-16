@@ -21,8 +21,6 @@ const Cve = gql`
   }
 `;
 
-const typeDefs = [
+export const typeDefs = [
   Cve
 ];
-
-module.exports = typeDefs;

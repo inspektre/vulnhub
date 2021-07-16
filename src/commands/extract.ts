@@ -17,6 +17,6 @@ export default class Extract extends Command {
 
   async run() {
     const {args, flags} = this.parse(Extract);
-    extractFeeds();
+    await extractFeeds();
   }
 }
