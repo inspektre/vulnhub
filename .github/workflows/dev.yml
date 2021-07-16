@@ -1,8 +1,8 @@
-name: dev-pack
+name: updates
 
 on:
   pull_request:
-    branches: [dev]
+    branches: [main]
 
 jobs:
   dev-test:
@@ -17,10 +17,10 @@ jobs:
           tag: "latest"
           check-version: true
         env:
-          WORK_DIR: $GITHUB_WORKSPACE/feeds/cve
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
       - run: yarn global add oclif @oclif/dev-cli
       - run: yarn install
       - run: yarn prepack
       - run: yarn pack
-      - run: ./bin/run download
-      - run: ./bin/run extract
+      - run: yarn publish-updates
