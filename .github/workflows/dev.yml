@@ -1,26 +1,28 @@
-name: dev-pack
+name: updates
 
 on:
   pull_request:
-    branches: [dev]
+    branches: [main]
 
 jobs:
   dev-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
           package: ./package.json
           tag: "latest"
           check-version: true
+      - name: publish-updates
         env:
-          WORK_DIR: $GITHUB_WORKSPACE/feeds/cve
-      - run: yarn global add oclif @oclif/dev-cli
-      - run: yarn install
-      - run: yarn prepack
-      - run: yarn pack
-      - run: ./bin/run download
-      - run: ./bin/run extract
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        run: |
+          yarn global add oclif @oclif/dev-cli
+          yarn install
+          yarn oclif-dev pack && yarn oclif-dev publish
