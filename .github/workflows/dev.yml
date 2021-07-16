@@ -21,6 +21,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
       - run: yarn global add oclif @oclif/dev-cli
       - run: yarn install
-      - run: yarn prepack
-      - run: yarn pack
-      - run: yarn publish-updates
+      - run: yarn oclif-dev pack && yarn oclif-dev publish
