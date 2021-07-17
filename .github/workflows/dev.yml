@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
             name: vulnhub-tarballs
-            path: ./dist/tarballs/vulnhub/
+            path: ./dist/tarballs/vulnhub/vulnhub-v*/*.tar.gz
