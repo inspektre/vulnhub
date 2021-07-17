@@ -18,7 +18,7 @@ jobs:
           package: ./package.json
           tag: "latest"
           check-version: true
-      - name: publish-updates
+      - name: publish-remote-updates
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
@@ -26,7 +26,8 @@ jobs:
           yarn global add oclif @oclif/dev-cli
           yarn install
           yarn oclif-dev pack && yarn oclif-dev publish
+      - name: publish-github-releases
         uses: actions/upload-artifact@v2
-          with:
+        with:
             name: vulnhub-tarballs
             path: ./dist/tarballs/vulnhub/
