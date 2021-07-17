@@ -25,4 +25,4 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/feeds/cve
           ~/.npm-global/bin/vulnhub download
           ~/.npm-global/bin/vulnhub extract
-          ~/.npm-global/bin/vulnhub seed -e
+          ~/.npm-global/bin/vulnhub seed
