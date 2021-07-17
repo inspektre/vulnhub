@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  dev-test:
+  vulnhub-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
