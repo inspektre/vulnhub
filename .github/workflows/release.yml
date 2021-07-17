@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install-dependencies
-        run: sudo apt-get install -y nsis
+        run: sudo apt update && sudo apt install nsis
       - name: Checkout
         uses: actions/checkout@v2
       - name: setup node
