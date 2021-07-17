@@ -8,6 +8,8 @@ jobs:
   vulnhub-release:
     runs-on: ubuntu-latest
     steps:
+      - name: install-dependencies
+        run: apt-get install -y nsis
       - name: Checkout
         uses: actions/checkout@v2
       - name: setup node
