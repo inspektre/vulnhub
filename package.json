@@ -1,7 +1,7 @@
 {
   "name": "@inspektre/vulnhub",
   "description": "NVD Knowledge Graph",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "author": "Uday Korlimarla @udaykor",
   "bin": {
     "vulnhub": "./bin/run"
@@ -24,7 +24,8 @@
     "graphql": "^15.5.1",
     "neo4j-driver": "^4.3.1",
     "node-fetch": "^2.6.1",
-    "tslib": "^1"
+    "tslib": "^1",
+    "yauzl": "^2.10.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
