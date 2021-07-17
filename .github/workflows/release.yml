@@ -28,5 +28,3 @@ jobs:
           yarn global add oclif @oclif/dev-cli
           yarn install
           yarn oclif-dev pack && yarn oclif-dev publish
-          yarn win
-          yarn deb
