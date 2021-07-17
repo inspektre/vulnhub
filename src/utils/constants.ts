@@ -14,8 +14,8 @@ export const CVE_FEEDS = Array.from({length: new Date().getFullYear() - 2001}, (
   const idx = 2001+i+1;
   return { 
     idx: idx.toString(),
-    uri : `https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-${idx}.json.gz`,
-    compressed: `${BASE_DIR}/nvdcve-1.1-${idx}.json.gz`,
+    uri : `https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-${idx}.json.zip`,
+    compressed: `${BASE_DIR}/nvdcve-1.1-${idx}.json.zip`,
     json: `${BASE_DIR}/nvdcve-1.1-${idx}.json`
   }
 });
@@ -23,16 +23,16 @@ export const CVE_FEEDS = Array.from({length: new Date().getFullYear() - 2001}, (
 // Modified CVEs
 export const UPDATE_CVE_FEEDS_MODIFIED = { 
   idx: 'modified',
-  uri: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-modified.json.gz',
-  compressed: `${BASE_DIR}/nvdcve-1.1-modified.json.gz`,
+  uri: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-modified.json.zip',
+  compressed: `${BASE_DIR}/nvdcve-1.1-modified.json.zip`,
   json: `${BASE_DIR}/nvdcve-1.1-modified.json`
 };
 
 // Latest Releases of CVEs
 export const UPDATE_CVE_FEEDS_RECENT = { 
   idx: 'recent', 
-  uri: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-recent.json.gz',
-  compressed: `${BASE_DIR}/nvdcve-1.1-recent.json.gz`,
+  uri: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-recent.json.zip',
+  compressed: `${BASE_DIR}/nvdcve-1.1-recent.json.zip`,
   json: `${BASE_DIR}/nvdcve-1.1-recent.json`
 };
 
