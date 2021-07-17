@@ -29,5 +29,4 @@ jobs:
           yarn install
           yarn oclif-dev pack && yarn oclif-dev publish
           yarn win
-          yarn macos
           yarn deb
