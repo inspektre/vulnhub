@@ -1,9 +1,10 @@
 import cli from 'cli-ux';
 import { CREATE_CVE_INDICES, CREATE_CWE_RELATION, BASE_DIR, IDXS  } from'./constants';
 import { driver } from './driver';
-const dotenv = require('dotenv');
 import * as fs from'fs';
-import * as zlib from 'zlib';
+
+const yauzl = require('yauzl');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -25,24 +26,33 @@ export const createGraphs = async () => {
 };
 
 const extractFeed = async (feed: string) => {
-  return new Promise((resolve, reject) => {
-    const cFile = `${BASE_DIR}/nvdcve-1.1-${feed}.json.gz`;
-    const jFile = `${BASE_DIR}/nvdcve-1.1-${feed}.json`;
-    fs.readFile(cFile, function(err, cdata) {
-      if(!err && cdata) {
-        zlib.gunzip(cdata, function(err, data){
-          if(!err && data) {
-            fs.writeFileSync(jFile, data.toString());
-            resolve({});
+  return await new Promise((resolve, reject) => {
+    const src = `${BASE_DIR}/nvdcve-1.1-${feed}.json.zip`;
+    const dest =`${BASE_DIR}/nvdcve-1.1-${feed}.json`;
+
+    yauzl.open(src, {lazyEntries: true}, (err: any, zipfile: { readEntry: () => void; on: (arg0: string, arg1: (entry: any) => void) => void; openReadStream: (arg0: any, arg1: (err: any, readStream: any) => void) => void; }) => {  
+      // if (err) reject(err);
+      try {
+        zipfile.readEntry()
+        zipfile?.on("entry", function(entry: any) {
+          // console.log(entry.fileName);
+          if (entry.fileName === `nvdcve-1.1-${feed}.json`) {
+            zipfile.openReadStream(entry, function(err: any, readStream: any) {
+              readStream.pipe(fs.createWriteStream(dest));
+              resolve({})
+            });
           }
-          if(err) {
-            reject(err);
-          }
-        })
+          resolve({} as any);
+        });
+        
+      } catch (err) {
+        // reject({message: 'Error in decompressing'} as any);
       }
     });
+
   });
-}
+};
+
 
 
 export const extractFeeds = async () => {

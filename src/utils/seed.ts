@@ -24,8 +24,6 @@ const readData = async (year: string) => {
 };
 
 
-
-
 // Extract CWE IDs
 const extractCwe = (entry: { cve: { problemtype: { problemtype_data: { description: any[]; }[]; }; }; }) => {
     const cwes = new Array();

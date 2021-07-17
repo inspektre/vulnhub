@@ -1,4 +1,4 @@
-name: updates
+name: vulnhub-release
 
 on:
   pull_request:
@@ -26,3 +26,7 @@ jobs:
           yarn global add oclif @oclif/dev-cli
           yarn install
           yarn oclif-dev pack && yarn oclif-dev publish
+        uses: actions/upload-artifact@v2
+          with:
+            name: vulnhub-tarballs
+            path: ./dist/tarballs/vulnhub/
