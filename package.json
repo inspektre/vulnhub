@@ -1,7 +1,7 @@
 {
   "name": "@inspektre/vulnhub",
   "description": "NVD Knowledge Graph",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "author": "Uday Korlimarla @udaykor",
   "bin": {
     "vulnhub": "./bin/run"
@@ -70,7 +70,7 @@
     "commands": "./lib/commands",
     "bin": "vulnhub",
     "macos": {
-      "config": ""
+      "identifier": "com.inspektre.vulnhub"
     },
     "plugins": [
       "@oclif/plugin-help",
@@ -80,7 +80,7 @@
     ],
     "update": {
       "s3": {
-        "bucket": "inspektre-updates",
+        "bucket": "cli-inspektre",
         "templates": {
           "target": {
             "unversioned": "tarballs/<%- bin %>/<%- channel === 'stable' ? '' : 'channels/' + channel + '/' %><%- bin %>-<%- platform %>-<%- arch %><%- ext %>",
@@ -102,9 +102,12 @@
   },
   "scripts": {
     "pack": "oclif-dev pack",
+    "win": "oclif-dev pack:win && oclif-dev publish:win",
+    "macos": "oclif-dev pack:macos && oclif-dev publish:macos",
+    "deb": "oclif-dev pack:deb && oclif-dev publish:deb",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf lib dist tmp inspektre-vulnhub*.tgz && tsc -b && oclif-dev manifest && oclif-dev readme",
     "publish-updates": "oclif-dev publish",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
