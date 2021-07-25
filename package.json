@@ -1,7 +1,7 @@
 {
   "name": "@inspektre/vulnhub",
   "description": "NVD Knowledge Graph",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "author": "Uday Korlimarla @udaykor",
   "bin": {
     "vulnhub": "./bin/run"
@@ -70,7 +70,7 @@
     "commands": "./lib/commands",
     "bin": "vulnhub",
     "macos": {
-      "identifier": "com.inspektre.vulnhub"
+      "identifier": "Developer ID Installer: inspektre pty ltd"
     },
     "plugins": [
       "@oclif/plugin-help",
