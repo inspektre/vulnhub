@@ -105,10 +105,6 @@ During seeding, a significant amount of memory is used to quickly create relatio
 If you need help with this project, please do create an issue. We will help you on a best-effort basis.
 
 
-## GraphQL
-- The oroginal GraphQL API (neo4j-graphql) has been temprarily removed.
-- This project will now use the recently released `@neo4j/graphql` library.
-
 ## History
 
 Vulnhub started originally in Nov 2016 as part of a programming-assignment for a job-interview. The interview was successful but the code-base was left abandoned. The whole code-base was over-engineered in Python.There were minor updates between 2017 through 2019. The original database of choise was `postgresql` & `python` with SQLAlchemy as the ORM. NodeJS, GraphQL and Neo4j (Based off grand-stack) were introduced in 2020. 
