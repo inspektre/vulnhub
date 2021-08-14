@@ -99,7 +99,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/inspektre/inspektre.git"
+    "url": "git+https://github.com/inspektre/vulnhub.git"
   },
   "scripts": {
     "pack": "oclif-dev pack",
