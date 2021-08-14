@@ -71,9 +71,7 @@ BASE_DIR=/home/vulnhub/feeds/cve
 # Why Neo4J
 
 obs=(:Graphs)-[:ARE]-(:Everywhere) RETRUN obs;
-
 Graphs make it more intuitve in searching for patterns, establishing relationships as first-class citizens instead of Foreign Keys Primary Keys. Creating CVE Knowledge Graphs is the goals of this project for collective public benefit.
-
 
 ## Setting up Neo4J Database.
 There are many-a-ways for getting started with your neo4j database. Below are recommendations, please choose an option that best suits your needs.
@@ -104,10 +102,6 @@ During seeding, a significant amount of memory is used to quickly create relatio
 ## Need help?
 If you need help with this project, please do create an issue. We will help you on a best-effort basis.
 
-
-## GraphQL
-- The oroginal GraphQL API (neo4j-graphql) has been temprarily removed.
-- This project will now use the recently released `@neo4j/graphql` library.
 
 ## History
 

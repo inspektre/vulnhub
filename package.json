@@ -1,7 +1,7 @@
 {
   "name": "@inspektre/vulnhub",
   "description": "NVD Knowledge Graph",
-  "version": "0.1.25",
+  "version": "0.1.28",
   "author": "Uday Korlimarla @udaykor",
   "bin": {
     "vulnhub": "./bin/run"
@@ -70,7 +70,8 @@
     "commands": "./lib/commands",
     "bin": "vulnhub",
     "macos": {
-      "identifier": "com.inspektre.vulnhub"
+      "identifier": "com.inspektre.vulnhub",
+      "sign": "Developer ID Installer: inspektre pty ltd"
     },
     "plugins": [
       "@oclif/plugin-help",
@@ -108,7 +109,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib dist tmp inspektre-vulnhub*.tgz && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "publish-updates": "oclif-dev publish",
+    "publish-updates": "oclif-dev pack && oclif-dev publish",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
