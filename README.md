@@ -12,7 +12,7 @@
 
 ```
 
- ```(:Attacks)->[:THINK]-(:Graphs)-[:SHOULD_THINK]<-(:Defenders)```
+ ```(:Attackers)->[:THINK]->(:Graphs)<-[:SHOULD_THINK]<-(:Defenders)```
 
 ## To-Do
 
