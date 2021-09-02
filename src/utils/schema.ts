@@ -6,6 +6,8 @@ const Cve = gql`
     id: String
     """ CVE Year """
     year: Int
+    """ CVE description """
+    description: String
     """ CVE is associated with [WeaknessPattern] """
     cwes: [Int] 
     """ CVE is associated with [Cpe] """

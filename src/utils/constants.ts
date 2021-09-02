@@ -64,13 +64,14 @@ export const CREATE_CVE = `UNWIND $cypherList AS i MERGE (c:Cve
   { 
     id: i.id,
     year: i.year,
+    description: i.description,
     cwes: i.cwes,
     cpes: i.cpes,
     severity: i.severity,
     impactScore: i.impactScore,
     exploitabilityScore: i.exploitabilityScore,
     baseScore: i.baseScore
-  }) ON MATCH SET c.id = i.id, c.cwes=i.cwes, c.cpes=i.cpes, c.severity=i.severity, c.impactScore=i.impactScore, c.exploitabilityScore=i.exploitabilityScore, c.baseScore=i.baseScore;
+  }) ON MATCH SET c.id = i.id, c.description = i.description, c.cwes=i.cwes, c.cpes=i.cpes, c.severity=i.severity, c.impactScore=i.impactScore, c.exploitabilityScore=i.exploitabilityScore, c.baseScore=i.baseScore;
 `;
 
 export const CVE_INDEX = 'CREATE INDEX cve_index IF NOT EXISTS FOR (n:Cve) ON (n.Cve)';
