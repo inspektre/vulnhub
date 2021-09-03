@@ -1,6 +1,5 @@
 [![CodeQL](https://github.com/inspektre/vulnhub/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/inspektre/vulnhub/actions/workflows/codeql-analysis.yml) 
 [![npm](https://github.com/inspektre/vulnhub/actions/workflows/npm-publish.yaml/badge.svg)](https://github.com/inspektre/vulnhub/actions/workflows/npm-publish.yaml)
-[![NVD CVE Update](https://github.com/inspektre/vulnhub/actions/workflows/nvd.yml/badge.svg?branch=main)](https://github.com/inspektre/vulnhub/actions/workflows/nvd.yml)
 
  ```
  __      __      _         _    _         _
