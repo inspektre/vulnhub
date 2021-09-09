@@ -52,25 +52,27 @@ const extractCpes = (entry: { configurations: { nodes: any[]; }; }) => {
 type CveRecord = {
     id: String,
     year: number,
+    description: String,
     cwes: Array<any>,
     cpes: Array<any>,
     severity: String,
     impactScore: number,
     exploitabilityScore: number,
     baseScore: number,
-
 };
+
 //Transform CVEs to Records
 const transformFeeds = async (year: string) => {
     const transformsPromise = new Promise((resolve, reject) => {
         const cveRecords: Array<CveRecord> = [];
         readData(year)
         .then((data: any) => {
-            // console.log("data", data.length);
             data.forEach((entry: any) => {
+                const description = entry.cve.description.description_data.length > 0 ? entry.cve.description.description_data[0].value : 'no description available';
                 const cveRecord: CveRecord = {
                     id : entry.cve["CVE_data_meta"].ID,
                     year: parseInt(entry.cve["CVE_data_meta"].ID.split('-')[1]),
+                    description,
                     cwes: extractCwe(entry),
                     cpes: extractCpes(entry),
                     severity: '',

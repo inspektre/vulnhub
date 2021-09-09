@@ -11,7 +11,9 @@
 
 ```
 
- ```(:Attacks)->[:THINK]-(:Graphs)-[:SHOULD_THINK]<-(:Defenders)```
+ ```(:Attackers)->[:THINK]->(:Graphs)<-[:SHOULD_THINK]<-(:Defenders)```
+
+Convert NVD CVEs into Graphs
 
 ## To-Do
 
@@ -19,7 +21,6 @@
 - @neo4j/graphql@2.0.0-alpha offers relationships in the beta library where connections to nodes can be made easily. This feature is soon to be realized with CPEs and CVEs
 
 
-NVD CVEs in under 60 seconds.
 
 ## What is CVE?
 
@@ -97,6 +98,12 @@ dbms.memory.transaction.max_size=2g
 ```
 
 During seeding, a significant amount of memory is used to quickly create relationships between nodes. Once the seeding is complete, relationships will be continually evaluated for delta and hence our rationale in recommendations to use these 
+
+## inspektre knowledge-graph
+- As inspektre does not manage public database, Knowledge Graphs for NVD is not being shared.
+- Some of the calls made require full access to the database to run graph algorithms.
+- Until full automation can be reached and a unanimous decision is reached on components we want to make available for the benefit of the community, the knowledge graph call is exposed but for inspektre & inspektre customer use.
+
 
 ## Need help?
 If you need help with this project, please do create an issue. We will help you on a best-effort basis.

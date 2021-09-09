@@ -1,6 +1,7 @@
 import {Command, flags} from '@oclif/command';
 import { app, server } from '../utils/graphql';
 
+
 export default class Serve extends Command {
   static description = 'Start Graphql Server'
 
