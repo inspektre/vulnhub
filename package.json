@@ -23,7 +23,7 @@
     "express": "^4.17.1",
     "got": "^11.8.2",
     "graphql": "^15.5.1",
-    "neo4j-driver": "^4.3.1",
+    "neo4j-driver": "^4.4.10",
     "node-fetch": "^2.6.1",
     "tslib": "^1",
     "yauzl": "^2.10.0"
